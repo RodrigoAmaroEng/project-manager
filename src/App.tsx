@@ -5,6 +5,7 @@ import Circle from "./components/Circle";
 import Field from "./components/Field";
 import List, { ListStyle, Row } from "./components/List";
 import ModalWindow from "./components/Modal";
+import { Radio, RadioGroup } from "./components/Radio";
 import StaticField from "./components/StaticField";
 import { Tab, TabLayout } from "./components/TabLayout";
 
@@ -23,6 +24,10 @@ function App() {
         <TabLayout>
           <Tab title="New Project">
             <Field placeholder="Project name" />
+            <RadioGroup>
+              <Radio title="Entity property" value="ENTITY"/>
+              <Radio title="New property" value="PROPERTY"/>
+            </RadioGroup>
           </Tab>
           <Tab title="Load Project">
             <List listStyle={ListStyle.SingleSelect}>
