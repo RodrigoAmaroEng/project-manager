@@ -1,0 +1,26 @@
+.tab-container {
+  display: flex;
+  flex-direction: column;
+}
+.tabs-placeholder {
+  display: flex;
+  flex-direction: row;
+}
+.tab-content {
+  background-color: var(--palette-color-light);
+  border: 1px solid var(--palette-color-1-medium);
+  padding: 1rem
+}
+.tab {
+  padding: 1rem;
+  border: 1px solid var(--palette-color-1-medium);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  cursor: pointer;
+  border-bottom: none !important;
+  position: relative;
+  top: 1px;
+}
+.tab[aria-selected="true"] {
+  background-color: var(--palette-color-light);
+}

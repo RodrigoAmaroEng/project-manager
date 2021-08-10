@@ -1,4 +1,4 @@
-import './modal.css';
+import './Modal.css';
 
 function ModalWindow(props: any) {
   return (

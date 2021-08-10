@@ -1,13 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import ModalWindow from './components/modal';
+import React from "react";
+import "./App.css";
+import ModalWindow from "./components/Modal";
+import { Tab, TabLayout } from "./components/TabLayout";
 
 function App() {
   return (
     <div className="App">
       <ModalWindow>
-        Teste
+        <TabLayout>
+          <Tab title="New Project">
+            Content for new project
+          </Tab>
+          <Tab title="Load Project">
+            Content for loading project
+          </Tab>
+        </TabLayout>
       </ModalWindow>
     </div>
   );

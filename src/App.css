@@ -1,3 +1,18 @@
+
+:root {
+  --palette-color-light: #FFFFFF;
+  --palette-color-glow: #FFFFFF55;
+  --palette-color-dark: #000;
+  --palette-color-light-shadow: #00000022;
+  --palette-color-shadow: #00000055;
+  --palette-color-1-light: #EEE;
+  --palette-color-1-medium: #CCC;
+  --palette-color-1-dark: #666;
+  --palette-color-2-light: #4EA9FD;
+  --palette-color-2-medium: #0385FD;
+  --palette-color-2-dark: #27537D;
+}
+
 .App {
   text-align: center;
 }
