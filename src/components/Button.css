@@ -1,0 +1,48 @@
+.main-button, .secondary-button {
+  border-radius: var(--radius-small);
+  background-color: var(--palette-color-2-medium);
+  color: var(--palette-color-light);
+  font-size: 1rem;
+  border: none;
+  height: 2.5rem;
+  padding: 0 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.main-button:after, .secondary-button:after {
+  content: "";
+  background: var(--palette-color-light);
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px!important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+.secondary-button:after {
+  content: "";
+  background: var(--palette-color-2-dark);
+}
+
+
+.main-button:active:after, .secondary-button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+
+.secondary-button {
+  background-color: var(--palette-color-1-light);
+  color: var(--palette-color-2-light);
+}

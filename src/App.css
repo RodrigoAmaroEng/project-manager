@@ -1,22 +1,49 @@
-
 :root {
-  --palette-color-light: #FFFFFF;
-  --palette-color-glow: #FFFFFF55;
+  --palette-color-light: #ffffff;
+  --palette-color-glow: #ffffff55;
   --palette-color-dark: #000;
   --palette-color-light-shadow: #00000022;
   --palette-color-shadow: #00000055;
-  --palette-color-1-light: #EEE;
-  --palette-color-1-medium: #CCC;
+  --palette-color-1-light: #eee;
+  --palette-color-1-medium: #ccc;
   --palette-color-1-dark: #666;
-  --palette-color-2-light: #4EA9FD;
-  --palette-color-2-medium: #0385FD;
-  --palette-color-2-dark: #27537D;
+  --palette-color-2-light: #4ea9fd;
+  --palette-color-2-medium: #0385fd;
+  --palette-color-2-dark: #27537d;
   --radius-small: 4px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--palette-color-1-dark);
+}
+h2 {
+  font-size: 2.25rem;
+}
+h3 {
+  font-size: 2rem;
+}
+h4 {
+  font-size: 1.75rem;
 }
 .hspace {
   margin: 0 1rem;
 }
+.spacer-h,
+.spacer-v {
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
 
+.spacer-h {
+  margin-left: 1rem;
+}
+.spacer-v {
+  height: 1rem;
+  display: block;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
