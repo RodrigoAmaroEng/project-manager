@@ -1,0 +1,23 @@
+.modal-frame {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #00000055;
+}
+
+.modal-window {
+  background-color: #EEE;
+  width: 70%;
+  height: 60%;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  border-radius:6px;
+  filter:drop-shadow(0 0 16px #0000001A)
+}
