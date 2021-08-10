@@ -6,6 +6,9 @@
   border-radius: var(--radius-small);
 }
 
+.row {
+  cursor: pointer;
+}
 .row,
 .row-content {
   padding: 0.5rem 1rem;
@@ -23,4 +26,7 @@
 }
 .col-expand {
   flex-grow: 1;
+}
+.row.selected {
+  background-color: var(--palette-color-2-light);
 }

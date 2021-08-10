@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import CButton, { ButtonType } from "./components/Button";
 import Circle from "./components/Circle";
-import List, { Row } from "./components/List";
+import List, { ListStyle, Row } from "./components/List";
 import ModalWindow from "./components/Modal";
 import StaticField from "./components/StaticField";
 import { Tab, TabLayout } from "./components/TabLayout";
@@ -22,7 +22,7 @@ function App() {
         <TabLayout>
           <Tab title="New Project">Content for new project</Tab>
           <Tab title="Load Project">
-            <List>
+            <List listStyle={ListStyle.SingleSelect}>
               <Row>
                 <Circle>P</Circle>
                 <span className="col-expand hspace">Projeto 1</span>
