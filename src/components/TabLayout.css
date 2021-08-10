@@ -1,6 +1,7 @@
 .tab-container {
   display: flex;
   flex-direction: column;
+  
 }
 .tabs-placeholder {
   display: flex;
@@ -9,13 +10,15 @@
 .tab-content {
   background-color: var(--palette-color-light);
   border: 1px solid var(--palette-color-1-medium);
-  padding: 1rem
+  padding: 1rem;
+  border-bottom-left-radius: var(--radius-small);
+  border-bottom-right-radius: var(--radius-small);
 }
 .tab {
   padding: 1rem;
   border: 1px solid var(--palette-color-1-medium);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-top-left-radius: var(--radius-small);
+  border-top-right-radius: var(--radius-small);
   cursor: pointer;
   border-bottom: none !important;
   position: relative;

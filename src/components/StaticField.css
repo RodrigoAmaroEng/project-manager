@@ -1,0 +1,12 @@
+.static-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.static-field > .label {
+  font-size: 0.75em;
+}
+.static-field > .value {
+  font-size: 1.25em;
+  font-weight: bold;
+}

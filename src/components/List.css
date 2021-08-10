@@ -1,0 +1,26 @@
+.list-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--palette-color-light);
+  border: 1px solid var(--palette-color-1-medium);
+  border-radius: var(--radius-small);
+}
+
+.row,
+.row-content {
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+}
+.row:not(:last-child) {
+  border-bottom: 1px solid var(--palette-color-1-medium)
+}
+.row-content {
+  padding: 0;
+  flex-grow: 1;
+}
+.col-expand {
+  flex-grow: 1;
+}
