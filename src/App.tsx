@@ -22,7 +22,7 @@ function App() {
         <h1>Project modeler</h1>
         <TabLayout>
           <Tab title="New Project">
-            <Field />
+            <Field placeholder="Project name" />
           </Tab>
           <Tab title="Load Project">
             <List listStyle={ListStyle.SingleSelect}>

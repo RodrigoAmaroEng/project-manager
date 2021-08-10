@@ -14,6 +14,13 @@
   --palette-color-2-dark: #27537d;
   --radius-small: 4px;
 }
+body,
+html,
+input,
+select,
+textarea {
+  font-family: "Ubuntu";
+}
 
 h1 {
   font-size: 2.5rem;
