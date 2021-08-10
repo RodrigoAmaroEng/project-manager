@@ -1,0 +1,15 @@
+.field {
+  border: 1px solid var(--palette-color-1-medium);
+  height: 2.5rem;
+  border-radius: var(--radius-small);
+  background-color: var(--palette-color-dark-overlay);
+  padding: 0 0.5rem;
+  font-size: 1.25rem;
+  outline: none;
+  transition: 0.5s;
+}
+.field:focus {
+  transition: 0.5s;
+  border: 1px solid var(--palette-color-2-medium);
+  background-color: var(--palette-color-focus-overlay);
+}

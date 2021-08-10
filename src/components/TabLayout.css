@@ -23,7 +23,10 @@
   border-bottom: none !important;
   position: relative;
   top: 1px;
+  transition: 0.5s;
+
 }
 .tab[aria-selected="true"] {
+  transition: 0.5s;
   background-color: var(--palette-color-light);
 }

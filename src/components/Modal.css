@@ -13,11 +13,11 @@
 
 .modal-window {
   background-color: var(--palette-color-1-light);
-  width: 70%;
-  height: 60%;
-  padding: 1rem 2rem;
+  padding: 2rem;
+  padding-top: 0rem;
+  transition: 1s;
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-small);
-  filter:drop-shadow(0 0 16px var(--palette-color-light-shadow))
+  filter: drop-shadow(0 0 16px var(--palette-color-light-shadow));
 }

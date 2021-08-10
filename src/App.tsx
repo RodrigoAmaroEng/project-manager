@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import CButton, { ButtonType } from "./components/Button";
 import Circle from "./components/Circle";
+import Field from "./components/Field";
 import List, { ListStyle, Row } from "./components/List";
 import ModalWindow from "./components/Modal";
 import StaticField from "./components/StaticField";
@@ -20,7 +21,9 @@ function App() {
       <ModalWindow>
         <h1>Project modeler</h1>
         <TabLayout>
-          <Tab title="New Project">Content for new project</Tab>
+          <Tab title="New Project">
+            <Field />
+          </Tab>
           <Tab title="Load Project">
             <List listStyle={ListStyle.SingleSelect}>
               <Row>
