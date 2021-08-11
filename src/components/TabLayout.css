@@ -8,6 +8,8 @@
   flex-direction: row;
 }
 .tab-content {
+  display: flex;
+  flex-direction: column;
   background-color: var(--palette-color-light);
   border: 1px solid var(--palette-color-1-medium);
   padding: 1rem;
