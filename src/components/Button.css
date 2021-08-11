@@ -17,7 +17,21 @@
   overflow: hidden;
 }
 
-.main-button:after, .secondary-button:after {
+.secondary-button {
+  background-color: var(--palette-color-1-light);
+  color: var(--palette-color-2-light);
+}
+
+.main-button.disabled {
+  background-color: var(--palette-color-2-dark);
+  color: var(--palette-color-2-medium);
+} 
+.secondary-button.disabled {
+  background-color: var(--palette-color-1-medium);
+  color: var(--palette-color-1-dark);
+}
+
+.main-button:not(.disabled):after, .secondary-button:not(.disabled):after {
   content: "";
   background: var(--palette-color-light);
   display: block;
@@ -29,20 +43,16 @@
   opacity: 0;
   transition: all 0.8s
 }
-.secondary-button:after {
+.secondary-button:not(.disabled):after {
   content: "";
   background: var(--palette-color-2-dark);
 }
 
 
-.main-button:active:after, .secondary-button:active:after {
+.main-button:not(.disabled):active:after, .secondary-button:not(.disabled):active:after {
   padding: 0;
   margin: 0;
   opacity: 1;
   transition: 0s
 }
 
-.secondary-button {
-  background-color: var(--palette-color-1-light);
-  color: var(--palette-color-2-light);
-}

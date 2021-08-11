@@ -1,4 +1,5 @@
-import "./Button.css"
+import { useEffect } from "react";
+import "./Button.css";
 
 export enum ButtonType {
   main = "main",
@@ -9,8 +10,20 @@ export interface ButtonProps {
   onClick: () => void;
   children: any;
   type: ButtonType;
+  disabled?: boolean;
 }
 
-export default function CButton(props: ButtonProps) {
-  return <button type="button" onClick={props.onClick} className={`${props.type}-button`}>{props.children}</button>
+export default function Button(props: ButtonProps) {
+  let className = `${props.type}-button`;
+  if (props.disabled) {
+    className += ` disabled`;
+  }
+  const shouldFireClickEvents = () => {
+    if (!props.disabled) props.onClick();
+  };
+  return (
+    <button type="button" onClick={shouldFireClickEvents} className={className}>
+      {props.children}
+    </button>
+  );
 }
