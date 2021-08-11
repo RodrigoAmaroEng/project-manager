@@ -1,0 +1,28 @@
+.dropdown {
+  position: relative;
+  border: 1px solid var(--palette-color-1-medium);
+  height: 2.5rem;
+  border-radius: var(--radius-small);
+  background-color: var(--palette-color-dark-overlay);
+  padding: 0 0.5rem;
+  font-size: 1.25rem;
+  outline: none;
+  transition: 0.5s;
+}
+
+.dropdown::after {
+  content: "";
+  position: absolute;
+  right: 1rem;
+  top: 0.9rem;
+  border: 0.7rem solid transparent;
+  border-top: 0.7rem solid var(--palette-color-2-medium);
+  transition: 0.25s
+}
+
+.dropdown.open::after {
+  transform: rotateX(180deg);
+  top: 0;
+  bottom: 0.9rem;
+  transition: 0.25s
+}
