@@ -24,7 +24,7 @@ export function TabLayout(props: any) {
         })}
       </div>
       {props.children.map((child: any, index: number) => {
-        return <div className={index !== selectedTab ? "hidden" : ""}>{child}</div>
+        return <div className={`flex-col tab-content-holder${index !== selectedTab ? " hidden" : ""}`}>{child}</div>
       })}
     </div>
   );

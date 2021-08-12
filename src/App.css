@@ -104,3 +104,7 @@ h6 {
 .fill-space {
   flex-grow: 1;
 }
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}

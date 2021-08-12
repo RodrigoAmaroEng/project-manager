@@ -51,7 +51,7 @@ export default function StartPage() {
         </Tab>
         <Tab title="Open existing">
           <List
-            className="file-list-height"
+            className="fill-space"
             listStyle={ListStyle.SingleSelect}
             onSelectionChange={(items: any[]) => {
               if (items.length > 0) {

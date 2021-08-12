@@ -1,4 +1,5 @@
-.tab-container {
+.tab-container ,
+.tab-layout{
   display: flex;
   flex-direction: column;
   
@@ -9,6 +10,7 @@
 }
 .tab-content {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   background-color: var(--palette-color-light);
   border: 1px solid var(--palette-color-1-medium);
@@ -31,4 +33,10 @@
 .tab[aria-selected="true"] {
   transition: 0.5s;
   background-color: var(--palette-color-light);
+}
+.tab-layout {
+  flex-grow: 1;
+}
+.tab-content-holder {
+  flex-grow: 1;
 }
