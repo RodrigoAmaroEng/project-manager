@@ -4,6 +4,7 @@
   background-color: var(--palette-color-light);
   border: 1px solid var(--palette-color-1-medium);
   border-radius: var(--radius-small);
+  overflow-y: auto;
 }
 
 .row {

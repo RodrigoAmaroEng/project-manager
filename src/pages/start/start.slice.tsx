@@ -1,7 +1,6 @@
 import { initialState, ProjecState } from "../../App.store";
 import { AnyAction } from "redux";
 import { history } from "../../navigation/history";
-import { GDriveApiInstance } from "../../extras/gdrive-api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export function setProjectName(projectName: string) {
@@ -10,10 +9,6 @@ export function setProjectName(projectName: string) {
 
 export function createProject() {
   return { type: "start/create-project" };
-}
-
-export function authenticate() {
-  return { type: "start/authenticate"}
 }
 
 export function setSelectedProject(project: any) {
@@ -48,15 +43,6 @@ export default function startReducer(state = initialState, action: AnyAction) {
       state.project.fileInfo.fileId = action.payload.id;
       state.project.fileInfo.lastModified = action.payload.modifiedTime;
       return state;
-    }
-    case "start/set-authenticated-user": {
-      state.project.fileInfo.connector.isAuthenticated = true;
-      state.project.fileInfo.connector.user = action.payload;
-      return state;
-    }
-    case "start/authenticate": {
-      GDriveApiInstance.signIn();
-      return state
     }
     case "start/files/fulfilled": {
       state.project.fileInfo.connector.files = action.payload;

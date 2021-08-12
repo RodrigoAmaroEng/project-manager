@@ -8,11 +8,14 @@ import { Tab, TabLayout } from "../../components/TabLayout";
 import { SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  authenticate,
   createProject,
   setProjectName,
   setSelectedProject,
 } from "./start.slice";
+import { authenticate } from "../../App.actions";
+import { ConnectorLogin } from "../../components/ConnectorLogin";
+import "../../extras/extension-functions"
+import "./start.page.css"
 
 export default function StartPage() {
   const dispatch = useDispatch();
@@ -29,7 +32,7 @@ export default function StartPage() {
   const blockCreateButton = !(!!projectName && projectName.length >= 3);
 
   return (
-    <ModalWindow>
+    <ModalWindow className="half-width half-height">
       <h1>Project modeler</h1>
       <TabLayout>
         <Tab title="Create new">
@@ -48,6 +51,7 @@ export default function StartPage() {
         </Tab>
         <Tab title="Open existing">
           <List
+            className="file-list-height"
             listStyle={ListStyle.SingleSelect}
             onSelectionChange={(items: any[]) => {
               if (items.length > 0) {
@@ -59,14 +63,12 @@ export default function StartPage() {
               <Row>
                 <Circle>P</Circle>
                 <span className="col-expand hspace">{project.name}</span>
-                <StaticField label="Last update" value="2020/03/06 - 07:00" />
+                <StaticField label="Last update" value={project.modifiedTime.toCompleteDateTime()} />
               </Row>
             ))}
           </List>
           <SpaceV />
-          <div onClick={() => dispatch(authenticate())}>
-            {user ? user.name : "Click to login"}
-          </div>
+          <ConnectorLogin user={user} onClick={() => dispatch(authenticate())}/>
           <SpaceV />
           <Button
             onClick={() => {}}

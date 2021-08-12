@@ -2,6 +2,7 @@ import thunkMiddleware from "redux-thunk";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import startReducer from "./pages/start/start.slice";
+import appReducer from "./App.reducer"
 import { AnyAction } from "redux";
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
@@ -38,5 +39,5 @@ export const initialState = {
 };
 
 export const store = createStore((state = initialState, action: AnyAction) => {
-  return [startReducer].reduce((a, s: Function) => s(a, action), state);
+  return [startReducer, appReducer].reduce((a, s: Function) => s(a, action), state);
 }, composedEnhancer);

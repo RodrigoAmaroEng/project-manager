@@ -1,14 +1,12 @@
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
-import { GDriveApiInstance, GoogleUser } from "./extras/gdrive-api";
+import { GDriveApiInstance } from "./extras/gdrive-api";
 import StartPage from "./pages/start/start.page";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { listFiles } from "./pages/start/start.slice";
+import { setAuthenticatedUser } from "./App.actions";
 
-function setAuthenticatedUser(user: GoogleUser) {
-  return { type: "start/set-authenticated-user", payload: user };
-}
 
 function App() {
   const dispatch = useDispatch();

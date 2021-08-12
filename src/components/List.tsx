@@ -25,6 +25,7 @@ interface ListProps {
   onSelectionChange?: (rows: Array<SelectedItem>) => void;
   listStyle: ListStyle;
   children: any[];
+  className?: string;
 }
 
 export default function List(props: ListProps) {
@@ -75,7 +76,7 @@ export default function List(props: ListProps) {
   };
   if ( props.children.length > 0) {
     return (
-      <div className="list-container">
+      <div className={`list-container ${props.className}`}>
         {(props.children || selectedItems) && mapChildren()}
       </div>
     );
