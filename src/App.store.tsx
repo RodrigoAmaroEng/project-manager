@@ -35,6 +35,7 @@ export const initialState = {
     },
     content: {
       terminators: [] as any[],
+      operations: [] as any[],
       needsToSave: false,
     },
   },

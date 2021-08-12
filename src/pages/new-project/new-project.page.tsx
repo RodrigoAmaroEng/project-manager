@@ -5,6 +5,7 @@ import { Line, LineAlignment, SpaceH } from "../../components/Utils";
 import { useDispatch } from "react-redux";
 import { goToStep } from "./new-project.actions";
 import TerminatorsPage from "./step-1/terminators.page";
+import OperationsPage from "./step-2/operations.page";
 
 export default function NewProjectPage(props: any) {
   const dispatch = useDispatch();
@@ -13,6 +14,9 @@ export default function NewProjectPage(props: any) {
       <Switch>
         <Route path="/project/new/1">
           <TerminatorsPage />
+        </Route>
+        <Route path="/project/new/2">
+          <OperationsPage />
         </Route>
         <Route path="/project/new">
           <h1>New project wizard</h1>
