@@ -5,3 +5,7 @@ export function goToStep(number: number) {
 export function addTerminator(name: string) {
   return { type: "new-project/add-terminator", payload: name };
 }
+
+export function removeTerminator(name: string) {
+  return { type: "new-project/remove-terminator", payload: name };
+}

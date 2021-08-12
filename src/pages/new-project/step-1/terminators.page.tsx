@@ -1,9 +1,14 @@
 import Button, { ButtonType } from "../../../components/Button";
 import Field from "../../../components/Field";
-import List, { IfEmpty, ListStyle, Row } from "../../../components/List";
+import List, {
+  Action,
+  IfEmpty,
+  ListStyle,
+  Row,
+} from "../../../components/List";
 import { Line, LineAlignment, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
-import { addTerminator, goToStep } from "../new-project.actions";
+import { addTerminator, goToStep, removeTerminator } from "../new-project.actions";
 import { useState } from "react";
 import Circle from "../../../components/Circle";
 import ErrorBox from "../../../components/ErrorBox";
@@ -43,8 +48,16 @@ export default function TerminatorsPage(props: any) {
       <SpaceV />
       <List listStyle={ListStyle.SingleSelect} className="fill-space">
         <IfEmpty>Add your first terminator to see it here</IfEmpty>
+        <Action>
+          <Button
+            type={ButtonType.main}
+            onClick={(e: any) => dispatch(removeTerminator(e))}
+          >
+            -
+          </Button>
+        </Action>
         {terminators.map((terminator: any) => (
-          <Row>
+          <Row item={terminator}>
             <Circle>T</Circle>
             <SpaceH />
             <h6>{terminator}</h6>

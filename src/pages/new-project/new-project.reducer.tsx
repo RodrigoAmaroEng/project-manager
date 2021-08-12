@@ -1,6 +1,7 @@
 import { initialState } from "../../App.store";
 import { AnyAction } from "redux";
 import { history } from "../../navigation/history";
+import "../../extras/extension-functions";
 
 export default function newProjectReducer(
   state = initialState,
@@ -14,7 +15,7 @@ export default function newProjectReducer(
     case "new-project/add-terminator": {
       if (action.payload) {
         let terminators = state.project.content.terminators;
-        if (terminators.indexOf(action.payload) < 0) {
+        if (!terminators.contains(action.payload)) {
           let value = [...state.project.content.terminators, action.payload];
           state.project.content.terminators = value;
         } else {
@@ -23,6 +24,11 @@ export default function newProjectReducer(
       } else {
         state.operation.error = "Terminator name cannot be empty";
       }
+      return state;
+    }
+    case "new-project/remove-terminator": {
+      let value = [...state.project.content.terminators];
+      state.project.content.terminators = value.remove(action.payload);
       return state;
     }
     default: {

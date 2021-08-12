@@ -60,7 +60,7 @@ export default function StartPage() {
             }}
           >
             {availableProjects.map((project: any) => (
-              <Row>
+              <Row item={project}>
                 <Circle>P</Circle>
                 <span className="col-expand hspace">{project.name}</span>
                 <StaticField label="Last update" value={project.modifiedTime.toCompleteDateTime()} />

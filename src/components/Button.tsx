@@ -7,7 +7,7 @@ export enum ButtonType {
 }
 
 export interface ButtonProps {
-  onClick: () => void;
+  onClick: (e?: any) => void;
   children: any;
   type: ButtonType;
   disabled?: boolean;
@@ -18,8 +18,8 @@ export default function Button(props: ButtonProps) {
   if (props.disabled) {
     className += ` disabled`;
   }
-  const shouldFireClickEvents = () => {
-    if (!props.disabled) props.onClick();
+  const shouldFireClickEvents = (e: any) => {
+    if (!props.disabled) props.onClick(e);
   };
   return (
     <button type="button" onClick={shouldFireClickEvents} className={className}>
