@@ -9,7 +9,7 @@ export default function ErrorBox(props: any) {
     }
   }, [props.visible]);
   return (
-    <div className={`error-box${visible}`}>
+    <div className={`error-box${visible} ${props.className}`}>
       <div className="error-mark"></div>
       <div className="error-content">{props.children}</div>
     </div>

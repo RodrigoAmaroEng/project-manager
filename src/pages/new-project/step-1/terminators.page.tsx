@@ -8,7 +8,11 @@ import List, {
 } from "../../../components/List";
 import { Line, LineAlignment, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
-import { addTerminator, goToStep, removeTerminator } from "../new-project.actions";
+import {
+  addTerminator,
+  goToStep,
+  removeTerminator,
+} from "../new-project.actions";
 import { useState } from "react";
 import Circle from "../../../components/Circle";
 import ErrorBox from "../../../components/ErrorBox";
@@ -40,10 +44,6 @@ export default function TerminatorsPage(props: any) {
         >
           +
         </Button>
-        <SpaceH />
-        <ErrorBox visible={!!error} onDismiss={() => dispatch(dismissError())}>
-          {error}
-        </ErrorBox>
       </Line>
       <SpaceV />
       <List listStyle={ListStyle.SingleSelect} className="fill-space">
@@ -66,6 +66,10 @@ export default function TerminatorsPage(props: any) {
       </List>
       <SpaceV />
       <Line align={LineAlignment.right}>
+        <ErrorBox visible={!!error} className="fill-space" onDismiss={() => dispatch(dismissError())}>
+          {error}
+        </ErrorBox>
+        <SpaceH />
         <Button type={ButtonType.secondary} onClick={() => {}}>
           Skip
         </Button>

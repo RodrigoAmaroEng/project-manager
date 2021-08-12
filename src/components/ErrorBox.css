@@ -11,5 +11,5 @@
 .error-box>.error-content {
   display: flex;
   color: var(--palette-color-3-dark);
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 1rem;
 }
