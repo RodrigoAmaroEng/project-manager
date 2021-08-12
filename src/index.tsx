@@ -7,6 +7,9 @@ import { Router } from "react-router-dom";
 import { history } from "./navigation/history";
 import { Provider } from "react-redux";
 import { store } from "./App.store";
+import { GDriveApiInstance } from "./extras/gdrive-api";
+
+GDriveApiInstance.initialize();
 
 ReactDOM.render(
   <React.StrictMode>

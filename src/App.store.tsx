@@ -12,14 +12,24 @@ export enum ProjecState {
   loaded,
 }
 
+export enum ConnectorProvider {
+  gdrive
+}
+
 export const initialState = {
   project: {
     name: undefined,
     status: ProjecState.undefined,
-    storeInfo: {
+    fileInfo: {
       fileName: undefined,
       fileId: undefined,
       lastModified: undefined,
+      connector: {
+        provider: ConnectorProvider.gdrive,
+        isAuthenticated: false,
+        user: undefined,
+        files: []
+      }
     },
     content: {
       needsToSave: false,

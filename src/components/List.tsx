@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./List.css";
 
 export function Row(props: any) {
@@ -24,7 +24,7 @@ interface ListProps {
   onClick?: (row: SelectedItem) => void;
   onSelectionChange?: (rows: Array<SelectedItem>) => void;
   listStyle: ListStyle;
-  children: any;
+  children: any[];
 }
 
 export default function List(props: ListProps) {
@@ -34,7 +34,6 @@ export default function List(props: ListProps) {
       if (props.onClick) props.onClick(new SelectedItem(index, row));
     } else if (props.listStyle === ListStyle.SingleSelect) {
       setSelectedItems([new SelectedItem(index, row)]);
-      if (props.onSelectionChange) props.onSelectionChange(selectedItems);
     } else if (props.listStyle === ListStyle.MultiSelect) {
       const item = selectedItems.findIndex(
         (it: SelectedItem) => it.index === index
@@ -42,39 +41,45 @@ export default function List(props: ListProps) {
       if (item >= 0) {
         setSelectedItems(selectedItems.splice(item, 1));
       } else {
-        let items = [...selectedItems]
-        items.push(new SelectedItem(index, row))
+        let items = [...selectedItems];
+        items.push(new SelectedItem(index, row));
         setSelectedItems(items);
       }
-      if (props.onSelectionChange) props.onSelectionChange(selectedItems); 
     }
   };
 
-  const markSelected = (index: number) => selectedItems.findIndex(
-    (it: SelectedItem) => it.index === index
-  ) >= 0 ? " selected": ""
+  useEffect(() => {
+ if (props.onSelectionChange) props.onSelectionChange(selectedItems);
+  },[selectedItems])
+
+  const markSelected = (index: number) =>
+    selectedItems.findIndex((it: SelectedItem) => it.index === index) >= 0
+      ? " selected"
+      : "";
 
   const mapChildren = () => {
-    if (props.children.length > 1) {
+    if (props.children.length > 0) {
       return props.children
         .filter((row: any) => row.type.name === "Row")
         .map((row: any, index: number) => (
-          <div className={`row${markSelected(index)}`} onClick={() => onClick(row, index)}>
+          <div
+            className={`row${markSelected(index)}`}
+            onClick={() => onClick(row, index)}
+          >
             {row}
           </div>
         ));
-    } else if (props.children.type.name === "Row") {
-      return (
-        <div className={`row${markSelected(0)}`} onClick={() => onClick(props.children, 0)}>
-          {props.children}
-        </div>
-      );
     } else {
       return;
     }
   };
-
-  return (
-    <div className="list-container">{(props.children || selectedItems) && mapChildren()}</div>
-  );
+  if ( props.children.length > 0) {
+    return (
+      <div className="list-container">
+        {(props.children || selectedItems) && mapChildren()}
+      </div>
+    );
+  } else {
+    return <div className="list-container">There are no items available</div>;
+  }
 }
