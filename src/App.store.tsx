@@ -2,8 +2,9 @@ import thunkMiddleware from "redux-thunk";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import startReducer from "./pages/start/start.slice";
-import appReducer from "./App.reducer"
+import appReducer from "./App.reducer";
 import { AnyAction } from "redux";
+import newProjectReducer from "./pages/new-project/new-project.reducer";
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 
@@ -14,7 +15,7 @@ export enum ProjecState {
 }
 
 export enum ConnectorProvider {
-  gdrive
+  gdrive,
 }
 
 export const initialState = {
@@ -29,15 +30,23 @@ export const initialState = {
         provider: ConnectorProvider.gdrive,
         isAuthenticated: false,
         user: undefined,
-        files: []
-      }
+        files: [],
+      },
     },
     content: {
+      terminators: [] as any[],
       needsToSave: false,
     },
   },
+  operation: {
+    error: "",
+    message: "",
+  }
 };
 
 export const store = createStore((state = initialState, action: AnyAction) => {
-  return [startReducer, appReducer].reduce((a, s: Function) => s(a, action), state);
+  return [startReducer, appReducer, newProjectReducer].reduce(
+    (a, s: Function) => s(a, action),
+    state
+  );
 }, composedEnhancer);

@@ -24,7 +24,7 @@ interface ListProps {
   onClick?: (row: SelectedItem) => void;
   onSelectionChange?: (rows: Array<SelectedItem>) => void;
   listStyle: ListStyle;
-  children: any[];
+  children?: any[];
   className?: string;
 }
 
@@ -50,8 +50,8 @@ export default function List(props: ListProps) {
   };
 
   useEffect(() => {
- if (props.onSelectionChange) props.onSelectionChange(selectedItems);
-  },[selectedItems])
+    if (props.onSelectionChange) props.onSelectionChange(selectedItems);
+  }, [selectedItems]);
 
   const markSelected = (index: number) =>
     selectedItems.findIndex((it: SelectedItem) => it.index === index) >= 0
@@ -59,28 +59,30 @@ export default function List(props: ListProps) {
       : "";
 
   const mapChildren = () => {
-    if (props.children.length > 0) {
-      return props.children
-        .filter((row: any) => row.type.name === "Row")
-        .map((row: any, index: number) => (
-          <div
-            className={`row${markSelected(index)}`}
-            onClick={() => onClick(row, index)}
-          >
-            {row}
-          </div>
-        ));
-    } else {
-      return;
-    }
+    return props
+      .children!.filter((row: any) => row.type.name === "Row")
+      .map((row: any, index: number) => (
+        <div
+          className={`row${markSelected(index)}`}
+          onClick={() => onClick(row, index)}
+        >
+          {row}
+        </div>
+      ));
   };
-  if ( props.children.length > 0) {
+  if (props.children && props.children.length > 0) {
     return (
       <div className={`list-container ${props.className}`}>
-        {(props.children || selectedItems) && mapChildren()}
+        <div className="list-container-scroller">
+          {(props.children || selectedItems) && mapChildren()}
+        </div>
       </div>
     );
   } else {
-    return <div className="list-container">There are no items available</div>;
+    return (
+      <div className={`list-container ${props.className}`}>
+        There are no items available
+      </div>
+    );
   }
 }

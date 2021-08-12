@@ -1,10 +1,22 @@
 .list-container {
   display: flex;
+  position: relative;
   flex-direction: column;
   background-color: var(--palette-color-light);
   border: 1px solid var(--palette-color-1-medium);
   border-radius: var(--radius-small);
   overflow-y: auto;
+}
+.list-container-scroller {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 0px;
+  position:absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .row {

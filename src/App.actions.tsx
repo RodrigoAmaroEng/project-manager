@@ -5,5 +5,9 @@ export function setAuthenticatedUser(user: GoogleUser) {
 }
 
 export function authenticate() {
-  return { type: "app/authenticate"}
+  return { type: "app/authenticate" };
+}
+
+export function dismissError() {
+  return { type: "app/dismiss-error" };
 }

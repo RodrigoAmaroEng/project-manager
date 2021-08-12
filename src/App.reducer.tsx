@@ -13,6 +13,10 @@ export default function appReducer(state = initialState, action: AnyAction) {
       GDriveApiInstance.signIn();
       return state
     }
+    case "app/dismiss-error": {
+      state.operation.error = "";
+      return state
+    }
     default: {
       return state;
     }

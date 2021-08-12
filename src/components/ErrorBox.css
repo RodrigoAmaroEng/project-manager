@@ -1,0 +1,15 @@
+.error-box {
+  flex-direction: row;
+  display: flex;
+  background-color: var(--palette-color-3-light);
+  transition: 0.5s
+}
+.error-box>.error-mark {
+  background-color: var(--palette-color-3-dark);
+  width: 3px;
+}
+.error-box>.error-content {
+  display: flex;
+  color: var(--palette-color-3-dark);
+  padding: 0.75rem 1rem;
+}
