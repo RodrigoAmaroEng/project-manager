@@ -23,7 +23,9 @@ export function TabLayout(props: any) {
           );
         })}
       </div>
-      {props.children[selectedTab]}
+      {props.children.map((child: any, index: number) => {
+        return <div className={index !== selectedTab ? "hidden" : ""}>{child}</div>
+      })}
     </div>
   );
 }
