@@ -1,4 +1,5 @@
-.list-container {
+.list-container,
+.list-container-empty {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -7,12 +8,17 @@
   border-radius: var(--radius-small);
   overflow-y: auto;
 }
+.list-container-empty {
+  justify-content: center;
+  align-items: center;
+}
+
 .list-container-scroller {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   min-height: 0px;
-  position:absolute;
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
@@ -28,10 +34,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  
 }
 .row:not(:last-child) {
-  border-bottom: 1px solid var(--palette-color-1-medium)
+  border-bottom: 1px solid var(--palette-color-1-medium);
 }
 .row-content {
   padding: 0;

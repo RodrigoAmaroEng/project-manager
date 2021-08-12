@@ -1,6 +1,6 @@
 import Button, { ButtonType } from "../../../components/Button";
 import Field from "../../../components/Field";
-import List, { ListStyle, Row } from "../../../components/List";
+import List, { IfEmpty, ListStyle, Row } from "../../../components/List";
 import { Line, LineAlignment, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import { addTerminator, goToStep } from "../new-project.actions";
@@ -42,6 +42,7 @@ export default function TerminatorsPage(props: any) {
       </Line>
       <SpaceV />
       <List listStyle={ListStyle.SingleSelect} className="fill-space">
+        <IfEmpty>Add your first terminator to see it here</IfEmpty>
         {terminators.map((terminator: any) => (
           <Row>
             <Circle>T</Circle>
