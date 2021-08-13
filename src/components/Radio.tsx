@@ -26,6 +26,7 @@ interface RadioGroupProps {
   children: React.ReactElement<typeof Radio>[];
   selected?: RadioValue;
   stack?: RadioStack;
+  onSelect: (value: RadioValue) => void;
 }
 
 export function RadioGroup(props: RadioGroupProps) {
@@ -34,8 +35,13 @@ export function RadioGroup(props: RadioGroupProps) {
     <div className="radio-group">
       {props.children.map((radio: any) => (
         <div
-          onClick={() => setSelected(radio.props.value)}
-          className={`radio-item ${radio.props.value == selected ? "selected" : ""}`}
+          onClick={() => {
+            setSelected(radio.props.value);
+            props.onSelect(radio.props.value);
+          }}
+          className={`radio-item ${
+            radio.props.value == selected ? "selected" : ""
+          }`}
         >
           {radio}
         </div>
