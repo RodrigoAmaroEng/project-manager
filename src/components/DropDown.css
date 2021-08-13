@@ -1,6 +1,6 @@
 .dropdown-container {
   position: relative;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 .dropdown {
@@ -50,12 +50,11 @@
   border: 1px solid var(--palette-color-1-medium);
   box-shadow: 0px 0px 5px 2px var(--palette-color-light-shadow);
   border-radius: var(--radius-small);
-  background-color: var(--palette-color-glow);
+  background-color: var(--palette-color-1-light);
   z-index: 100;
   padding: 0;
   display: flex;
   flex-direction: column;
-
 }
 .dropdown-option-scroller {
   margin: 0;
@@ -69,7 +68,8 @@
 }
 
 .dropdown-option:hover {
-  background-color: var(--palette-color-light)
+  background-color: var(--palette-color-light);
+  border-radius: var(--radius-small);
 }
 
 .dropdown-selected-item {
