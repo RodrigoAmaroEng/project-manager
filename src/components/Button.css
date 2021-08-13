@@ -15,6 +15,9 @@
   transition-duration: 0.4s;
   text-decoration: none;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .secondary-button {

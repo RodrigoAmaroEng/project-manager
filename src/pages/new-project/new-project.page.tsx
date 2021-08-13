@@ -12,11 +12,11 @@ export default function NewProjectPage(props: any) {
   return (
     <ModalWindow className="half-width half-height">
       <Switch>
-        <Route path="/project/new/1">
-          <TerminatorsPage />
-        </Route>
         <Route path="/project/new/2">
           <OperationsPage />
+        </Route>
+        <Route path="/project/new/1">
+          <TerminatorsPage />
         </Route>
         <Route path="/project/new">
           <h1>New project wizard</h1>

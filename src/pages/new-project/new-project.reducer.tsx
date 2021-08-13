@@ -1,6 +1,6 @@
 import { initialState } from "../../App.store";
 import { AnyAction } from "redux";
-import { history } from "../../navigation/history";
+import history from "../../navigation/history";
 import "../../extras/extension-functions";
 import { RecordList } from "../../extras/extension-functions";
 
@@ -20,6 +20,7 @@ export default function newProjectReducer(
 ) {
   switch (action.type) {
     case "new-project/go-to-step": {
+      console.log(action.payload)
       history.push("/project/new/" + action.payload);
       return state;
     }

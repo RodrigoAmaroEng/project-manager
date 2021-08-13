@@ -19,11 +19,12 @@ export default function Button(props: ButtonProps) {
     className += ` disabled`;
   }
   const shouldFireClickEvents = (e: any) => {
+    e.preventDefault();
     if (!props.disabled) props.onClick(e);
   };
   return (
-    <button type="button" onClick={shouldFireClickEvents} className={className}>
+    <div onClick={shouldFireClickEvents} className={className}>
       {props.children}
-    </button>
+    </div>
   );
 }

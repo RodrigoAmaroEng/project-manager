@@ -36,6 +36,9 @@ function App() {
         <Route path="/">
           <StartPage />
         </Route>
+        <Route>
+          Not found {window.location.pathname}
+        </Route>
       </Switch>
     </div>
   );

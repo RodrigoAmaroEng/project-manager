@@ -1,6 +1,6 @@
 import { initialState, ProjecState } from "../../App.store";
 import { AnyAction } from "redux";
-import { history } from "../../navigation/history";
+import history from "../../navigation/history";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export function setProjectName(projectName: string) {
