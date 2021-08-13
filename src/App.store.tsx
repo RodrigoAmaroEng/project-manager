@@ -5,6 +5,8 @@ import startReducer from "./pages/start/start.slice";
 import appReducer from "./App.reducer";
 import { AnyAction } from "redux";
 import newProjectReducer from "./pages/new-project/new-project.reducer";
+import "./extras/extension-functions.tsx"
+import { RecordList } from "./extras/extension-functions";
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 
@@ -34,8 +36,8 @@ export const initialState = {
       },
     },
     content: {
-      terminators: [] as any[],
-      operations: [] as any[],
+      terminators: new RecordList(),
+      operations: new RecordList(),
       needsToSave: false,
     },
   },

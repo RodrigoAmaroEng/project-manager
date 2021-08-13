@@ -2,6 +2,7 @@ import { initialState } from "../../App.store";
 import { AnyAction } from "redux";
 import { history } from "../../navigation/history";
 import "../../extras/extension-functions";
+import { RecordList } from "../../extras/extension-functions";
 
 export default function newProjectReducer(
   state = initialState,
@@ -16,8 +17,9 @@ export default function newProjectReducer(
       if (action.payload) {
         let terminators = state.project.content.terminators;
         if (!terminators.contains(action.payload)) {
-          let value = [...state.project.content.terminators, action.payload];
-          state.project.content.terminators = value;
+          state.project.content.terminators.add({ name: action.payload });
+          let value = [...state.project.content.terminators];
+          state.project.content.terminators = RecordList.fromList(value);
         } else {
           state.operation.error = `The terminator '${action.payload}' already exists`;
         }
@@ -28,7 +30,9 @@ export default function newProjectReducer(
     }
     case "new-project/remove-terminator": {
       let value = [...state.project.content.terminators];
-      state.project.content.terminators = value.remove(action.payload);
+      state.project.content.terminators = RecordList.fromList(
+        value.remove(action.payload)
+      );
       return state;
     }
     default: {

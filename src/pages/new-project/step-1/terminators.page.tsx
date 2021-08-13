@@ -60,7 +60,7 @@ export default function TerminatorsPage(props: any) {
           <Row item={terminator}>
             <Circle>T</Circle>
             <SpaceH />
-            <h6>{terminator}</h6>
+            <h6>{terminator.name}</h6>
           </Row>
         ))}
       </List>

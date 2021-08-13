@@ -9,3 +9,10 @@ export function addTerminator(name: string) {
 export function removeTerminator(name: string) {
   return { type: "new-project/remove-terminator", payload: name };
 }
+
+export function addOperation(name: string, terminator: any, direction?: string) {
+  return {
+    type: "new-project/add-terminator",
+    payload: { name, terminator, direction },
+  };
+}
