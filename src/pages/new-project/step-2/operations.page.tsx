@@ -43,11 +43,23 @@ export default function OperationsPage(props: any) {
           onChange={(value: string) => setName(value)}
         />
         <SpaceH />
-        <DropDown onSelect={(item: any) => setTerminatorRef(item)} className="fill-space">
-          {terminators.map((item:any)=> <Option item={item}><h6>{item.name}</h6></Option>)}
+        <DropDown
+          onSelect={(item: any) => setTerminatorRef(item)}
+          onRender={(item: any) => item.name}
+          selected={terminatorRef}
+          className="fill-space"
+        >
+          {terminators.map((item: any) => (
+            <Option item={item}>
+              <h6>{item.name}</h6>
+            </Option>
+          ))}
         </DropDown>
         <SpaceH />
-        <RadioGroup onSelect={(item: any) => setDirection(item)}>
+        <RadioGroup
+          onSelect={(item: any) => setDirection(item)}
+          selected={direction}
+        >
           <Radio title="Input" value="IN" />
           <Radio title="Output" value="OUT" />
         </RadioGroup>
@@ -57,6 +69,8 @@ export default function OperationsPage(props: any) {
           onClick={() => {
             dispatch(addOperation(name, terminatorRef, direction));
             setName("");
+            setTerminatorRef(undefined);
+            setDirection(undefined);
           }}
         >
           +

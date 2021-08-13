@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DropDown.css";
 
 export function Option(props: any) {
@@ -8,9 +8,15 @@ export function Option(props: any) {
 
 export default function DropDown(props: any) {
   const [isOpen, setOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const getSelectedIndex = (item:any) => {
+    if (!props.selected) return -1
+    return React.Children.toArray(props.children).findIndex((child:any )=> child.props.item === item) ?? -1
+  }
+  const [selectedIndex, setSelectedIndex] = useState(getSelectedIndex(props.selected));
   const render = props.onRender || ((item:any) => item)
-
+  useEffect(() => {
+    setSelectedIndex(getSelectedIndex(props.selected))
+  }, [props.selected])
   return (
     <div className={`dropdown-container ${props.className} ${isOpen ? "open" : "close"}`}>
       <div

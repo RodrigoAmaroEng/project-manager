@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Radio.css";
 
 type RadioValue = string;
@@ -31,6 +31,9 @@ interface RadioGroupProps {
 
 export function RadioGroup(props: RadioGroupProps) {
   const [selected, setSelected] = useState(props.selected);
+  useEffect(() => {
+    setSelected(props.selected)
+  }, [props.selected])
   return (
     <div className="radio-group">
       {props.children.map((radio: any) => (
