@@ -10,8 +10,8 @@ import { Line, LineAlignment, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addOperation,
-  addTerminator,
   goToStep,
+  removeOperation,
   removeTerminator,
 } from "../new-project.actions";
 import { useState } from "react";
@@ -44,7 +44,7 @@ export default function OperationsPage(props: any) {
         />
         <SpaceH />
         <DropDown onSelect={(item: any) => setTerminatorRef(item)} className="fill-space">
-          {terminators.map((item:any)=> <Option item={item}><h6>{item}</h6></Option>)}
+          {terminators.map((item:any)=> <Option item={item}><h6>{item.name}</h6></Option>)}
         </DropDown>
         <SpaceH />
         <RadioGroup onSelect={(item: any) => setDirection(item)}>
@@ -68,7 +68,7 @@ export default function OperationsPage(props: any) {
         <Action>
           <Button
             type={ButtonType.main}
-            onClick={(e: any) => dispatch(removeTerminator(e))}
+            onClick={(e: any) => dispatch(removeOperation(e))}
           >
             -
           </Button>
@@ -77,7 +77,7 @@ export default function OperationsPage(props: any) {
           <Row item={item}>
             <Circle>T</Circle>
             <SpaceH />
-            <h6>{item}</h6>
+            <h6>{item.name}</h6>
           </Row>
         ))}
       </List>

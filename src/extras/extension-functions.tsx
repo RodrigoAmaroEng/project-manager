@@ -65,9 +65,14 @@ export class RecordList extends Array<Record> {
         .last() + 1
     );
   }
-  public add(item: any): void {
+  public add(item: any): RecordList {
     let id = this.nextId();
-    this.push(Record.from(id, item))
+    this.push(Record.from(id, item));
+    return this;
+  }
+  public delete(item: any) : RecordList{
+    this.splice(this.indexOf(item), 1);
+    return this;
   }
 }
 
