@@ -63,7 +63,7 @@ export default function OperationsPage(props: any) {
         </Button>
       </Line>
       <SpaceV />
-      <List listStyle={ListStyle.SingleSelect} className="fill-space">
+      <List listStyle={ListStyle.Normal} className="fill-space">
         <IfEmpty>Add your first operation to see it here</IfEmpty>
         <Action>
           <Button

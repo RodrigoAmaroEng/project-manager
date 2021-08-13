@@ -27,6 +27,7 @@ export function Action(props: any) {
 }
 
 export enum ListStyle {
+  Normal,
   Clickable,
   SingleSelect,
   MultiSelect,

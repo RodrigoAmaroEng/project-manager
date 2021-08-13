@@ -46,7 +46,7 @@ export default function TerminatorsPage(props: any) {
         </Button>
       </Line>
       <SpaceV />
-      <List listStyle={ListStyle.SingleSelect} className="fill-space">
+      <List listStyle={ListStyle.Normal} className="fill-space">
         <IfEmpty>Add your first terminator to see it here</IfEmpty>
         <Action>
           <Button
