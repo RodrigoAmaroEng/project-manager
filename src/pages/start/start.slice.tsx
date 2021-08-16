@@ -35,7 +35,7 @@ export default function startReducer(state = initialState, action: AnyAction) {
     }
     case "start/create-project": {
       state.project.status = ProjecState.new;
-      history.push("/p/new")
+      history.push("/project/new")
       return state;
     }
     case "start/set-selected-project": {

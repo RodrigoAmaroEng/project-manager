@@ -38,6 +38,8 @@ export const initialState = {
     content: {
       terminators: new RecordList(),
       operations: new RecordList(),
+      payloads: new RecordList(),
+      entities: new RecordList(),
       needsToSave: false,
     },
   },
@@ -47,9 +49,15 @@ export const initialState = {
   }
 };
 
+
 export const store = createStore((state = initialState, action: AnyAction) => {
-  return [startReducer, appReducer, newProjectReducer].reduce(
+  if (initialState.project.name === undefined &&  window.sessionStorage.getItem("state")) {
+    state = JSON.parse(window.sessionStorage.getItem("state") || "")
+  }
+  let newState = [startReducer, appReducer, newProjectReducer].reduce(
     (a, s: Function) => s(a, action),
     state
   );
+  window.sessionStorage.setItem("state", JSON.stringify(state))
+  return newState;
 }, composedEnhancer);

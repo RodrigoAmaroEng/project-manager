@@ -31,14 +31,13 @@ function App() {
     <div className="App">
       <Switch>
         <Route path="/project/new">
+          {window.sessionStorage.clear()}
           <NewProjectPage />
         </Route>
         <Route path="/">
           <StartPage />
         </Route>
-        <Route>
-          Not found {window.location.pathname}
-        </Route>
+        <Route>Not found {window.location.pathname}</Route>
       </Switch>
     </div>
   );
