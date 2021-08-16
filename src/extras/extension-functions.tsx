@@ -74,6 +74,9 @@ export class RecordList extends Array<Record> {
     this.splice(this.indexOf(item), 1);
     return this;
   }
+  byId(id: number): any {
+    return this.find(it => it.id === id)
+  }
 }
 
 export class Record {
