@@ -7,7 +7,7 @@ declare global {
     contains(item: T): boolean;
     first(condition?: (value: T) => boolean): T;
     last(condition?: (value: T) => boolean): T;
-
+    indexOfObject(item: T): number;
     remove(item: T): Array<T>;
   }
 }
@@ -23,8 +23,11 @@ String.prototype.toCompleteDateTime = function () {
   });
   return f.format(d);
 };
+Array.prototype.indexOfObject = function (item: any): number {
+  return this.findIndex(it => JSON.stringify(item) == JSON.stringify(it))
+}
 Array.prototype.contains = function (item: any) {
-  return this.indexOf(item) >= 0;
+  return this.indexOfObject(item) >= 0;
 };
 Array.prototype.first = function (condition?: (value: any) => boolean) {
   let result = condition ? this.filter(condition) : this;
@@ -42,7 +45,7 @@ Array.prototype.last = function (condition?: (value: any) => boolean) {
 };
 Array.prototype.remove = function (item: any) {
   if (this.contains(item)) {
-    this.splice(this.indexOf(item), 1);
+    this.splice(this.indexOfObject(item), 1);
   }
   return this;
 };

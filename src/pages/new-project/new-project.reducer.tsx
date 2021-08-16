@@ -3,6 +3,7 @@ import { AnyAction } from "redux";
 import history from "../../navigation/history";
 import "../../extras/extension-functions";
 import { RecordList } from "../../extras/extension-functions";
+import { stat } from "fs";
 
 function addToList(list: RecordList, item: any) {
   let newList = RecordList.fromList([...list]);
@@ -81,17 +82,40 @@ export default function newProjectReducer(
       return state;
     }
     case "new-project/save-operation-details": {
-      let operations = RecordList.fromList([...state.project.content.operations]);
+      if (!action.payload.trigger) {
+        state.operation.error =
+          "You need to specify what triggers this operation.";
+        return state;
+      }
+      if (!action.payload.input) {
+        state.operation.error = "You need to name at least the input payload.";
+        return state;
+      }
+      let operations = RecordList.fromList([
+        ...state.project.content.operations,
+      ]);
       let item = operations.byId(action.payload.id);
       item = Object.assign(item, action.payload);
       let index = operations.findIndex((it) => it.id === action.payload.id);
       if (item.input) {
-        state.project.content.payloads = addToList(state.project.content.payloads, { name: item.input })
-        item.input = state.project.content.payloads[state.project.content.payloads.length - 1].id
+        state.project.content.payloads = addToList(
+          state.project.content.payloads,
+          { name: item.input }
+        );
+        item.input =
+          state.project.content.payloads[
+            state.project.content.payloads.length - 1
+          ].id;
       }
       if (item.output) {
-        state.project.content.payloads = addToList(state.project.content.payloads, { name: item.output })
-        item.output = state.project.content.payloads[state.project.content.payloads.length - 1].id
+        state.project.content.payloads = addToList(
+          state.project.content.payloads,
+          { name: item.output }
+        );
+        item.output =
+          state.project.content.payloads[
+            state.project.content.payloads.length - 1
+          ].id;
       }
       state.project.content.operations[index] = item;
       if (index + 1 == operations.length) history.push("/project/new/4");
@@ -120,6 +144,45 @@ export default function newProjectReducer(
         state.project.content.entities,
         action.payload
       );
+      return state;
+    }
+    case "new-project/goto-entity-properties": {
+      history.push(
+        "/project/new/entities/" + state.project.content.entities[0].id
+      );
+      return state;
+    }
+    case "new-project/add-entity-property": {
+      let item = action.payload;
+      if (item.name) {
+        let entity = RecordList.fromList([
+          ...state.project.content.entities,
+        ]).byId(action.payload.entityId);
+        let properties = entity.properties || [];
+        if (!properties.find((it: any) => it.name === item.name)) {
+          properties = addToList(properties, {
+            name: item.name,
+            type: item.type,
+          });
+          entity.properties = properties;
+        } else {
+          state.operation.error = `The entity property '${item.name}' already exists`;
+        }
+      } else {
+        state.operation.error = "Entity property name cannot be empty";
+      }
+      return state;
+    }
+    case "new-project/remove-entity-property": {
+      let item = action.payload.item;
+      let entity = RecordList.fromList([
+        ...state.project.content.entities,
+      ]).byId(action.payload.entityId);
+      let index = state.project.content.entities.findIndex(
+        (it) => it.id === action.payload.entityId
+      );
+      entity.properties = removeFromList(entity.properties, item);
+      state.project.content.entities[index] = entity;
       return state;
     }
 

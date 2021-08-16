@@ -37,19 +37,19 @@ export default function OperationDetailsPage(props: any) {
       <SpaceV />
       <Field
         value={trigger}
-        placeholder="Trigger"
+        placeholder="What triggers the operation*"
         onChange={(value: string) => setTrigger(value)}
       />
       <SpaceV />
       <Field
         value={input}
-        placeholder="Input payload"
+        placeholder="Input payload name*"
         onChange={(value: string) => setInput(value)}
       />
       <SpaceV />
       <Field
         value={output}
-        placeholder="Output payload"
+        placeholder="Output payload name"
         onChange={(value: string) => setOutput(value)}
       />
       <SpaceFill />
@@ -64,11 +64,15 @@ export default function OperationDetailsPage(props: any) {
         <SpaceH />
         <Button
           type={ButtonType.main}
-          onClick={() =>
+          onClick={() => {
             dispatch(
               saveOperationDetail(id, { description, trigger, input, output })
-            )
-          }
+            );
+            setDescription("");
+            setOutput("");
+            setInput("");
+            setTrigger("");
+          }}
         >
           Next
         </Button>

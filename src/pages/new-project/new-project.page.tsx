@@ -5,11 +5,16 @@ import OperationsPage from "./step-2/operations.page";
 import { WelcomePage } from "./step-0/welcome.page";
 import OperationDetailsPage from "./step-3/operation-details.page";
 import EntitiesPage from "./step-4/entities.page";
+import EntityPropertiesPage from "./step-5/entity-properties.page";
 
 export default function NewProjectPage() {
   return (
     <ModalWindow className="half-width half-height">
       <Switch>
+        <Route
+          path="/project/new/entities/:id"
+          render={(props) => <EntityPropertiesPage {...props} />}
+        />
         <Route
           path="/project/new/operations/:id"
           render={(props) => <OperationDetailsPage {...props} />}

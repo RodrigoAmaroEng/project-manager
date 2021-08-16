@@ -10,6 +10,7 @@ import { Line, LineAlignment, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addEntity,
+  goToEntityProperties,
   goToStep,
   removeEntity,
 } from "../new-project.actions";
@@ -74,7 +75,7 @@ export default function EntitiesPage(props: any) {
           Skip
         </Button>
         <SpaceH />
-        <Button type={ButtonType.main} onClick={() => dispatch(goToStep(2))}>
+        <Button type={ButtonType.main} onClick={() => dispatch(goToEntityProperties())}>
           Next
         </Button>
       </Line>
