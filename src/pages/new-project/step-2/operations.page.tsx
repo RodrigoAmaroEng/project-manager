@@ -10,6 +10,7 @@ import { Line, LineAlignment, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addOperation,
+  goToOperationDetails,
   goToStep,
   removeOperation,
   removeTerminator,
@@ -35,7 +36,7 @@ export default function OperationsPage(props: any) {
   );
   const error = useSelector((state: any) => state.operation.error);
   return (
-    <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+    <div className="fill-space flex-col">
       <h1>Step 2 - Operations</h1>
       <Line>
         <Field
@@ -124,7 +125,7 @@ export default function OperationsPage(props: any) {
           Skip
         </Button>
         <SpaceH />
-        <Button type={ButtonType.main} onClick={() => dispatch(goToStep(2))}>
+        <Button type={ButtonType.main} onClick={() => dispatch(goToOperationDetails())}>
           Next
         </Button>
       </Line>

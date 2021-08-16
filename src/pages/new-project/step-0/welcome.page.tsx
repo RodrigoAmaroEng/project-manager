@@ -1,6 +1,6 @@
-import Button, { ButtonType } from "../../components/Button";
-import { Line, LineAlignment, SpaceH } from "../../components/Utils";
-import { goToStep } from "./new-project.actions";
+import Button, { ButtonType } from "../../../components/Button";
+import { Line, LineAlignment, SpaceH } from "../../../components/Utils";
+import { goToStep } from "../new-project.actions";
 import { useDispatch } from "react-redux";
 
 export function WelcomePage() {

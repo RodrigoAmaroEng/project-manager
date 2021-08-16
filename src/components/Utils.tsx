@@ -5,6 +5,10 @@ export function SpaceV() {
   return <span className="spacer-v" />;
 }
 
+export function SpaceFill() {
+  return <span className="fill-space" />;
+}
+
 export enum LineAlignment {
   left = "",
   center = "line-align-center",

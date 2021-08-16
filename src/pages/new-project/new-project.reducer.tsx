@@ -9,6 +9,7 @@ function addToList(list: RecordList, item: any) {
   newList.add(item);
   return newList;
 }
+
 function removeFromList(list: RecordList, item: any) {
   let newList = [...list];
   return RecordList.fromList(newList.remove(item));
@@ -20,7 +21,7 @@ export default function newProjectReducer(
 ) {
   switch (action.type) {
     case "new-project/go-to-step": {
-      console.log(action.payload)
+      console.log(action.payload);
       history.push("/project/new/" + action.payload);
       return state;
     }
@@ -71,6 +72,54 @@ export default function newProjectReducer(
         action.payload
       );
 
+      return state;
+    }
+    case "new-project/goto-operation-details": {
+      history.push(
+        "/project/new/operations/" + state.project.content.operations[0].id
+      );
+      return state;
+    }
+    case "new-project/save-operation-details": {
+      let operations = RecordList.fromList([...state.project.content.operations]);
+      let item = operations.byId(action.payload.id);
+      item = Object.assign(item, action.payload);
+      let index = operations.findIndex((it) => it.id === action.payload.id);
+      if (item.input) {
+        state.project.content.payloads = addToList(state.project.content.payloads, { name: item.input })
+        item.input = state.project.content.payloads[state.project.content.payloads.length - 1].id
+      }
+      if (item.output) {
+        state.project.content.payloads = addToList(state.project.content.payloads, { name: item.output })
+        item.output = state.project.content.payloads[state.project.content.payloads.length - 1].id
+      }
+      state.project.content.operations[index] = item;
+      if (index + 1 == operations.length) history.push("/project/new/4");
+      else history.push("/project/new/operations/" + operations[index + 1].id);
+      return state;
+    }
+    case "new-project/add-entity": {
+      let item = action.payload;
+      if (item.name) {
+        let entities = state.project.content.entities;
+        if (!entities.find((it: any) => it.name === item.name)) {
+          state.project.content.entities = addToList(
+            state.project.content.entities,
+            item
+          );
+        } else {
+          state.operation.error = `The entity '${item.name}' already exists`;
+        }
+      } else {
+        state.operation.error = "Entity name cannot be empty";
+      }
+      return state;
+    }
+    case "new-project/remove-entity": {
+      state.project.content.entities = removeFromList(
+        state.project.content.entities,
+        action.payload
+      );
       return state;
     }
 
