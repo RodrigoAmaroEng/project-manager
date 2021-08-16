@@ -91,7 +91,7 @@ export default function EntityPropertiesPage(props: any) {
             <SpaceH />
             <Circle></Circle>
             <SpaceH />
-            <h6>{item.type}</h6>
+            <h6 className="one-fourth">{item.type}</h6>
             <SpaceH />
             <SpaceH />
           </Row>

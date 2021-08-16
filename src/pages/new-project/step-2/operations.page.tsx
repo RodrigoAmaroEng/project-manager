@@ -97,7 +97,7 @@ export default function OperationsPage(props: any) {
             <SpaceH />
             <Circle>T</Circle>
             <SpaceH />
-            <h6 className="fill-space">
+            <h6 className="one-fourth">
               {terminators.byId(item.terminator).name}
             </h6>
             <SpaceH />
@@ -109,7 +109,7 @@ export default function OperationsPage(props: any) {
               ></div>
             </Circle>
             <SpaceH />
-            <h6>{item.direction}</h6>
+            <h6 className="one-twenty">{item.direction}</h6>
             <SpaceH />
             <SpaceH />
           </Row>

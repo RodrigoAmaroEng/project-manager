@@ -41,9 +41,13 @@
 .row-content {
   padding: 0;
   flex-grow: 1;
+  flex: 1 1 0;
+
 }
 .col-expand {
   flex-grow: 1;
+  flex-basis: 100%;
+
 }
 .row.selected {
   background-color: var(--palette-color-2-light);
