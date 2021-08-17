@@ -11,12 +11,16 @@ export interface ButtonProps {
   children: any;
   type: ButtonType;
   disabled?: boolean;
+  className?: string;
 }
 
 export default function Button(props: ButtonProps) {
   let className = `${props.type}-button`;
   if (props.disabled) {
     className += ` disabled`;
+  }
+  if (props.className) {
+    className += ` ${props.className}`;
   }
   const shouldFireClickEvents = (e: any) => {
     e.preventDefault();

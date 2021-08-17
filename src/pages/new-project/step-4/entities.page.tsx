@@ -11,14 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addEntity,
   goToEntityProperties,
-  goToStep,
   removeEntity,
 } from "../new-project.actions";
 import { useState } from "react";
 import Circle from "../../../components/Circle";
 import ErrorBox from "../../../components/ErrorBox";
 import { dismissError } from "../../../App.actions";
-
+import {ReactComponent as EntityIcon} from  "../../../img/006-server-storage.svg" 
 export default function EntitiesPage(props: any) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
@@ -59,7 +58,7 @@ export default function EntitiesPage(props: any) {
         </Action>
         {entities.map((entity: any) => (
           <Row item={entity}>
-            <Circle>T</Circle>
+            <Circle><EntityIcon/></Circle>
             <SpaceH />
             <h6>{entity.name}</h6>
           </Row>

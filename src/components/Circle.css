@@ -24,3 +24,8 @@
   position: absolute;
   margin-right: -1rem;
 }
+.circle-icon img, .circle-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: var(--palette-color-2-medium)
+}

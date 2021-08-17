@@ -19,6 +19,9 @@ import ErrorBox from "../../../components/ErrorBox";
 import { dismissError } from "../../../App.actions";
 import DropDown, { Option } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
+import {ReactComponent as PropertyIcon} from  "../../../img/002-list.svg" 
+import StaticField from "../../../components/StaticField";
+
 
 export default function EntityPropertiesPage(props: any) {
   let entityId = parseInt(props.match.params.id);
@@ -85,14 +88,12 @@ export default function EntityPropertiesPage(props: any) {
         </Action>
         {properties.map((item: any) => (
           <Row item={item}>
-            <Circle>O</Circle>
+            <Circle><PropertyIcon/></Circle>
             <SpaceH />
             <h6 className="fill-space">{item.name}</h6>
             <SpaceH />
-            <Circle></Circle>
-            <SpaceH />
-            <h6 className="one-fourth">{item.type}</h6>
-            <SpaceH />
+            <StaticField className="one-fourth" label="Type" value={item.type}/>
+            
             <SpaceH />
           </Row>
         ))}

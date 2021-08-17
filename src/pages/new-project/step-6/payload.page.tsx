@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Button, { ButtonType } from "../../../components/Button";
 import DropDown, { Option } from "../../../components/DropDown";
 import Field from "../../../components/Field";
+import {ReactComponent as EntityIcon} from  "../../../img/006-server-storage.svg" 
+import {ReactComponent as VariableIcon} from  "../../../img/informacion.svg" 
+
 import List, {
   Action,
   IfEmpty,
@@ -165,7 +168,7 @@ export default function PayloadsPage(props: any) {
             value={{ name, type }}
           />
         ) : (
-          ""
+          <Line className="fill-space"></Line>
         )}
         <SpaceH />
         <Button
@@ -190,6 +193,7 @@ export default function PayloadsPage(props: any) {
         <IfEmpty>Add your first payload property to see it here</IfEmpty>
         <Action>
           <Button
+            className="square"
             type={ButtonType.main}
             onClick={(e: any) => dispatch(removePayloadProperty(e, id))}
           >
@@ -198,9 +202,7 @@ export default function PayloadsPage(props: any) {
         </Action>
         {properties.map((item: any) => (
           <Row item={item}>
-            <Circle>T</Circle>
-            <SpaceH />
-            <h6 className="one-tenth">{item.kind}</h6>
+            <Circle>{item.kind === "entity" ? <EntityIcon/> : <VariableIcon/> }</Circle>
             <SpaceH />
             {item.kind === "entity" ? (
               <Line className="fill-space">

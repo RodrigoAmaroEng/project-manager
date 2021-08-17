@@ -59,3 +59,7 @@
   transition: 0s
 }
 
+.square {
+  width: 2.5rem;
+  padding: 0;
+}
