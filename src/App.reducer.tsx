@@ -17,6 +17,11 @@ export default function appReducer(state = initialState, action: AnyAction) {
       state.operation.error = "";
       return state
     }
+    case "app/delete-existing-project": {
+      window.sessionStorage.clear();
+      console.log("Delete existing project")
+      return initialState;
+    }
     default: {
       return state;
     }

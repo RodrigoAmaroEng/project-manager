@@ -21,5 +21,5 @@ interface LineProps {
 }
 
 export function Line(props: any) {
-  return <div className={`util-line ${props.align || LineAlignment.left}`}>{props.children}</div>;
+  return <div className={`util-line ${props.align || LineAlignment.left} ${props.className}`}>{props.children}</div>;
 }

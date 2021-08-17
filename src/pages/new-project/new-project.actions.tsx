@@ -62,3 +62,20 @@ export function addEntityProperty(name: string, entityId: number, type: any) {
 export function removeEntityProperty(item: string, entityId: number) {
   return { type: "new-project/remove-entity-property", payload: {item, entityId} };
 }
+
+export function addPayloadEntityProperty(payloadId: number, entity: any, property: any) {
+  return {
+    type: "new-project/add-payload-entity-property",
+    payload: { payloadId, entity, property },
+  };
+}
+export function addPayloadNewProperty(payloadId: number, name?: string, type?: string) {
+  return {
+    type: "new-project/add-payload-new-property",
+    payload: { payloadId, name, type },
+  };
+}
+
+export function removePayloadProperty(item: string, payloadId: number) {
+  return { type: "new-project/remove-payload-property", payload: {item, payloadId} };
+}

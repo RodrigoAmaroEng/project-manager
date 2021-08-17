@@ -185,7 +185,62 @@ export default function newProjectReducer(
       state.project.content.entities[index] = entity;
       return state;
     }
-
+    case "new-project/add-payload-entity-property": {
+      let item = action.payload;
+      if (item.entity && item.property) {
+        let payload = RecordList.fromList([
+          ...state.project.content.payloads,
+        ]).byId(action.payload.payloadId);
+        let properties = payload.properties || [];
+        if (!properties.find((it: any) => it.entityId === item.entity.id && it.propertyId === item.property.id)) {
+          properties = addToList(properties, {
+            kind: "entity",
+            entityId: item.entity.id,
+            propertyId: item.property.id,
+          });
+          payload.properties = properties;
+        } else {
+          state.operation.error = `The selected property is already part of this payload`;
+        }
+      } else {
+        state.operation.error = "One or more fields were not informed";
+      }
+      return state;
+    }
+    case "new-project/add-payload-new-property": {
+      let item = action.payload;
+      if (item.name && item.type) {
+        let payload = RecordList.fromList([
+          ...state.project.content.payloads,
+        ]).byId(action.payload.payloadId);
+        let properties = payload.properties || [];
+        if (!properties.find((it: any) => it.name === item.name)) {
+          properties = addToList(properties, {
+            kind: "variable",
+            name: item.name,
+            type: item.type,
+          });
+          payload.properties = properties;
+        } else {
+          state.operation.error = `The payload property '${item.name}' already exists`;
+        }
+      } else {
+        state.operation.error = "One or more fields were not informed";
+      }
+      return state;
+    }
+    case "new-project/remove-payload-property": {
+      let item = action.payload.item;
+      let payload = RecordList.fromList([
+        ...state.project.content.payloads,
+      ]).byId(action.payload.payloadId);
+      let index = state.project.content.payloads.findIndex(
+        (it) => it.id === action.payload.payloadId
+      );
+      payload.properties = removeFromList(payload.properties, item);
+      state.project.content.payloads[index] = payload;
+      return state;
+    }
     default: {
       return state;
     }

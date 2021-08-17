@@ -5,7 +5,7 @@ import startReducer from "./pages/start/start.slice";
 import appReducer from "./App.reducer";
 import { AnyAction } from "redux";
 import newProjectReducer from "./pages/new-project/new-project.reducer";
-import "./extras/extension-functions.tsx"
+import "./extras/extension-functions.tsx";
 import { RecordList } from "./extras/extension-functions";
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
@@ -46,18 +46,18 @@ export const initialState = {
   operation: {
     error: "",
     message: "",
-  }
+  },
 };
 
-
 export const store = createStore((state = initialState, action: AnyAction) => {
-  if (initialState.project.name === undefined &&  window.sessionStorage.getItem("state")) {
-    state = JSON.parse(window.sessionStorage.getItem("state") || "")
+  let storeState = window.sessionStorage.getItem("state");
+  if (initialState.project.name === undefined && storeState) {
+    state = JSON.parse(window.sessionStorage.getItem("state") || "");
   }
   let newState = [startReducer, appReducer, newProjectReducer].reduce(
     (a, s: Function) => s(a, action),
     state
   );
-  window.sessionStorage.setItem("state", JSON.stringify(state))
+  window.sessionStorage.setItem("state", JSON.stringify(newState));
   return newState;
 }, composedEnhancer);

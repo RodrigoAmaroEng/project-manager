@@ -12,10 +12,11 @@ import {
   setProjectName,
   setSelectedProject,
 } from "./start.slice";
-import { authenticate } from "../../App.actions";
+import { authenticate, deleteExistingProject } from "../../App.actions";
 import { ConnectorLogin } from "../../components/ConnectorLogin";
-import "../../extras/extension-functions"
-import "./start.page.css"
+import "../../extras/extension-functions";
+import "./start.page.css";
+import { useEffect } from "react";
 
 export default function StartPage() {
   const dispatch = useDispatch();
@@ -29,7 +30,10 @@ export default function StartPage() {
   const hasProjectSelected = useSelector(
     (state: any) => !!state.project.fileInfo.fileName
   );
-  const blockCreateButton = !(!!projectName && projectName.length >= 3);
+  const blockCreateButton = (!projectName || projectName?.length < 3);
+  useEffect(() => {
+    dispatch(deleteExistingProject());
+  }, []);
 
   return (
     <ModalWindow className="half-width half-height">
@@ -63,12 +67,18 @@ export default function StartPage() {
               <Row item={project}>
                 <Circle>P</Circle>
                 <span className="col-expand hspace">{project.name}</span>
-                <StaticField label="Last update" value={project.modifiedTime.toCompleteDateTime()} />
+                <StaticField
+                  label="Last update"
+                  value={project.modifiedTime.toCompleteDateTime()}
+                />
               </Row>
             ))}
           </List>
           <SpaceV />
-          <ConnectorLogin user={user} onClick={() => dispatch(authenticate())}/>
+          <ConnectorLogin
+            user={user}
+            onClick={() => dispatch(authenticate())}
+          />
           <SpaceV />
           <Button
             onClick={() => {}}

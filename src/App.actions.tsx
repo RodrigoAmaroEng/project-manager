@@ -11,3 +11,8 @@ export function authenticate() {
 export function dismissError() {
   return { type: "app/dismiss-error" };
 }
+
+
+export function deleteExistingProject() {
+  return { type: "app/delete-existing-project" };
+}
