@@ -15,6 +15,9 @@ export function setSelectedProject(project: any) {
   return { type: "start/set-selected-project", payload: project}
 }
 
+export function setShowFolders(isActive: boolean = false) {
+  return { type: "start/set-show-folders", payload: isActive}
+}
 export const listFiles = createAsyncThunk(
   "start/files",
   async (service: (arg: string) => void, thunkAPI:any) => {
@@ -34,6 +37,10 @@ export default function startReducer(state = initialState, action: AnyAction) {
   switch (action.type) {
     case "start/set-project-name": {
       state.project.name = action.payload;
+      return state;
+    }
+    case "start/set-show-folders": {
+      state.start.files.showFolders = action.payload;
       return state;
     }
     case "start/create-project": {

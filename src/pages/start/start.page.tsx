@@ -5,12 +5,13 @@ import List, { IfEmpty, ListStyle, Row } from "../../components/List";
 import ModalWindow from "../../components/Modal";
 import StaticField from "../../components/StaticField";
 import { Tab, TabLayout } from "../../components/TabLayout";
-import { SpaceH, SpaceV } from "../../components/Utils";
+import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createProject,
   setProjectName,
   setSelectedProject,
+  setShowFolders,
 } from "./start.slice";
 import { authenticate, deleteExistingProject } from "../../App.actions";
 import { ConnectorLogin } from "../../components/ConnectorLogin";
@@ -18,6 +19,7 @@ import "../../extras/extension-functions";
 import "./start.page.css";
 import { useEffect } from "react";
 import { FOLDER_MIME_TYPE } from "../../extras/models";
+import Switcher from "../../components/Switcher";
 
 export default function StartPage() {
   const dispatch = useDispatch();
@@ -36,6 +38,9 @@ export default function StartPage() {
   );
   const isLoadingFiles = useSelector(
     (state: any) => state.start.files.isLoading
+  );
+  const showFolders = useSelector(
+    (state: any) => state.start.files.showFolders
   );
   const blockCreateButton = !projectName || projectName?.length < 3;
   useEffect(() => {
@@ -57,6 +62,7 @@ export default function StartPage() {
             placeholder="Project name"
             onChange={(name: string) => dispatch(setProjectName(name))}
           />
+
           <SpaceV />
           <Button
             onClick={() => dispatch(createProject())}
@@ -77,9 +83,11 @@ export default function StartPage() {
             }}
           >
             <IfEmpty>
-              {isLoadingFiles ? "Loading Files" : "There is no project in your account"}
+              {isLoadingFiles
+                ? "Loading Files"
+                : "There is no project in your account"}
             </IfEmpty>
-            {availableProjects.map((project: any) => (
+            {availableProjects.filter((p:any) => showFolders || p.mimeType !== FOLDER_MIME_TYPE).map((project: any) => (
               <Row item={project}>
                 <Circle>P</Circle>
                 <SpaceH />
@@ -101,7 +109,13 @@ export default function StartPage() {
             ))}
           </List>
           <SpaceV />
-          
+          <Line>
+            <Switcher
+              label="Show folders"
+              isChecked={showFolders}
+              onChange={(checked: boolean) => dispatch(setShowFolders(checked))}
+            />
+          </Line>
           <SpaceV />
           <Button
             onClick={() => {}}
