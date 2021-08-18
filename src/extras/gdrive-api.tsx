@@ -150,8 +150,9 @@ class GDriveApi {
   upload(fileName: string, fileContent: string, fileId: string) {
     var file = new Blob([fileContent], { type: "application/json" });
     var metadata = {
-      name: fileName + ".uml.json", // Filename at Google Drive
+      name: fileName.replace(/\s/g,"-") + ".uml.json", // Filename at Google Drive
       mimeType: "application/json", // mimeType at Google Drive
+      parents: ["root"]
     };
 
     var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
@@ -165,7 +166,7 @@ class GDriveApi {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       let updatePatchUrl = fileId ? `/${fileId}` : "";
-      let url = `https://www.googleapis.com/upload/drive/v3/files${updatePatchUrl}?uploadType=multipart&fields=id`;
+      let url = `https://www.googleapis.com/upload/drive/v3/files${updatePatchUrl}?uploadType=multipart&fields=id,name`;
       let method = fileId ? "PATCH" : "post";
       xhr.open(method, url);
       xhr.setRequestHeader("Authorization", "Bearer " + accessToken);

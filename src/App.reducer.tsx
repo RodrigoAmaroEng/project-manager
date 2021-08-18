@@ -5,12 +5,12 @@ import { GDriveApiInstance } from "./extras/gdrive-api";
 export default function appReducer(state = initialState, action: AnyAction) {
   switch (action.type) {
     case "app/set-authenticated-user": {
-      state.project.fileInfo.connector.isAuthenticated = true;
-      state.project.fileInfo.connector.user = action.payload;
+      state.context.connector.isAuthenticated = true;
+      state.context.connector.user = action.payload;
       return state;
     }
     case "app/set-gdrive-initialized": {
-      state.project.fileInfo.connector.isLoading = false;
+      state.context.connector.isLoading = false;
       return state;
     }
     case "app/authenticate": {
@@ -23,7 +23,6 @@ export default function appReducer(state = initialState, action: AnyAction) {
     }
     case "app/delete-existing-project": {
       window.sessionStorage.clear();
-      console.log("Delete existing project")
       return initialState;
     }
     default: {

@@ -30,10 +30,6 @@ export const initialState = {
       lastModified: undefined,
       connector: {
         provider: ConnectorProvider.gdrive,
-        isLoading: true,
-        isAuthenticated: false,
-        user: undefined,
-        files: [],
       },
     },
     content: {
@@ -47,6 +43,14 @@ export const initialState = {
   operation: {
     error: "",
     message: "",
+  },
+  context: {
+    connector: {
+      provider: ConnectorProvider.gdrive,
+      isLoading: true,
+      isAuthenticated: false,
+      user: undefined,
+    },
   },
   start: {
     files: {

@@ -7,31 +7,35 @@ export function setProjectName(projectName: string) {
   return { type: "start/set-project-name", payload: projectName };
 }
 
-export function createProject() {
-  return { type: "start/create-project" };
-}
-
 export function setSelectedProject(project: any) {
-  return { type: "start/set-selected-project", payload: project}
+  return { type: "start/set-selected-project", payload: project };
 }
 
 export function setShowFolders(isActive: boolean = false) {
-  return { type: "start/set-show-folders", payload: isActive}
+  return { type: "start/set-show-folders", payload: isActive };
 }
 export const listFiles = createAsyncThunk(
   "start/files",
-  async (service: (arg: string) => void, thunkAPI:any) => {
-    if (!thunkAPI.getState().project.fileInfo.connector.isAuthenticated) {
+  async (service: (arg: string) => void, thunkAPI: any) => {
+    if (!thunkAPI.getState().context.connector.isAuthenticated) {
       throw new Error("User is not authenticated");
     }
-    console.log("First call")
     let files = await service("");
-    console.log("Files ", files);
     return files;
   }
 );
 
-
+export const createProject = createAsyncThunk(
+  "start/store-project",
+  async (service: (fileName: string, content: string, fileId: string) => any, thunkAPI: any) => {
+    if (!thunkAPI.getState().context.connector.isAuthenticated) {
+      throw new Error("User is not authenticated");
+    }
+    let project = thunkAPI.getState().project
+    let fileInfo = await service(project.name, JSON.stringify(project), project.fileInfo.fileId);
+    return fileInfo;
+  }
+);
 
 export default function startReducer(state = initialState, action: AnyAction) {
   switch (action.type) {
@@ -43,10 +47,14 @@ export default function startReducer(state = initialState, action: AnyAction) {
       state.start.files.showFolders = action.payload;
       return state;
     }
-    case "start/create-project": {
-      state.project.status = ProjecState.new;
-      history.push("/project/new")
+    case "start/store-project/fulfilled": {
+      state.project.fileInfo.fileId = action.payload.id;
+      state.project.fileInfo.fileName = action.payload.name;
+      history.push("/project/new");
       return state;
+    }
+    case "start/store-project/rejected": {
+      return { ...state, error: action.error.message };
     }
     case "start/set-selected-project": {
       state.project.fileInfo.fileName = action.payload.name;

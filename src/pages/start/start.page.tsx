@@ -20,12 +20,14 @@ import "./start.page.css";
 import { useEffect } from "react";
 import { FOLDER_MIME_TYPE } from "../../extras/models";
 import Switcher from "../../components/Switcher";
+import { create } from "domain";
+import { GDriveApiInstance } from "../../extras/gdrive-api";
 
 export default function StartPage() {
   const dispatch = useDispatch();
   const projectName = useSelector((state: any) => state.project.name);
   const user = useSelector(
-    (state: any) => state.project.fileInfo.connector.user
+    (state: any) => state.context.connector.user
   );
   const availableProjects = useSelector(
     (state: any) => state.start.files.list || []
@@ -34,7 +36,7 @@ export default function StartPage() {
     (state: any) => !!state.project.fileInfo.fileName
   );
   const isLoadingConnector = useSelector(
-    (state: any) => state.project.fileInfo.connector.isLoading
+    (state: any) => state.context.connector.isLoading
   );
   const isLoadingFiles = useSelector(
     (state: any) => state.start.files.isLoading
@@ -62,10 +64,15 @@ export default function StartPage() {
             placeholder="Project name"
             onChange={(name: string) => dispatch(setProjectName(name))}
           />
-
+          <SpaceV />
+          <Line>
+            <StaticField label="Location" value="Root Folder" />
+            <SpaceH/>
+            <Button type={ButtonType.secondary} onClick={() => {}}>Change</Button>
+          </Line>
           <SpaceV />
           <Button
-            onClick={() => dispatch(createProject())}
+            onClick={() => dispatch(createProject(GDriveApiInstance.upload))}
             type={ButtonType.main}
             disabled={blockCreateButton}
           >
@@ -87,26 +94,30 @@ export default function StartPage() {
                 ? "Loading Files"
                 : "There is no project in your account"}
             </IfEmpty>
-            {availableProjects.filter((p:any) => showFolders || p.mimeType !== FOLDER_MIME_TYPE).map((project: any) => (
-              <Row item={project}>
-                <Circle>P</Circle>
-                <SpaceH />
-                <StaticField
-                  className="fill-space"
-                  label="File name"
-                  value={project.name}
-                />
-                {project.mimeType === FOLDER_MIME_TYPE ? (
-                  <h6 className="one-fourth">Folder</h6>
-                ) : (
+            {availableProjects
+              .filter(
+                (p: any) => showFolders || p.mimeType !== FOLDER_MIME_TYPE
+              )
+              .map((project: any) => (
+                <Row item={project}>
+                  <Circle>P</Circle>
+                  <SpaceH />
                   <StaticField
-                    className="one-fourth"
-                    label="Last update"
-                    value={project.modifiedTime.toCompleteDateTime()}
+                    className="fill-space"
+                    label="File name"
+                    value={project.name}
                   />
-                )}
-              </Row>
-            ))}
+                  {project.mimeType === FOLDER_MIME_TYPE ? (
+                    <h6 className="one-fourth">Folder</h6>
+                  ) : (
+                    <StaticField
+                      className="one-fourth"
+                      label="Last update"
+                      value={project.modifiedTime.toCompleteDateTime()}
+                    />
+                  )}
+                </Row>
+              ))}
           </List>
           <SpaceV />
           <Line>
