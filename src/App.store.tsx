@@ -48,6 +48,13 @@ export const initialState = {
     error: "",
     message: "",
   },
+  start: {
+    files: {
+      list: [],
+      isLoading: true,
+      showFolders: false
+    }
+  }
 };
 
 export const store = createStore((state = initialState, action: AnyAction) => {

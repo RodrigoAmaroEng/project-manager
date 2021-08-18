@@ -21,7 +21,10 @@ export const listFiles = createAsyncThunk(
     if (!thunkAPI.getState().project.fileInfo.connector.isAuthenticated) {
       throw new Error("User is not authenticated");
     }
-    return service("");
+    console.log("First call")
+    let files = await service("");
+    console.log("Files ", files);
+    return files;
   }
 );
 
@@ -45,10 +48,18 @@ export default function startReducer(state = initialState, action: AnyAction) {
       return state;
     }
     case "start/files/fulfilled": {
-      state.project.fileInfo.connector.files = action.payload;
+      state.start.files.isLoading = false;
+      state.start.files.list = action.payload;
+      return state;
+    }
+    case "start/files/pending": {
+      state.start.files.isLoading = true;
+      state.start.files.list = [];
       return state;
     }
     case "start/files/rejected": {
+      state.start.files.isLoading = false;
+      state.start.files.list = [];
       return { ...state, error: action.error.message };
     }
     default:

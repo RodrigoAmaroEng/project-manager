@@ -1,7 +1,7 @@
 import Button, { ButtonType } from "../../components/Button";
 import Circle from "../../components/Circle";
 import Field from "../../components/Field";
-import List, { ListStyle, Row } from "../../components/List";
+import List, { IfEmpty, ListStyle, Row } from "../../components/List";
 import ModalWindow from "../../components/Modal";
 import StaticField from "../../components/StaticField";
 import { Tab, TabLayout } from "../../components/TabLayout";
@@ -17,6 +17,7 @@ import { ConnectorLogin } from "../../components/ConnectorLogin";
 import "../../extras/extension-functions";
 import "./start.page.css";
 import { useEffect } from "react";
+import { FOLDER_MIME_TYPE } from "../../extras/models";
 
 export default function StartPage() {
   const dispatch = useDispatch();
@@ -25,13 +26,16 @@ export default function StartPage() {
     (state: any) => state.project.fileInfo.connector.user
   );
   const availableProjects = useSelector(
-    (state: any) => state.project.fileInfo.connector.files || []
+    (state: any) => state.start.files.list || []
   );
   const hasProjectSelected = useSelector(
     (state: any) => !!state.project.fileInfo.fileName
   );
-  const isLoading = useSelector(
+  const isLoadingConnector = useSelector(
     (state: any) => state.project.fileInfo.connector.isLoading
+  );
+  const isLoadingFiles = useSelector(
+    (state: any) => state.start.files.isLoading
   );
   const blockCreateButton = !projectName || projectName?.length < 3;
   useEffect(() => {
@@ -41,7 +45,11 @@ export default function StartPage() {
   return (
     <ModalWindow className="half-width half-height">
       <h1>Project modeler</h1>
-      <ConnectorLogin user={user} isLoading={isLoading} onClick={() => dispatch(authenticate())} />
+      <ConnectorLogin
+        user={user}
+        isLoading={isLoadingConnector}
+        onClick={() => dispatch(authenticate())}
+      />
       <SpaceV />
       <TabLayout>
         <Tab title="Create new">
@@ -68,19 +76,33 @@ export default function StartPage() {
               }
             }}
           >
+            <IfEmpty>
+              {isLoadingFiles ? "Loading Files" : "There is no project in your account"}
+            </IfEmpty>
             {availableProjects.map((project: any) => (
               <Row item={project}>
                 <Circle>P</Circle>
-                <span className="col-expand hspace">{project.name}</span>
+                <SpaceH />
                 <StaticField
-                  label="Last update"
-                  value={project.modifiedTime.toCompleteDateTime()}
+                  className="fill-space"
+                  label="File name"
+                  value={project.name}
                 />
+                {project.mimeType === FOLDER_MIME_TYPE ? (
+                  <h6 className="one-fourth">Folder</h6>
+                ) : (
+                  <StaticField
+                    className="one-fourth"
+                    label="Last update"
+                    value={project.modifiedTime.toCompleteDateTime()}
+                  />
+                )}
               </Row>
             ))}
           </List>
           <SpaceV />
-
+          
+          <SpaceV />
           <Button
             onClick={() => {}}
             type={ButtonType.secondary}

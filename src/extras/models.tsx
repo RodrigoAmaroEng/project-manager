@@ -9,3 +9,5 @@ export enum PropertyType {
   EntityProperty = "Entity property",
   Variable = "Variable",
 }
+
+export const FOLDER_MIME_TYPE = "application/vnd.google-apps.folder"
