@@ -6,8 +6,10 @@ import List, {
   ListStyle,
   Row,
 } from "../../../components/List";
-import { Line, LineAlignment, SpaceH, SpaceV } from "../../../components/Utils";
+import { Line, LineAlignment, SpaceFill, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
+import { ReactComponent as OperationIcon } from "../../../img/operation-icon.svg";
+
 import {
   addOperation,
   goToOperationDetails,
@@ -22,6 +24,7 @@ import { dismissError } from "../../../App.actions";
 import { Radio, RadioGroup } from "../../../components/Radio";
 import DropDown, { Option } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
+import StaticField from "../../../components/StaticField";
 
 export default function OperationsPage(props: any) {
   const dispatch = useDispatch();
@@ -42,6 +45,7 @@ export default function OperationsPage(props: any) {
         <Field
           value={name}
           placeholder="Operation name"
+          className="one-third"
           onChange={(value: string) => setName(value)}
         />
         <SpaceH />
@@ -49,7 +53,7 @@ export default function OperationsPage(props: any) {
           onSelect={(item: any) => setTerminatorRef(item)}
           onRender={(item: any) => item.name}
           selected={terminatorRef}
-          className="fill-space"
+          className="one-third"
         >
           {terminators.map((item: any) => (
             <Option item={item}>
@@ -66,6 +70,7 @@ export default function OperationsPage(props: any) {
           <Radio title="Output" value="OUT" />
         </RadioGroup>
         <SpaceH />
+        <SpaceFill/>
         <Button
           type={ButtonType.main}
           onClick={() => {
@@ -91,25 +96,28 @@ export default function OperationsPage(props: any) {
         </Action>
         {operations.map((item: any) => (
           <Row item={item}>
-            <Circle>O</Circle>
-            <SpaceH />
-            <h6 className="fill-space">{item.name}</h6>
-            <SpaceH />
-            <Circle>T</Circle>
-            <SpaceH />
-            <h6 className="one-fourth">
-              {terminators.byId(item.terminator).name}
-            </h6>
-            <SpaceH />
             <Circle>
-              <div
-                className={`arrow-${
-                  item.direction === "IN" ? "right" : "left"
-                }`}
-              ></div>
+              <OperationIcon />
             </Circle>
             <SpaceH />
-            <h6 className="one-twenty">{item.direction}</h6>
+            <StaticField
+              className="fill-space"
+              label="Operation name"
+              value={item.name}
+            />
+            <SpaceH />
+            <StaticField
+              className="one-fourth"
+              label="Terminator starter/destiny"
+              value={terminators.byId(item.terminator).name}
+            />
+            
+            <SpaceH />
+            <StaticField
+              className="one-twenty"
+              label="Direction"
+              value={item.direction}
+            />
             <SpaceH />
             <SpaceH />
           </Row>
@@ -125,7 +133,10 @@ export default function OperationsPage(props: any) {
           Skip
         </Button>
         <SpaceH />
-        <Button type={ButtonType.main} onClick={() => dispatch(goToOperationDetails())}>
+        <Button
+          type={ButtonType.main}
+          onClick={() => dispatch(goToOperationDetails())}
+        >
           Next
         </Button>
       </Line>

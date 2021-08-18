@@ -17,7 +17,8 @@ import { useState } from "react";
 import Circle from "../../../components/Circle";
 import ErrorBox from "../../../components/ErrorBox";
 import { dismissError } from "../../../App.actions";
-import {ReactComponent as EntityIcon} from  "../../../img/006-server-storage.svg" 
+import {ReactComponent as EntityIcon} from  "../../../img/entity-icon.svg" 
+import StaticField from "../../../components/StaticField";
 export default function EntitiesPage(props: any) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
@@ -60,7 +61,12 @@ export default function EntitiesPage(props: any) {
           <Row item={entity}>
             <Circle><EntityIcon/></Circle>
             <SpaceH />
-            <h6>{entity.name}</h6>
+            <StaticField
+              className="fill-space"
+              label="Entity name"
+              value={entity.name}
+            />
+
           </Row>
         ))}
       </List>

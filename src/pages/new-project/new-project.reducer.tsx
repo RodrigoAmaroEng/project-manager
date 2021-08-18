@@ -241,6 +241,12 @@ export default function newProjectReducer(
       state.project.content.payloads[index] = payload;
       return state;
     }
+    case "new-project/goto-payload-properties": {
+      history.push(
+        "/project/new/payloads/" + state.project.content.payloads[0].id
+      );
+      return state;
+    }
     default: {
       return state;
     }

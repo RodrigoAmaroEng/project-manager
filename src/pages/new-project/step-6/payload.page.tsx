@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button, { ButtonType } from "../../../components/Button";
 import DropDown, { Option } from "../../../components/DropDown";
 import Field from "../../../components/Field";
-import { ReactComponent as EntityIcon } from "../../../img/006-server-storage.svg";
+import { ReactComponent as EntityIcon } from "../../../img/entity-icon.svg";
 import { ReactComponent as VariableIcon } from "../../../img/informacion.svg";
 
 import List, {

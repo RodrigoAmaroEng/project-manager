@@ -17,6 +17,8 @@ import { useState } from "react";
 import Circle from "../../../components/Circle";
 import ErrorBox from "../../../components/ErrorBox";
 import { dismissError } from "../../../App.actions";
+import { ReactComponent as TerminatorIcon } from "../../../img/terminator-icon.svg";
+import StaticField from "../../../components/StaticField";
 
 export default function TerminatorsPage(props: any) {
   const dispatch = useDispatch();
@@ -58,9 +60,13 @@ export default function TerminatorsPage(props: any) {
         </Action>
         {terminators.map((terminator: any) => (
           <Row item={terminator}>
-            <Circle>T</Circle>
+            <Circle><TerminatorIcon/></Circle>
             <SpaceH />
-            <h6>{terminator.name}</h6>
+            <StaticField
+            label="Terminator name"
+            value={terminator.name}
+            className="fill-space"
+            /> 
           </Row>
         ))}
       </List>

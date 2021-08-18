@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addEntityProperty,
   goToOperationDetails,
+  goToPayloadProperties,
   removeEntityProperty,
 } from "../new-project.actions";
 import { useState } from "react";
@@ -19,7 +20,7 @@ import ErrorBox from "../../../components/ErrorBox";
 import { dismissError } from "../../../App.actions";
 import DropDown, { Option } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
-import { ReactComponent as PropertyIcon } from "../../../img/002-list.svg";
+import { ReactComponent as PropertyIcon } from "../../../img/property-icon.svg";
 import StaticField from "../../../components/StaticField";
 import { DataTypes } from "../../../extras/models";
 
@@ -113,7 +114,7 @@ export default function EntityPropertiesPage(props: any) {
         <SpaceH />
         <Button
           type={ButtonType.main}
-          onClick={() => dispatch(goToOperationDetails())}
+          onClick={() => dispatch(goToPayloadProperties())}
         >
           Next
         </Button>

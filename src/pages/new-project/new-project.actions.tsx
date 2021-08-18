@@ -79,3 +79,9 @@ export function addPayloadNewProperty(payloadId: number, name?: string, type?: s
 export function removePayloadProperty(item: string, payloadId: number) {
   return { type: "new-project/remove-payload-property", payload: {item, payloadId} };
 }
+
+export function goToPayloadProperties() {
+  return {
+    type: "new-project/goto-payload-properties",
+  };
+}
