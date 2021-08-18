@@ -19,9 +19,9 @@ import ErrorBox from "../../../components/ErrorBox";
 import { dismissError } from "../../../App.actions";
 import DropDown, { Option } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
-import {ReactComponent as PropertyIcon} from  "../../../img/002-list.svg" 
+import { ReactComponent as PropertyIcon } from "../../../img/002-list.svg";
 import StaticField from "../../../components/StaticField";
-
+import { DataTypes } from "../../../extras/models";
 
 export default function EntityPropertiesPage(props: any) {
   let entityId = parseInt(props.match.params.id);
@@ -50,18 +50,11 @@ export default function EntityPropertiesPage(props: any) {
           selected={type}
           className="fill-space"
         >
-          <Option item="String">
-            <h6>String</h6>
-          </Option>
-          <Option item="Boolean">
-            <h6>Boolean</h6>
-          </Option>
-          <Option item="Number">
-            <h6>Number</h6>
-          </Option>
-          <Option item="Date">
-            <h6>Date</h6>
-          </Option>
+          {Object.values(DataTypes).map((key) => (
+            <Option item={key}>
+              <h6>{key}</h6>
+            </Option>
+          ))}
         </DropDown>
         <SpaceH />
         <Button
@@ -88,12 +81,22 @@ export default function EntityPropertiesPage(props: any) {
         </Action>
         {properties.map((item: any) => (
           <Row item={item}>
-            <Circle><PropertyIcon/></Circle>
+            <Circle>
+              <PropertyIcon />
+            </Circle>
             <SpaceH />
-            <h6 className="fill-space">{item.name}</h6>
+            <StaticField
+              className="fill-space"
+              label="Property name"
+              value={item.name}
+            />
             <SpaceH />
-            <StaticField className="one-fourth" label="Type" value={item.type}/>
-            
+            <StaticField
+              className="one-fourth"
+              label="Type"
+              value={item.type}
+            />
+
             <SpaceH />
           </Row>
         ))}

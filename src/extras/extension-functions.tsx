@@ -10,6 +10,7 @@ declare global {
     indexOfObject(item: T): number;
     remove(item: T): Array<T>;
   }
+  
 }
 function getLocale() {
   return navigator.language || navigator.languages[0];

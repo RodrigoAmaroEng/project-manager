@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Button, { ButtonType } from "../../../components/Button";
 import DropDown, { Option } from "../../../components/DropDown";
 import Field from "../../../components/Field";
-import {ReactComponent as EntityIcon} from  "../../../img/006-server-storage.svg" 
-import {ReactComponent as VariableIcon} from  "../../../img/informacion.svg" 
+import { ReactComponent as EntityIcon } from "../../../img/006-server-storage.svg";
+import { ReactComponent as VariableIcon } from "../../../img/informacion.svg";
 
 import List, {
   Action,
@@ -21,6 +21,7 @@ import {
 } from "../new-project.actions";
 import Circle from "../../../components/Circle";
 import StaticField from "../../../components/StaticField";
+import { DataTypes, PropertyType } from "../../../extras/models";
 
 function NewVariableForm(props: any) {
   const [value, setValue] = useState(undefined as any);
@@ -47,18 +48,11 @@ function NewVariableForm(props: any) {
         selected={value?.type}
         className="half"
       >
-        <Option item="String">
-          <h6>String</h6>
-        </Option>
-        <Option item="Boolean">
-          <h6>Boolean</h6>
-        </Option>
-        <Option item="Number">
-          <h6>Number</h6>
-        </Option>
-        <Option item="Date">
-          <h6>Date</h6>
-        </Option>
+        {Object.values(DataTypes).map((key) => (
+          <Option item={key}>
+            <h6>{key}</h6>
+          </Option>
+        ))}
       </DropDown>
     </Line>
   );
@@ -127,7 +121,6 @@ export default function PayloadsPage(props: any) {
   const thisPayload = payloads.byId(id);
 
   const properties = thisPayload.properties || [];
-
   return (
     <div className="fill-space flex-col">
       <h1>Step 6 - "{thisPayload.name}" properties</h1>
@@ -143,15 +136,14 @@ export default function PayloadsPage(props: any) {
           selected={kind}
           className="one-fourth"
         >
-          <Option item="ENTITY">
-            <h6>Entity property</h6>
-          </Option>
-          <Option item="VARIABLE">
-            <h6>Variable</h6>
-          </Option>
+          {Object.values(PropertyType).map((key) => (
+            <Option item={key}>
+              <h6>{key}</h6>
+            </Option>
+          ))}
         </DropDown>
         <SpaceH />
-        {kind === "ENTITY" ? (
+        {kind === PropertyType.EntityProperty ? (
           <EntityPropertyForm
             onChange={(data: any) => {
               setEntity(data.entity);
@@ -159,7 +151,7 @@ export default function PayloadsPage(props: any) {
             }}
             value={{ entity, property }}
           />
-        ) : kind === "VARIABLE" ? (
+        ) : kind === PropertyType.Variable ? (
           <NewVariableForm
             onChange={(data: any) => {
               setName(data.name);
@@ -174,15 +166,15 @@ export default function PayloadsPage(props: any) {
         <Button
           type={ButtonType.main}
           onClick={() => {
-            if (kind === "ENTITY")
+            if (kind === PropertyType.EntityProperty)
               dispatch(addPayloadEntityProperty(id, entity, property));
-            else if (kind === "VARIABLE")
+            else if (kind === PropertyType.Variable)
               dispatch(addPayloadNewProperty(id, name, type));
-            // setKind(undefined);
-            // setName(undefined);
-            // setType(undefined);
-            // setEntity(undefined);
-            // setProperty(undefined);
+            setKind(undefined);
+            setName(undefined);
+            setType(undefined);
+            setEntity(undefined);
+            setProperty(undefined);
           }}
         >
           +
@@ -202,7 +194,9 @@ export default function PayloadsPage(props: any) {
         </Action>
         {properties.map((item: any) => (
           <Row item={item}>
-            <Circle>{item.kind === "entity" ? <EntityIcon/> : <VariableIcon/> }</Circle>
+            <Circle>
+              {item.kind === "entity" ? <EntityIcon /> : <VariableIcon />}
+            </Circle>
             <SpaceH />
             {item.kind === "entity" ? (
               <Line className="fill-space">
@@ -233,9 +227,7 @@ export default function PayloadsPage(props: any) {
                 <StaticField
                   className="half"
                   label="Variable type"
-                  value={
-                    item.type
-                  }
+                  value={item.type}
                 />
               </Line>
             )}
