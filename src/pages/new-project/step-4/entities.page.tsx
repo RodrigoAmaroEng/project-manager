@@ -6,7 +6,7 @@ import List, {
   ListStyle,
   Row,
 } from "../../../components/List";
-import { Line, LineAlignment, SpaceH, SpaceV } from "../../../components/Utils";
+import { Line, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addEntity,
@@ -15,75 +15,60 @@ import {
 } from "../new-project.actions";
 import { useState } from "react";
 import Circle from "../../../components/Circle";
-import ErrorBox from "../../../components/ErrorBox";
-import { dismissError } from "../../../App.actions";
-import {ReactComponent as EntityIcon} from  "../../../img/entity-icon.svg" 
+import { ReactComponent as EntityIcon } from "../../../img/entity-icon.svg";
+import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
+import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 import StaticField from "../../../components/StaticField";
+import WizardNavigationControl from "../WizardNavigationControl";
 export default function EntitiesPage(props: any) {
   const dispatch = useDispatch();
+
   const [name, setName] = useState("");
-  const entities = useSelector(
-    (state: any) => state.project.content.entities
-  );
+
+  const entities = useSelector((state: any) => state.project.content.entities);
   const error = useSelector((state: any) => state.operation.error);
+
+  const add = () => {
+    dispatch(addEntity(name));
+    setName("");
+  };
+  const remove = (e: any) => dispatch(removeEntity(e));
+  const nextAction = () => dispatch(goToEntityProperties());
+
   return (
     <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
       <h1>Step 4 - Entities</h1>
       <Line>
-        <Field
-          value={name}
-          placeholder="Entity name"
-          onChange={(value: string) => setName(value)}
-        />
+        <Field value={name} placeholder="Entity name" onChange={setName} />
         <SpaceH />
-        <Button
-          type={ButtonType.main}
-          onClick={() => {
-            dispatch(addEntity(name));
-            setName("");
-          }}
-        >
-          +
+        <Button type={ButtonType.main} onClick={add} className="square">
+          <AddIcon />
         </Button>
       </Line>
       <SpaceV />
       <List listStyle={ListStyle.Normal} className="fill-space">
         <IfEmpty>Add your first entity to see it here</IfEmpty>
         <Action>
-          <Button
-            type={ButtonType.main}
-            onClick={(e: any) => dispatch(removeEntity(e))}
-          >
-            -
+          <Button type={ButtonType.main} onClick={remove} className="square">
+            <RemoveIcon />
           </Button>
         </Action>
         {entities.map((entity: any) => (
           <Row item={entity}>
-            <Circle><EntityIcon/></Circle>
+            <Circle>
+              <EntityIcon />
+            </Circle>
             <SpaceH />
             <StaticField
               className="fill-space"
               label="Entity name"
               value={entity.name}
             />
-
           </Row>
         ))}
       </List>
       <SpaceV />
-      <Line align={LineAlignment.right}>
-        <ErrorBox visible={!!error} className="fill-space" onDismiss={() => dispatch(dismissError())}>
-          {error}
-        </ErrorBox>
-        <SpaceH />
-        <Button type={ButtonType.secondary} onClick={() => {}}>
-          Skip
-        </Button>
-        <SpaceH />
-        <Button type={ButtonType.main} onClick={() => dispatch(goToEntityProperties())}>
-          Next
-        </Button>
-      </Line>
+      <WizardNavigationControl error={error} nextAction={nextAction} />
     </div>
   );
 }

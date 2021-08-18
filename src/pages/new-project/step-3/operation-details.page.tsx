@@ -1,82 +1,63 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dismissError } from "../../../App.actions";
-import Button, { ButtonType } from "../../../components/Button";
-import ErrorBox from "../../../components/ErrorBox";
 import Field from "../../../components/Field";
-import {
-  Line,
-  LineAlignment,
-  SpaceFill,
-  SpaceH,
-  SpaceV,
-} from "../../../components/Utils";
+import { SpaceFill, SpaceV } from "../../../components/Utils";
 import { RecordList } from "../../../extras/extension-functions";
-import { goToStep, saveOperationDetail } from "../new-project.actions";
+import { saveOperationDetail } from "../new-project.actions";
+import WizardNavigationControl from "../WizardNavigationControl";
 
 export default function OperationDetailsPage(props: any) {
+  const dispatch = useDispatch();
+
   const [description, setDescription] = useState("");
   const [trigger, setTrigger] = useState("");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const error = useSelector((state: any) => state.operation.error);
-  const dispatch = useDispatch();
 
   let id = parseInt(props.match.params.id);
+
+  const error = useSelector((state: any) => state.operation.error);
   const operations = useSelector((state: any) =>
     RecordList.fromList(state.project.content.operations)
   );
+
+  const nextAction = () => {
+    dispatch(saveOperationDetail(id, { description, trigger, input, output }));
+    setDescription("");
+    setOutput("");
+    setInput("");
+    setTrigger("");
+  };
+
   return (
     <div className="fill-space flex-col">
       <h1>Step 3 - "{operations.byId(id).name}" details</h1>
       <Field
         value={description}
         placeholder="Operation description"
-        onChange={(value: string) => setDescription(value)}
+        onChange={setDescription}
       />
       <SpaceV />
       <Field
         value={trigger}
         placeholder="What triggers the operation*"
-        onChange={(value: string) => setTrigger(value)}
+        onChange={setTrigger}
       />
       <SpaceV />
       <Field
         value={input}
         placeholder="Input payload name*"
-        onChange={(value: string) => setInput(value)}
+        onChange={setInput}
       />
       <SpaceV />
       <Field
         value={output}
         placeholder="Output payload name"
-        onChange={(value: string) => setOutput(value)}
+        onChange={setOutput}
       />
       <SpaceFill />
-      <Line align={LineAlignment.right}>
-        <ErrorBox visible={!!error} onDismiss={() => dispatch(dismissError())}>
-          {error}
-        </ErrorBox>
-        <SpaceH />
-        <Button type={ButtonType.secondary} onClick={() => {}}>
-          Skip
-        </Button>
-        <SpaceH />
-        <Button
-          type={ButtonType.main}
-          onClick={() => {
-            dispatch(
-              saveOperationDetail(id, { description, trigger, input, output })
-            );
-            setDescription("");
-            setOutput("");
-            setInput("");
-            setTrigger("");
-          }}
-        >
-          Next
-        </Button>
-      </Line>
+
+      <WizardNavigationControl error={error} nextAction={nextAction} />
     </div>
   );
 }

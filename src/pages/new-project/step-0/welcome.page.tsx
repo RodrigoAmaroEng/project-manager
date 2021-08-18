@@ -2,6 +2,7 @@ import Button, { ButtonType } from "../../../components/Button";
 import { Line, LineAlignment, SpaceH } from "../../../components/Utils";
 import { goToStep } from "../new-project.actions";
 import { useDispatch } from "react-redux";
+import WizardNavigationControl from "../WizardNavigationControl";
 
 export function WelcomePage() {
   const dispatch = useDispatch();
@@ -22,15 +23,8 @@ export function WelcomePage() {
         <br />
         Press, next to proceed.
       </p>
-      <Line align={LineAlignment.right}>
-        <Button type={ButtonType.secondary} onClick={() => {}}>
-          Skip
-        </Button>
-        <SpaceH />
-        <Button type={ButtonType.main} onClick={() => dispatch(goToStep(1))}>
-          Next
-        </Button>
-      </Line>
+      <WizardNavigationControl error="" nextAction={() => dispatch(goToStep(1))}/>
+    
     </div>
   );
 }

@@ -6,31 +6,31 @@ import List, {
   ListStyle,
   Row,
 } from "../../../components/List";
-import { Line, LineAlignment, SpaceFill, SpaceH, SpaceV } from "../../../components/Utils";
+import { Line, SpaceFill, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as OperationIcon } from "../../../img/operation-icon.svg";
-
+import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
+import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 import {
   addOperation,
   goToOperationDetails,
-  goToStep,
   removeOperation,
-  removeTerminator,
 } from "../new-project.actions";
 import { useState } from "react";
 import Circle from "../../../components/Circle";
-import ErrorBox from "../../../components/ErrorBox";
-import { dismissError } from "../../../App.actions";
 import { Radio, RadioGroup } from "../../../components/Radio";
 import DropDown, { Option } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
 import StaticField from "../../../components/StaticField";
+import WizardNavigationControl from "../WizardNavigationControl";
 
 export default function OperationsPage(props: any) {
   const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [terminatorRef, setTerminatorRef] = useState(undefined);
-  const [direction, setDirection] = useState(undefined);
+  const [direction, setDirection] = useState(undefined as any);
+
   const operations = useSelector((state: any) =>
     RecordList.fromList(state.project.content.operations)
   );
@@ -38,6 +38,16 @@ export default function OperationsPage(props: any) {
     RecordList.fromList(state.project.content.terminators)
   );
   const error = useSelector((state: any) => state.operation.error);
+
+  const add = () => {
+    dispatch(addOperation(name, terminatorRef, direction));
+    setName("");
+    setTerminatorRef(undefined);
+    setDirection(undefined);
+  };
+  const remove = (e: any) => dispatch(removeOperation(e));
+  const nextAction = () => dispatch(goToOperationDetails());
+
   return (
     <div className="fill-space flex-col">
       <h1>Step 2 - Operations</h1>
@@ -46,11 +56,11 @@ export default function OperationsPage(props: any) {
           value={name}
           placeholder="Operation name"
           className="one-third"
-          onChange={(value: string) => setName(value)}
+          onChange={setName}
         />
         <SpaceH />
         <DropDown
-          onSelect={(item: any) => setTerminatorRef(item)}
+          onSelect={setTerminatorRef}
           onRender={(item: any) => item.name}
           selected={terminatorRef}
           className="one-third"
@@ -62,36 +72,22 @@ export default function OperationsPage(props: any) {
           ))}
         </DropDown>
         <SpaceH />
-        <RadioGroup
-          onSelect={(item: any) => setDirection(item)}
-          selected={direction}
-        >
+        <RadioGroup onSelect={setDirection} selected={direction}>
           <Radio title="Input" value="IN" />
           <Radio title="Output" value="OUT" />
         </RadioGroup>
         <SpaceH />
-        <SpaceFill/>
-        <Button
-          type={ButtonType.main}
-          onClick={() => {
-            dispatch(addOperation(name, terminatorRef, direction));
-            setName("");
-            setTerminatorRef(undefined);
-            setDirection(undefined);
-          }}
-        >
-          +
+        <SpaceFill />
+        <Button type={ButtonType.main} className="square" onClick={add}>
+          <AddIcon />
         </Button>
       </Line>
       <SpaceV />
       <List listStyle={ListStyle.Normal} className="fill-space">
         <IfEmpty>Add your first operation to see it here</IfEmpty>
         <Action>
-          <Button
-            type={ButtonType.main}
-            onClick={(e: any) => dispatch(removeOperation(e))}
-          >
-            -
+          <Button type={ButtonType.main} onClick={remove} className="square">
+            <RemoveIcon />
           </Button>
         </Action>
         {operations.map((item: any) => (
@@ -111,7 +107,6 @@ export default function OperationsPage(props: any) {
               label="Terminator starter/destiny"
               value={terminators.byId(item.terminator).name}
             />
-            
             <SpaceH />
             <StaticField
               className="one-twenty"
@@ -119,27 +114,11 @@ export default function OperationsPage(props: any) {
               value={item.direction}
             />
             <SpaceH />
-            <SpaceH />
           </Row>
         ))}
       </List>
       <SpaceV />
-      <Line align={LineAlignment.right}>
-        <ErrorBox visible={!!error} onDismiss={() => dispatch(dismissError())}>
-          {error}
-        </ErrorBox>
-        <SpaceH />
-        <Button type={ButtonType.secondary} onClick={() => {}}>
-          Skip
-        </Button>
-        <SpaceH />
-        <Button
-          type={ButtonType.main}
-          onClick={() => dispatch(goToOperationDetails())}
-        >
-          Next
-        </Button>
-      </Line>
+      <WizardNavigationControl error={error} nextAction={nextAction} />
     </div>
   );
 }
