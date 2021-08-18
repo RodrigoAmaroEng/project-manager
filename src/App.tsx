@@ -5,16 +5,19 @@ import StartPage from "./pages/start/start.page";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { listFiles } from "./pages/start/start.slice";
-import { setAuthenticatedUser } from "./App.actions";
+import { setAuthenticatedUser, setIsInitialized } from "./App.actions";
 import NewProjectPage from "./pages/new-project/new-project.page";
 
 function App() {
   const dispatch = useDispatch();
 
   const onConnectGDrive = (connStatus: any) => {
-    if (connStatus && connStatus.isSignedIn) {
-      dispatch(setAuthenticatedUser(connStatus.user));
-      dispatch(listFiles(GDriveApiInstance.listFiles));
+    if (connStatus) {
+      if (connStatus.isInitialized) dispatch(setIsInitialized());
+      if (connStatus.isSignedIn) {
+        dispatch(setAuthenticatedUser(connStatus.user));
+        dispatch(listFiles(GDriveApiInstance.listFiles));
+      }
     }
   };
   useEffect(() => {
@@ -28,7 +31,7 @@ function App() {
         <Route path="/project/new">
           <NewProjectPage />
         </Route>
-        <Route path="/">          
+        <Route path="/">
           <StartPage />
         </Route>
         <Route>Not found {window.location.pathname}</Route>

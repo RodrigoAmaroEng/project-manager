@@ -1,14 +1,29 @@
-.connector-login {
+.connector-login, .connector-login-loading{
   display:flex;
   align-items: center;
 }
-.connector-login img {
+.connector-login-loading {
+  background-color: var(--palette-color-light);
+  color: var(--palette-color-2-dark);
+  padding: 1rem;
+  font-size: 1.25rem;
+  border-radius: var(--radius-small);
+font-weight: bold
+}
+.connector-login img, .connector-login-loading img {
   width: 1rem;
   height: 1rem;
   background-color: var(--palette-color-light);
   border-radius: 50%;
   padding: 0.25rem;
   margin-right: 1rem;
+}
+.connector-login-loading img { 
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  background-color: var(--palette-color-1-medium);
+
 }
 .connector-login span {
   color: var(--palette-color-light);
@@ -19,9 +34,12 @@
 .connector-login-user {
   display:flex;
   align-items: center;
-  background-color: var(--palette-color-1-light);
+  background-color: var(--palette-color-2-light);
   padding: 1rem;
   border-radius: var(--radius-small);
+}
+.connector-login-user .static-field span {
+  color: var(--palette-color-light);
 }
 .connector-login-user img {
   width: 3rem;

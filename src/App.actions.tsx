@@ -1,5 +1,9 @@
 import { GoogleUser } from "./extras/gdrive-api";
 
+export function setIsInitialized() {
+  return { type: "app/set-gdrive-initialized" };
+}
+
 export function setAuthenticatedUser(user: GoogleUser) {
   return { type: "app/set-authenticated-user", payload: user };
 }

@@ -9,6 +9,10 @@ export default function appReducer(state = initialState, action: AnyAction) {
       state.project.fileInfo.connector.user = action.payload;
       return state;
     }
+    case "app/set-gdrive-initialized": {
+      state.project.fileInfo.connector.isLoading = false;
+      return state;
+    }
     case "app/authenticate": {
       GDriveApiInstance.signIn();
       return state

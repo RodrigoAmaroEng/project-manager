@@ -30,7 +30,10 @@ export default function StartPage() {
   const hasProjectSelected = useSelector(
     (state: any) => !!state.project.fileInfo.fileName
   );
-  const blockCreateButton = (!projectName || projectName?.length < 3);
+  const isLoading = useSelector(
+    (state: any) => state.project.fileInfo.connector.isLoading
+  );
+  const blockCreateButton = !projectName || projectName?.length < 3;
   useEffect(() => {
     dispatch(deleteExistingProject());
   }, []);
@@ -38,6 +41,8 @@ export default function StartPage() {
   return (
     <ModalWindow className="half-width half-height">
       <h1>Project modeler</h1>
+      <ConnectorLogin user={user} isLoading={isLoading} onClick={() => dispatch(authenticate())} />
+      <SpaceV />
       <TabLayout>
         <Tab title="Create new">
           <Field
@@ -75,11 +80,7 @@ export default function StartPage() {
             ))}
           </List>
           <SpaceV />
-          <ConnectorLogin
-            user={user}
-            onClick={() => dispatch(authenticate())}
-          />
-          <SpaceV />
+
           <Button
             onClick={() => {}}
             type={ButtonType.secondary}

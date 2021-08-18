@@ -81,6 +81,7 @@ class GDriveApi {
         this.onUpdateStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
       })
       .catch((e: any) => {
+        this.onUpdateStatus(false);
         console.log("Error");
         console.log(e);
       });
