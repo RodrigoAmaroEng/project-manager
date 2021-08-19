@@ -23,8 +23,8 @@ export function WelcomePage() {
         <br />
         Press, next to proceed.
       </p>
-      <WizardNavigationControl error="" nextAction={() => dispatch(goToStep(1))}/>
-    
+      <WizardNavigationControl error="" nextAction={goToStep(1)}/>
+  
     </div>
   );
 }

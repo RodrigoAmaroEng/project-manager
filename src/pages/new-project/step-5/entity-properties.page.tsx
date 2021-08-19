@@ -44,7 +44,7 @@ export default function EntityPropertiesPage(props: any) {
     setType(undefined);
   };
   const remove = (e: any) => dispatch(removeEntityProperty(e, entityId));
-  const nextAction = () => dispatch(goToPayloadProperties());
+  const nextAction = () => goToPayloadProperties();
 
   return (
     <div className="fill-space flex-col">

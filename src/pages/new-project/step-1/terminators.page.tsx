@@ -38,7 +38,7 @@ export default function TerminatorsPage(props: any) {
     setName("");
   };
   const remove = (e: any) => dispatch(removeTerminator(e));
-  const nextAction = () => dispatch(goToStep(2));
+  const nextAction = () => goToStep(2);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>

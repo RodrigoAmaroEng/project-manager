@@ -3,6 +3,8 @@ import Button, { ButtonType } from "../../components/Button";
 import ErrorBox from "../../components/ErrorBox";
 import { Line, LineAlignment, SpaceH } from "../../components/Utils";
 import { useDispatch } from "react-redux";
+import { saveAndFinishWizard } from "./new-project.reducer";
+import { GDriveApiInstance } from "../../extras/gdrive-api";
 
 export default function WizardNavigationControl(props: any) {
   const dispatch = useDispatch();
@@ -16,7 +18,7 @@ export default function WizardNavigationControl(props: any) {
         {props.error}
       </ErrorBox>
       <SpaceH />
-      <Button type={ButtonType.secondary} onClick={() => {}}>
+      <Button type={ButtonType.secondary} onClick={() => dispatch(saveAndFinishWizard(GDriveApiInstance.upload))}>
         Skip
       </Button>
       <SpaceH />

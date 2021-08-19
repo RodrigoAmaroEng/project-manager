@@ -21,13 +21,7 @@ export default function OperationDetailsPage(props: any) {
     RecordList.fromList(state.project.content.operations)
   );
 
-  const nextAction = () => {
-    dispatch(saveOperationDetail(id, { description, trigger, input, output }));
-    setDescription("");
-    setOutput("");
-    setInput("");
-    setTrigger("");
-  };
+  const nextAction = () => saveOperationDetail(id, { description, trigger, input, output });
 
   return (
     <div className="fill-space flex-col">

@@ -25,6 +25,8 @@ import { PropertyType } from "../../../extras/models";
 import WizardNavigationControl from "../WizardNavigationControl";
 import { EntityPropertyForm } from "./EntityPropertyForm";
 import { NewVariableForm } from "./NewVariableForm";
+import { GDriveApiInstance } from "../../../extras/gdrive-api";
+import { saveAndFinishWizard } from "../new-project.reducer";
 
 export default function PayloadsPage(props: any) {
   // INITIALIZERS
@@ -77,7 +79,7 @@ export default function PayloadsPage(props: any) {
     setProperty(undefined);
   };
   const remove = (e: any) => dispatch(removePayloadProperty(e, id));
-  const nextAction = () => {};
+  const nextAction = () => saveAndFinishWizard(GDriveApiInstance.upload);
 
   // SLICES
   const form =

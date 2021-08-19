@@ -46,7 +46,7 @@ export default function OperationsPage(props: any) {
     setDirection(undefined);
   };
   const remove = (e: any) => dispatch(removeOperation(e));
-  const nextAction = () => dispatch(goToOperationDetails());
+  const nextAction = () => goToOperationDetails();
 
   return (
     <div className="fill-space flex-col">
@@ -65,7 +65,7 @@ export default function OperationsPage(props: any) {
           selected={terminatorRef}
           className="one-third"
         >
-          <RenderList items={terminators} displayProperty="name"/>
+          <RenderList items={terminators} displayProperty="name" />
         </DropDown>
         <SpaceH />
         <RadioGroup onSelect={setDirection} selected={direction}>
