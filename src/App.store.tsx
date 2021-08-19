@@ -53,6 +53,7 @@ export const initialState = {
     },
   },
   start: {
+    selectedFileId: undefined,
     files: {
       list: [],
       isLoading: true,

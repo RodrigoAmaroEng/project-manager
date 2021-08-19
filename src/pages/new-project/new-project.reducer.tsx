@@ -16,6 +16,34 @@ function removeFromList(list: RecordList, item: any) {
   return RecordList.fromList(newList.remove(item));
 }
 
+class EmptyFieldError extends Error {}
+class DuplicatedEntry extends Error {}
+
+function includeSimpleRegistry(
+  storage: RecordList,
+  item: any,
+  validationMethod = (item: any) => item.name,
+  searchMethod = (target: any, iter: any) => iter.name === target.name
+) {
+  if (validationMethod(item)) {
+    if (!storage.find((it: any) => searchMethod(item, it))) {
+      return addToList(storage, item);
+    } else {
+      throw new DuplicatedEntry();
+    }
+  } else {
+    throw new EmptyFieldError();
+  }
+}
+
+function buildErrorMessage(error: Error, name: string, type: string): string {
+  if (error instanceof DuplicatedEntry)
+    return `The ${type} '${name}' already exists`;
+  else if (error instanceof EmptyFieldError)
+    return `${type} name cannot be empty`;
+  else return `Could not add the ${type} '${name}'`;
+}
+
 export default function newProjectReducer(
   state = initialState,
   action: AnyAction
@@ -28,18 +56,13 @@ export default function newProjectReducer(
     }
     case "new-project/add-terminator": {
       let item = action.payload;
-      if (item.name) {
-        let terminators = state.project.content.terminators;
-        if (!terminators.find((it: any) => it.name === item.name)) {
-          state.project.content.terminators = addToList(
-            state.project.content.terminators,
-            item
-          );
-        } else {
-          state.operation.error = `The terminator '${item.name}' already exists`;
-        }
-      } else {
-        state.operation.error = "Terminator name cannot be empty";
+      try {
+        state.project.content.terminators = includeSimpleRegistry(
+          state.project.content.terminators,
+          item
+        );
+      } catch (e) {
+        state.operation.error = buildErrorMessage(e, item.name, "Terminator");
       }
       return state;
     }
@@ -52,18 +75,17 @@ export default function newProjectReducer(
     }
     case "new-project/add-operation": {
       let item = action.payload;
-      if (item.name && item.terminator && item.direction) {
-        let terminators = state.project.content.operations;
-        if (!terminators.find((it: any) => it.name === item.name)) {
-          state.project.content.operations = addToList(
-            state.project.content.operations,
-            item
-          );
-        } else {
-          state.operation.error = `The terminator '${item.name}' already exists`;
-        }
-      } else {
-        state.operation.error = "One or more informations were not provided";
+      const validation = (item: any) =>
+        item.name && item.terminator && item.direction;
+      try {
+        state.project.content.operations = includeSimpleRegistry(
+          state.project.content.operations,
+          item,
+          validation
+        );
+      } catch(e) {
+        state.operation.error = buildErrorMessage(e, item.name, "Operation");
+
       }
       return state;
     }
@@ -72,7 +94,6 @@ export default function newProjectReducer(
         state.project.content.operations,
         action.payload
       );
-
       return state;
     }
     case "new-project/goto-operation-details": {
@@ -124,18 +145,13 @@ export default function newProjectReducer(
     }
     case "new-project/add-entity": {
       let item = action.payload;
-      if (item.name) {
-        let entities = state.project.content.entities;
-        if (!entities.find((it: any) => it.name === item.name)) {
-          state.project.content.entities = addToList(
-            state.project.content.entities,
-            item
-          );
-        } else {
-          state.operation.error = `The entity '${item.name}' already exists`;
-        }
-      } else {
-        state.operation.error = "Entity name cannot be empty";
+      try {
+        state.project.content.entities = includeSimpleRegistry(
+          state.project.content.entities,
+          item
+        );
+      } catch (e) {
+        state.operation.error = buildErrorMessage(e, item.name, "Entity");
       }
       return state;
     }
@@ -192,7 +208,13 @@ export default function newProjectReducer(
           ...state.project.content.payloads,
         ]).byId(action.payload.payloadId);
         let properties = payload.properties || [];
-        if (!properties.find((it: any) => it.entityId === item.entity.id && it.propertyId === item.property.id)) {
+        if (
+          !properties.find(
+            (it: any) =>
+              it.entityId === item.entity.id &&
+              it.propertyId === item.property.id
+          )
+        ) {
           properties = addToList(properties, {
             kind: "entity",
             entityId: item.entity.id,

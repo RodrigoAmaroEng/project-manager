@@ -2,12 +2,12 @@ import Button, { ButtonType } from "../../components/Button";
 import Circle from "../../components/Circle";
 import List, { IfEmpty, ListStyle, Row } from "../../components/List";
 import StaticField from "../../components/StaticField";
-import { Tab } from "../../components/TabLayout";
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedProject, setShowFolders } from "./start.slice";
+import { loadProjectFromStorage, setSelectedProject, setShowFolders } from "./start.slice";
 import { FOLDER_MIME_TYPE } from "../../extras/models";
 import Switcher from "../../components/Switcher";
+import { GDriveApiInstance } from "../../extras/gdrive-api";
 
 export function OpenProjectTab() {
   const dispatch = useDispatch();
@@ -19,10 +19,10 @@ export function OpenProjectTab() {
     (state: any) => state.start.files.showFolders
   );
   const availableProjects = useSelector(
-    (state: any) => state.start.files.list || []
+    (state: any) => (state.start.files.list || []).filter((p: any) => showFolders || p.mimeType !== FOLDER_MIME_TYPE)
   );
   const hasProjectSelected = useSelector(
-    (state: any) => !!state.project.fileInfo.fileName
+    (state: any) => !!state.start.selectedFileId
   );
 
   const onSelectProject = (items: any[]) => {
@@ -31,6 +31,7 @@ export function OpenProjectTab() {
     }
   };
   const onShowFolders = (checked: boolean) => dispatch(setShowFolders(checked));
+  const loadProject = () => dispatch(loadProjectFromStorage(GDriveApiInstance.download));
 
   const renderEntryInfo = (entry: any) =>
     entry.mimeType === FOLDER_MIME_TYPE ? (
@@ -56,7 +57,7 @@ export function OpenProjectTab() {
             : "There is no project in your account"}
         </IfEmpty>
         {availableProjects
-          .filter((p: any) => showFolders || p.mimeType !== FOLDER_MIME_TYPE)
+          
           .map((project: any) => (
             <Row item={project}>
               <Circle>P</Circle>
@@ -80,8 +81,8 @@ export function OpenProjectTab() {
       </Line>
       <SpaceV />
       <Button
-        onClick={() => {}}
-        type={ButtonType.secondary}
+        onClick={loadProject}
+        type={ButtonType.main}
         disabled={!hasProjectSelected}
       >
         Load project

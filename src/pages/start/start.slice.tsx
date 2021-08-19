@@ -37,6 +37,17 @@ export const createProject = createAsyncThunk(
   }
 );
 
+export const loadProjectFromStorage = createAsyncThunk(
+  "start/load-project",
+  async (service: (fileId: string) => void, thunkAPI: any) => {
+    if (!thunkAPI.getState().context.connector.isAuthenticated) {
+      throw new Error("User is not authenticated");
+    }
+    let fileContent = await service(thunkAPI.getState().start.selectedFileId);
+    return fileContent;
+  }
+);
+
 export default function startReducer(state = initialState, action: AnyAction) {
   switch (action.type) {
     case "start/set-project-name": {
@@ -57,9 +68,7 @@ export default function startReducer(state = initialState, action: AnyAction) {
       return { ...state, error: action.error.message };
     }
     case "start/set-selected-project": {
-      state.project.fileInfo.fileName = action.payload.name;
-      state.project.fileInfo.fileId = action.payload.id;
-      state.project.fileInfo.lastModified = action.payload.modifiedTime;
+      state.start.selectedFileId = action.payload.id;
       return state;
     }
     case "start/files/fulfilled": {
@@ -75,6 +84,21 @@ export default function startReducer(state = initialState, action: AnyAction) {
     case "start/files/rejected": {
       state.start.files.isLoading = false;
       state.start.files.list = [];
+      return { ...state, error: action.error.message };
+    }
+
+    case "start/load-project/fulfilled": {
+      state.start.files.isLoading = false;
+      state.project = JSON.parse(action.payload.body);
+      history.push("/project/stored");
+      return state;
+    }
+    case "start/load-project/pending": {
+      state.start.files.isLoading = true;
+      return state;
+    }
+    case "start/load-project/rejected": {
+      state.start.files.isLoading = false;
       return { ...state, error: action.error.message };
     }
     default:

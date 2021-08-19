@@ -110,7 +110,7 @@ class GDriveApi {
         fields: "nextPageToken, files(id, name, mimeType, modifiedTime)",
         pageToken,
         q:
-          "'root' in parents and (name contains '.uml.json' or mimeType = '" +
+          "trashed = false and 'root' in parents and (name contains '.uml.json' or mimeType = '" +
           FOLDER_MIME_TYPE +
           "')",
       })
@@ -144,15 +144,17 @@ class GDriveApi {
   }
 
   download(fileId: string) {
-    return gapi.client.drive.files.get({ fileId, alt: "media" });
+    return gapi.client.drive.files.get(
+      { fileId, alt:"media" }
+    );
   }
 
   upload(fileName: string, fileContent: string, fileId: string) {
     var file = new Blob([fileContent], { type: "application/json" });
     var metadata = {
-      name: fileName.replace(/\s/g,"-") + ".uml.json", // Filename at Google Drive
+      name: fileName.replace(/\s/g, "-") + ".uml.json", // Filename at Google Drive
       mimeType: "application/json", // mimeType at Google Drive
-      parents: ["root"]
+      parents: ["root"],
     };
 
     var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
