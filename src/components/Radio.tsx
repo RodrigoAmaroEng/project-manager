@@ -32,12 +32,13 @@ interface RadioGroupProps {
 export function RadioGroup(props: RadioGroupProps) {
   const [selected, setSelected] = useState(props.selected);
   useEffect(() => {
-    setSelected(props.selected)
-  }, [props.selected])
+    setSelected(props.selected);
+  }, [props.selected]);
   return (
     <div className="radio-group">
-      {props.children.map((radio: any) => (
+      {props.children.map((radio: any, index: number) => (
         <div
+          key={index}
           onClick={() => {
             setSelected(radio.props.value);
             props.onSelect(radio.props.value);

@@ -89,6 +89,7 @@ export default function List(props: ListProps) {
       .filter((row: any) => row.type && row.type.name === "Row")
       .map((row: any, index: number) => (
         <div
+          key={index}
           className={`row${markSelected(index)}`}
           onClick={() => onClick(row, index)}
         >

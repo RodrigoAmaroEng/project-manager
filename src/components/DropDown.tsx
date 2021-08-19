@@ -68,6 +68,7 @@ export default function DropDown(props: any) {
         <div className="dropdown-option-scroller">
           {children.map((child: any, index: number) =>
             React.cloneElement(child, {
+              key: index,
               onClick: () => {
                 setSelectedIndex(index);
                 props.onSelect(child.props.item);

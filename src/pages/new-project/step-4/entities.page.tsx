@@ -61,8 +61,8 @@ export default function EntitiesPage(props: any) {
             <RemoveIcon />
           </Button>
         </Action>
-        {entities.map((entity: any) => (
-          <Row item={entity}>
+        {entities.map((entity: any, index: number) => (
+          <Row item={entity} key={index}>
             <Circle>
               <EntityIcon />
             </Circle>

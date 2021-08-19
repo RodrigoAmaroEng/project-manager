@@ -4,7 +4,11 @@ import List, { IfEmpty, ListStyle, Row } from "../../components/List";
 import StaticField from "../../components/StaticField";
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
-import { loadProjectFromStorage, setSelectedProject, setShowFolders } from "./start.slice";
+import {
+  loadProjectFromStorage,
+  setSelectedProject,
+  setShowFolders,
+} from "./start.slice";
 import { FOLDER_MIME_TYPE } from "../../extras/models";
 import Switcher from "../../components/Switcher";
 import { GDriveApiInstance } from "../../extras/gdrive-api";
@@ -18,8 +22,10 @@ export function OpenProjectTab() {
   const showFolders = useSelector(
     (state: any) => state.start.files.showFolders
   );
-  const availableProjects = useSelector(
-    (state: any) => (state.start.files.list || []).filter((p: any) => showFolders || p.mimeType !== FOLDER_MIME_TYPE)
+  const availableProjects = useSelector((state: any) =>
+    (state.start.files.list || []).filter(
+      (p: any) => showFolders || p.mimeType !== FOLDER_MIME_TYPE
+    )
   );
   const hasProjectSelected = useSelector(
     (state: any) => !!state.start.selectedFileId
@@ -31,7 +37,8 @@ export function OpenProjectTab() {
     }
   };
   const onShowFolders = (checked: boolean) => dispatch(setShowFolders(checked));
-  const loadProject = () => dispatch(loadProjectFromStorage(GDriveApiInstance.download));
+  const loadProject = () =>
+    dispatch(loadProjectFromStorage(GDriveApiInstance.download));
 
   const renderEntryInfo = (entry: any) =>
     entry.mimeType === FOLDER_MIME_TYPE ? (
@@ -56,20 +63,18 @@ export function OpenProjectTab() {
             ? "Loading Files"
             : "There is no project in your account"}
         </IfEmpty>
-        {availableProjects
-          
-          .map((project: any) => (
-            <Row item={project}>
-              <Circle>P</Circle>
-              <SpaceH />
-              <StaticField
-                className="fill-space"
-                label="File name"
-                value={project.name}
-              />
-              {renderEntryInfo}
-            </Row>
-          ))}
+        {availableProjects.map((project: any, index: number) => (
+          <Row item={project} key={index}>
+            <Circle>P</Circle>
+            <SpaceH />
+            <StaticField
+              className="fill-space"
+              label="File name"
+              value={project.name}
+            />
+            {renderEntryInfo(project)}
+          </Row>
+        ))}
       </List>
       <SpaceV />
       <Line>

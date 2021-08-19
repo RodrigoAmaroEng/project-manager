@@ -95,8 +95,8 @@ export default function OperationsPage(props: any) {
             <RemoveIcon />
           </Button>
         </Action>
-        {operations.map((item: any) => (
-          <Row item={item}>
+        {operations.map((item: any, index: number) => (
+          <Row item={item} key={index}>
             <Circle>
               <OperationIcon />
             </Circle>

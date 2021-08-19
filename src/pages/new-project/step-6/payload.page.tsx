@@ -152,10 +152,10 @@ console.log(properties)
             <RemoveIcon />
           </Button>
         </Action>
-        {properties.map((item: any) => (
-          <Row item={item}>
+        {properties.map((item: any, index: number) => (
+          <Row item={item} key={index}>
             <Circle>
-              {item.kind === "entity" ? <EntityIcon /> : <VariableIcon />}
+              {item.kind === PropertyType.EntityProperty ? <EntityIcon /> : <VariableIcon />}
             </Circle>
             <SpaceH />
             {rowDescription(item)}

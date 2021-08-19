@@ -67,8 +67,8 @@ export default function TerminatorsPage(props: any) {
             <RemoveIcon />
           </Button>
         </Action>
-        {terminators.map((terminator: any) => (
-          <Row item={terminator}>
+        {terminators.map((terminator: any, index: number) => (
+          <Row item={terminator} key={index}>
             <Circle>
               <TerminatorIcon />
             </Circle>
