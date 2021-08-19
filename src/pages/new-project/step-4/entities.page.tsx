@@ -28,7 +28,7 @@ export default function EntitiesPage(props: any) {
   const entities = useSelector((state: any) => state.project.content.entities);
   const error = useSelector((state: any) => state.operation.error);
 
-  const add = () => addEntity(name);
+  const add = () => dispatch(addEntity(name));
   const remove = (e: any) => dispatch(removeEntity(e));
   const nextAction = () => dispatch(goToEntityProperties());
 

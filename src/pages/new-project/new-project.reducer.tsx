@@ -4,6 +4,7 @@ import history from "../../navigation/history";
 import "../../extras/extension-functions";
 import { RecordList } from "../../extras/extension-functions";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { PropertyType } from "../../extras/models";
 
 export const saveAndFinishWizard = createAsyncThunk(
   "new-project/save-and-finish-wizard",
@@ -59,7 +60,7 @@ function buildErrorMessage(error: Error, name: string, type: string): string {
   if (error instanceof DuplicatedEntry)
     return `The ${type} '${name}' already exists`;
   else if (error instanceof EmptyFieldError)
-    return `${type} name cannot be empty`;
+    return `One or more fields were not informed`;
   else return `Could not add the ${type} '${name}'`;
 }
 
@@ -69,7 +70,6 @@ export default function newProjectReducer(
 ) {
   switch (action.type) {
     case "new-project/go-to-step": {
-      console.log(action.payload);
       history.push("/project/new/" + action.payload);
       return state;
     }
@@ -188,23 +188,20 @@ export default function newProjectReducer(
     }
     case "new-project/add-entity-property": {
       let item = action.payload;
-      if (item.name) {
-        let entity = RecordList.fromList([
-          ...state.project.content.entities,
-        ]).byId(action.payload.entityId);
-        let properties = entity.properties || [];
-        if (!properties.find((it: any) => it.name === item.name)) {
-          properties = addToList(properties, {
-            name: item.name,
-            type: item.type,
-          });
-          entity.properties = properties;
-        } else {
-          state.operation.error = `The entity property '${item.name}' already exists`;
-        }
-      } else {
-        state.operation.error = "Entity property name cannot be empty";
+      let entity = RecordList.fromList([
+        ...state.project.content.entities,
+      ]).byId(action.payload.entityId);
+      let properties = entity.properties || [];
+      try {
+        entity.properties = includeSimpleRegistry(properties, item);
+      } catch (e) {
+        state.operation.error = buildErrorMessage(
+          e,
+          item.name,
+          "entity property"
+        );
       }
+
       return state;
     }
     case "new-project/remove-entity-property": {
@@ -221,51 +218,48 @@ export default function newProjectReducer(
     }
     case "new-project/add-payload-entity-property": {
       let item = action.payload;
-      if (item.entity && item.property) {
-        let payload = RecordList.fromList([
-          ...state.project.content.payloads,
-        ]).byId(action.payload.payloadId);
-        let properties = payload.properties || [];
-        if (
-          !properties.find(
-            (it: any) =>
-              it.entityId === item.entity.id &&
-              it.propertyId === item.property.id
-          )
-        ) {
-          properties = addToList(properties, {
-            kind: "entity",
-            entityId: item.entity.id,
-            propertyId: item.property.id,
-          });
-          payload.properties = properties;
-        } else {
-          state.operation.error = `The selected property is already part of this payload`;
-        }
-      } else {
-        state.operation.error = "One or more fields were not informed";
+      let payload = RecordList.fromList([
+        ...state.project.content.payloads,
+      ]).byId(action.payload.payloadId);
+      let properties = payload.properties || [];
+      try {
+        item.kind = PropertyType.EntityProperty;
+        payload.properties = includeSimpleRegistry(
+          properties,
+          item,
+          (item) => item.name && item.type,
+          (target, iter) =>
+            iter.entityId === target.entity.id &&
+            iter.propertyId === target.property.id
+        );
+      } catch (e) {
+        state.operation.error = buildErrorMessage(
+          e,
+          item.name,
+          "selected property"
+        );
       }
       return state;
     }
     case "new-project/add-payload-new-property": {
       let item = action.payload;
-      if (item.name && item.type) {
-        let payload = RecordList.fromList([
-          ...state.project.content.payloads,
-        ]).byId(action.payload.payloadId);
-        let properties = payload.properties || [];
-        if (!properties.find((it: any) => it.name === item.name)) {
-          properties = addToList(properties, {
-            kind: "variable",
-            name: item.name,
-            type: item.type,
-          });
-          payload.properties = properties;
-        } else {
-          state.operation.error = `The payload property '${item.name}' already exists`;
-        }
-      } else {
-        state.operation.error = "One or more fields were not informed";
+      let payload = RecordList.fromList([
+        ...state.project.content.payloads,
+      ]).byId(action.payload.payloadId);
+      let properties = payload.properties || [];
+      try {
+        item.kind = PropertyType.Variable;
+        payload.properties = includeSimpleRegistry(
+          properties,
+          item,
+          (item) => item.name && item.type
+        );
+      } catch (e) {
+        state.operation.error = buildErrorMessage(
+          e,
+          item.name,
+          "payload property"
+        );
       }
       return state;
     }
