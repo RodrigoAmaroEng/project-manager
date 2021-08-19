@@ -223,6 +223,8 @@ export default function newProjectReducer(
     }
     case "new-project/add-payload-entity-property": {
       let item = action.payload;
+      let name = item.propertyName;
+      delete item.propertyName;
       let payload = RecordList.fromList([
         ...state.project.content.payloads,
       ]).byId(action.payload.payloadId);
@@ -239,11 +241,7 @@ export default function newProjectReducer(
         );
         state.operation.clearFields = true;
       } catch (e) {
-        state.operation.error = buildErrorMessage(
-          e,
-          item.name,
-          "selected property"
-        );
+        state.operation.error = buildErrorMessage(e, name, "selected property");
       }
       return state;
     }
