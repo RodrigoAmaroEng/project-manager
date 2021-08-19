@@ -1,7 +1,6 @@
 import Button, { ButtonType } from "../../components/Button";
 import Field from "../../components/Field";
 import StaticField from "../../components/StaticField";
-import { Tab } from "../../components/TabLayout";
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,7 +15,7 @@ export function NewProjectTab() {
   const blockCreateButton = !projectName || projectName?.length < 3;
 
   return (
-    <Tab title="Create new">
+    <div className="flex-col">
       <Field
         placeholder="Project name"
         onChange={(name: string) => dispatch(setProjectName(name))} />
@@ -36,6 +35,6 @@ export function NewProjectTab() {
       >
         Create
       </Button>
-    </Tab>
+    </div>
   );
 }

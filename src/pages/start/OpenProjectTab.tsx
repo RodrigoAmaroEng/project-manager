@@ -44,7 +44,7 @@ export function OpenProjectTab() {
     );
 
   return (
-    <Tab title="Open existing">
+    <div className="flex-col fill-space">
       <List
         className="fill-space"
         listStyle={ListStyle.SingleSelect}
@@ -87,6 +87,6 @@ export function OpenProjectTab() {
         Load project
       </Button>
       <SpaceH />
-    </Tab>
+    </div>
   );
 }

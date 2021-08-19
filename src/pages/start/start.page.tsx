@@ -1,5 +1,5 @@
 import ModalWindow from "../../components/Modal";
-import { TabLayout } from "../../components/TabLayout";
+import { Tab, TabLayout } from "../../components/TabLayout";
 import { SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticate, deleteExistingProject } from "../../App.actions";
@@ -33,8 +33,12 @@ export default function StartPage() {
       />
       <SpaceV />
       <TabLayout>
-        <NewProjectTab />
-        <OpenProjectTab />
+        <Tab title="Create new">
+          <NewProjectTab />
+        </Tab>
+        <Tab title="Open existing">
+          <OpenProjectTab />
+        </Tab>
       </TabLayout>
     </ModalWindow>
   );
