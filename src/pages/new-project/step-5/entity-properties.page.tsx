@@ -15,7 +15,7 @@ import {
 } from "../new-project.actions";
 import { useState } from "react";
 import Circle from "../../../components/Circle";
-import DropDown, { Option } from "../../../components/DropDown";
+import DropDown, { RenderEnum } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
 import { ReactComponent as PropertyIcon } from "../../../img/property-icon.svg";
 import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
@@ -53,11 +53,7 @@ export default function EntityPropertiesPage(props: any) {
         <Field value={name} placeholder="Operation name" onChange={setName} />
         <SpaceH />
         <DropDown onSelect={setType} selected={type} className="fill-space">
-          {Object.values(DataTypes).map((key) => (
-            <Option item={key}>
-              <h6>{key}</h6>
-            </Option>
-          ))}
+          <RenderEnum enum={DataTypes}/>
         </DropDown>
         <SpaceH />
         <Button type={ButtonType.main} onClick={add} className="square">

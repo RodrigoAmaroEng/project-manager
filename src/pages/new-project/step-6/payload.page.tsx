@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { ButtonType } from "../../../components/Button";
-import DropDown, { Option } from "../../../components/DropDown";
+import DropDown, { RenderEnum } from "../../../components/DropDown";
 import { ReactComponent as EntityIcon } from "../../../img/entity-icon.svg";
 import { ReactComponent as VariableIcon } from "../../../img/informacion.svg";
 import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
@@ -27,16 +27,18 @@ import { EntityPropertyForm } from "./EntityPropertyForm";
 import { NewVariableForm } from "./NewVariableForm";
 
 export default function PayloadsPage(props: any) {
+  // INITIALIZERS
   const dispatch = useDispatch();
-
   let id = parseInt(props.match.params.id);
 
+  // STATES
   const [name, setName] = useState(undefined as any);
   const [type, setType] = useState(undefined as any);
   const [entity, setEntity] = useState(undefined as any);
   const [property, setProperty] = useState(undefined as any);
   const [kind, setKind] = useState(undefined);
 
+  // SELECTORS
   const payloads = useSelector((state: any) =>
     RecordList.fromList(state.project.content.payloads)
   );
@@ -47,6 +49,7 @@ export default function PayloadsPage(props: any) {
   const error = useSelector((state: any) => state.operation.error);
   const properties = thisPayload.properties || [];
 
+  // CALLBACKS
   const onSelect = (item: any) => {
     setKind(item);
     setName(undefined);
@@ -74,30 +77,56 @@ export default function PayloadsPage(props: any) {
     setProperty(undefined);
   };
   const remove = (e: any) => dispatch(removePayloadProperty(e, id));
-  const nextAction = () => {}
+  const nextAction = () => {};
+
+  // SLICES
+  const form =
+    kind === PropertyType.EntityProperty ? (
+      <EntityPropertyForm
+        onChange={onChangeEntity}
+        value={{ entity, property }}
+      />
+    ) : kind === PropertyType.Variable ? (
+      <NewVariableForm onChange={onChangeVariable} value={{ name, type }} />
+    ) : (
+      <Line className="fill-space"></Line>
+    );
+  const rowDescription = (item: any) =>
+    item.kind === "entity" ? (
+      <Line className="fill-space">
+        <StaticField
+          className="half"
+          label="Entity name"
+          value={entities.byId(item.entityId).name}
+        />
+        <SpaceH />
+        <StaticField
+          className="half"
+          label="Property name"
+          value={
+            RecordList.fromList(entities.byId(item.entityId).properties).byId(
+              item.propertyId
+            ).name
+          }
+        />
+      </Line>
+    ) : (
+      <Line className="fill-space">
+        <StaticField className="half" label="Variable name" value={item.name} />
+        <SpaceH />
+        <StaticField className="half" label="Variable type" value={item.type} />
+      </Line>
+    );
 
   return (
     <div className="fill-space flex-col">
       <h1>Step 6 - "{thisPayload.name}" properties</h1>
       <Line>
         <DropDown onSelect={onSelect} selected={kind} className="one-fourth">
-          {Object.values(PropertyType).map((key) => (
-            <Option item={key}>
-              <h6>{key}</h6>
-            </Option>
-          ))}
+          <RenderEnum enum={PropertyType} />
         </DropDown>
         <SpaceH />
-        {kind === PropertyType.EntityProperty ? (
-          <EntityPropertyForm
-            onChange={onChangeEntity}
-            value={{ entity, property }}
-          />
-        ) : kind === PropertyType.Variable ? (
-          <NewVariableForm onChange={onChangeVariable} value={{ name, type }} />
-        ) : (
-          <Line className="fill-space"></Line>
-        )}
+        {form}
         <SpaceH />
         <Button type={ButtonType.main} onClick={add} className="square">
           <AddIcon />
@@ -117,39 +146,7 @@ export default function PayloadsPage(props: any) {
               {item.kind === "entity" ? <EntityIcon /> : <VariableIcon />}
             </Circle>
             <SpaceH />
-            {item.kind === "entity" ? (
-              <Line className="fill-space">
-                <StaticField
-                  className="half"
-                  label="Entity name"
-                  value={entities.byId(item.entityId).name}
-                />
-                <SpaceH />
-                <StaticField
-                  className="half"
-                  label="Property name"
-                  value={
-                    RecordList.fromList(
-                      entities.byId(item.entityId).properties
-                    ).byId(item.propertyId).name
-                  }
-                />
-              </Line>
-            ) : (
-              <Line className="fill-space">
-                <StaticField
-                  className="half"
-                  label="Variable name"
-                  value={item.name}
-                />
-                <SpaceH />
-                <StaticField
-                  className="half"
-                  label="Variable type"
-                  value={item.type}
-                />
-              </Line>
-            )}
+            {rowDescription(item)}
             <SpaceH />
           </Row>
         ))}

@@ -19,7 +19,7 @@ import {
 import { useState } from "react";
 import Circle from "../../../components/Circle";
 import { Radio, RadioGroup } from "../../../components/Radio";
-import DropDown, { Option } from "../../../components/DropDown";
+import DropDown, { Option, RenderList } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
 import StaticField from "../../../components/StaticField";
 import WizardNavigationControl from "../WizardNavigationControl";
@@ -65,11 +65,7 @@ export default function OperationsPage(props: any) {
           selected={terminatorRef}
           className="one-third"
         >
-          {terminators.map((item: any) => (
-            <Option item={item}>
-              <h6>{item.name}</h6>
-            </Option>
-          ))}
+          <RenderList items={terminators} displayProperty="name"/>
         </DropDown>
         <SpaceH />
         <RadioGroup onSelect={setDirection} selected={direction}>

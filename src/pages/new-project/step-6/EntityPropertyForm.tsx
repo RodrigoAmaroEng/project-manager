@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import DropDown, { Option } from "../../../components/DropDown";
+import DropDown, { Option, RenderList } from "../../../components/DropDown";
 import { Line, SpaceH } from "../../../components/Utils";
 import { RecordList } from "../../../extras/extension-functions";
 
@@ -18,11 +18,7 @@ export function EntityPropertyForm(props: any) {
         selected={props.value?.entity}
         className="half"
       >
-        {entities.map((it: any) => (
-          <Option item={it}>
-            <h6>{it.name}</h6>
-          </Option>
-        ))}
+        <RenderList items={entities} displayProperty="name"/>
       </DropDown>
       <SpaceH />
       <DropDown
@@ -32,11 +28,7 @@ export function EntityPropertyForm(props: any) {
         onRender={(item: any) => item.name}
         className="half"
       >
-        {properties.map((it: any) => (
-          <Option item={it}>
-            <h6>{it.name}</h6>
-          </Option>
-        ))}
+        <RenderList items={properties} displayProperty="name"/>
       </DropDown>
     </Line>
   );
