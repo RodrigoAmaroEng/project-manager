@@ -23,6 +23,8 @@ import DropDown, { Option, RenderList } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
 import StaticField from "../../../components/StaticField";
 import WizardNavigationControl from "../WizardNavigationControl";
+import { useEffect } from "react";
+import { fieldsClear } from "../../../App.actions";
 
 export default function OperationsPage(props: any) {
   const dispatch = useDispatch();
@@ -38,13 +40,20 @@ export default function OperationsPage(props: any) {
     RecordList.fromList(state.project.content.terminators)
   );
   const error = useSelector((state: any) => state.operation.error);
+  const shouldClearFields = useSelector(
+    (state: any) => state.operation.clearFields
+  );
 
-  const add = () => {
-    dispatch(addOperation(name, terminatorRef, direction));
-    setName("");
-    setTerminatorRef(undefined);
-    setDirection(undefined);
-  };
+  useEffect(() => {
+    if (shouldClearFields) {
+      setName("");
+      setTerminatorRef(undefined);
+      setDirection(undefined);
+      dispatch(fieldsClear());
+    }
+  }, [shouldClearFields]);
+
+  const add = () => dispatch(addOperation(name, terminatorRef, direction));
   const remove = (e: any) => dispatch(removeOperation(e));
   const nextAction = () => goToOperationDetails();
 

@@ -13,13 +13,14 @@ import {
   goToEntityProperties,
   removeEntity,
 } from "../new-project.actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Circle from "../../../components/Circle";
 import { ReactComponent as EntityIcon } from "../../../img/entity-icon.svg";
 import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
 import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 import StaticField from "../../../components/StaticField";
 import WizardNavigationControl from "../WizardNavigationControl";
+import { fieldsClear } from "../../../App.actions";
 export default function EntitiesPage(props: any) {
   const dispatch = useDispatch();
 
@@ -27,6 +28,16 @@ export default function EntitiesPage(props: any) {
 
   const entities = useSelector((state: any) => state.project.content.entities);
   const error = useSelector((state: any) => state.operation.error);
+  const shouldClearFields = useSelector(
+    (state: any) => state.operation.clearFields
+  );
+
+  useEffect(() => {
+    if (shouldClearFields) {
+      setName("");
+      dispatch(fieldsClear());
+    }
+  }, [shouldClearFields]);
 
   const add = () => dispatch(addEntity(name));
   const remove = (e: any) => dispatch(removeEntity(e));

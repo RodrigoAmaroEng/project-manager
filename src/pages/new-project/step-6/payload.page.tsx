@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { ButtonType } from "../../../components/Button";
 import DropDown, { RenderEnum } from "../../../components/DropDown";
@@ -27,6 +27,7 @@ import { EntityPropertyForm } from "./EntityPropertyForm";
 import { NewVariableForm } from "./NewVariableForm";
 import { GDriveApiInstance } from "../../../extras/gdrive-api";
 import { saveAndFinishWizard } from "../new-project.reducer";
+import { fieldsClear } from "../../../App.actions";
 
 export default function PayloadsPage(props: any) {
   // INITIALIZERS
@@ -50,6 +51,20 @@ export default function PayloadsPage(props: any) {
   const thisPayload = payloads.byId(id);
   const error = useSelector((state: any) => state.operation.error);
   const properties = thisPayload.properties || [];
+  const shouldClearFields = useSelector(
+    (state: any) => state.operation.clearFields
+  );
+console.log(properties)
+  useEffect(() => {
+    if (shouldClearFields) {
+      setKind(undefined);
+      setName(undefined);
+      setType(undefined);
+      setEntity(undefined);
+      setProperty(undefined);
+      dispatch(fieldsClear());
+    }
+  }, [shouldClearFields]);
 
   // CALLBACKS
   const onSelect = (item: any) => {
@@ -72,11 +87,6 @@ export default function PayloadsPage(props: any) {
       dispatch(addPayloadEntityProperty(id, entity, property));
     else if (kind === PropertyType.Variable)
       dispatch(addPayloadNewProperty(id, name, type));
-    setKind(undefined);
-    setName(undefined);
-    setType(undefined);
-    setEntity(undefined);
-    setProperty(undefined);
   };
   const remove = (e: any) => dispatch(removePayloadProperty(e, id));
   const nextAction = () => saveAndFinishWizard(GDriveApiInstance.upload);
@@ -94,7 +104,7 @@ export default function PayloadsPage(props: any) {
       <Line className="fill-space"></Line>
     );
   const rowDescription = (item: any) =>
-    item.kind === "entity" ? (
+    item.kind === PropertyType.EntityProperty ? (
       <Line className="fill-space">
         <StaticField
           className="half"

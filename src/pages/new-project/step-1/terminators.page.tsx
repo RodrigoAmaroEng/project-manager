@@ -19,9 +19,10 @@ import { ReactComponent as TerminatorIcon } from "../../../img/terminator-icon.s
 import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
 import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 
-
 import StaticField from "../../../components/StaticField";
 import WizardNavigationControl from "../WizardNavigationControl";
+import { useEffect } from "react";
+import { fieldsClear } from "../../../App.actions";
 
 export default function TerminatorsPage(props: any) {
   const dispatch = useDispatch();
@@ -32,11 +33,19 @@ export default function TerminatorsPage(props: any) {
     (state: any) => state.project.content.terminators
   );
   const error = useSelector((state: any) => state.operation.error);
+  const shouldClearFields = useSelector(
+    (state: any) => state.operation.clearFields
+  );
 
-  const add = () => {
-    dispatch(addTerminator(name));
-    setName("");
-  };
+  useEffect(() => {
+    if (shouldClearFields) {
+      setName("");
+      dispatch(fieldsClear());
+    }
+  }, [shouldClearFields]);
+
+  const add = () => dispatch(addTerminator(name));
+
   const remove = (e: any) => dispatch(removeTerminator(e));
   const nextAction = () => goToStep(2);
 
@@ -47,7 +56,7 @@ export default function TerminatorsPage(props: any) {
         <Field value={name} placeholder="Terminator name" onChange={setName} />
         <SpaceFill />
         <Button type={ButtonType.main} onClick={add} className="square">
-          <AddIcon/>
+          <AddIcon />
         </Button>
       </Line>
       <SpaceV />
@@ -55,7 +64,7 @@ export default function TerminatorsPage(props: any) {
         <IfEmpty>Add your first terminator to see it here</IfEmpty>
         <Action>
           <Button type={ButtonType.main} onClick={remove} className="square">
-            <RemoveIcon/>
+            <RemoveIcon />
           </Button>
         </Action>
         {terminators.map((terminator: any) => (

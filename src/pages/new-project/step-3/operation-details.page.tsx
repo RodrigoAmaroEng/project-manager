@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { fieldsClear } from "../../../App.actions";
 import Field from "../../../components/Field";
 import { SpaceFill, SpaceV } from "../../../components/Utils";
 import { RecordList } from "../../../extras/extension-functions";
@@ -20,8 +21,22 @@ export default function OperationDetailsPage(props: any) {
   const operations = useSelector((state: any) =>
     RecordList.fromList(state.project.content.operations)
   );
+  const shouldClearFields = useSelector(
+    (state: any) => state.operation.clearFields
+  );
 
-  const nextAction = () => saveOperationDetail(id, { description, trigger, input, output });
+  useEffect(() => {
+    if (shouldClearFields) {
+      setDescription("");
+      setTrigger("");
+      setInput("");
+      setOutput("");
+      dispatch(fieldsClear());
+    }
+  }, [shouldClearFields]);
+
+  const nextAction = () =>
+    saveOperationDetail(id, { description, trigger, input, output });
 
   return (
     <div className="fill-space flex-col">

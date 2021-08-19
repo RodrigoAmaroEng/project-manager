@@ -6,11 +6,11 @@ import WizardNavigationControl from "../WizardNavigationControl";
 
 export function WelcomePage() {
   const dispatch = useDispatch();
-
+const nextAction = () => goToStep(1)
   return (
-    <div className="flex-column">
+    <div className="flex-col fill-space">
       <h1>New project wizard</h1>
-      <p style={{ flexGrow: 1 }}>
+      <p className="fill-space">
         Welcome to the project wizard!
         <br />
         <br />
@@ -23,7 +23,7 @@ export function WelcomePage() {
         <br />
         Press, next to proceed.
       </p>
-      <WizardNavigationControl error="" nextAction={goToStep(1)}/>
+      <WizardNavigationControl error="" nextAction={nextAction}/>
   
     </div>
   );

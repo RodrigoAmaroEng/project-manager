@@ -25,6 +25,10 @@ export default function appReducer(state = initialState, action: AnyAction) {
       window.sessionStorage.clear();
       return initialState;
     }
+    case "app/fields-were-cleared": {
+      state.operation.clearFields = false
+      return state
+    }
     default: {
       return state;
     }

@@ -16,7 +16,10 @@ export function dismissError() {
   return { type: "app/dismiss-error" };
 }
 
-
 export function deleteExistingProject() {
   return { type: "app/delete-existing-project" };
+}
+
+export function fieldsClear() {
+  return { type: "app/fields-were-cleared" };
 }

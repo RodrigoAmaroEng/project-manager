@@ -80,6 +80,7 @@ export default function newProjectReducer(
           state.project.content.terminators,
           item
         );
+        state.operation.clearFields = true;
       } catch (e) {
         state.operation.error = buildErrorMessage(e, item.name, "Terminator");
       }
@@ -102,6 +103,7 @@ export default function newProjectReducer(
           item,
           validation
         );
+        state.operation.clearFields = true;
       } catch (e) {
         state.operation.error = buildErrorMessage(e, item.name, "Operation");
       }
@@ -157,6 +159,7 @@ export default function newProjectReducer(
           ].id;
       }
       state.project.content.operations[index] = item;
+      state.operation.clearFields = true;
       if (index + 1 == operations.length) history.push("/project/new/4");
       else history.push("/project/new/operations/" + operations[index + 1].id);
       return state;
@@ -168,6 +171,7 @@ export default function newProjectReducer(
           state.project.content.entities,
           item
         );
+        state.operation.clearFields = true;
       } catch (e) {
         state.operation.error = buildErrorMessage(e, item.name, "Entity");
       }
@@ -194,6 +198,7 @@ export default function newProjectReducer(
       let properties = entity.properties || [];
       try {
         entity.properties = includeSimpleRegistry(properties, item);
+        state.operation.clearFields = true;
       } catch (e) {
         state.operation.error = buildErrorMessage(
           e,
@@ -227,11 +232,12 @@ export default function newProjectReducer(
         payload.properties = includeSimpleRegistry(
           properties,
           item,
-          (item) => item.name && item.type,
+          (item) => item.entityId && item.propertyId,
           (target, iter) =>
-            iter.entityId === target.entity.id &&
-            iter.propertyId === target.property.id
+            iter.entityId === target.entityId &&
+            iter.propertyId === target.propertyId
         );
+        state.operation.clearFields = true;
       } catch (e) {
         state.operation.error = buildErrorMessage(
           e,
@@ -254,6 +260,7 @@ export default function newProjectReducer(
           item,
           (item) => item.name && item.type
         );
+        state.operation.clearFields = true;
       } catch (e) {
         state.operation.error = buildErrorMessage(
           e,

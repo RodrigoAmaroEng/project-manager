@@ -66,7 +66,7 @@ export function removeEntityProperty(item: string, entityId: number) {
 export function addPayloadEntityProperty(payloadId: number, entity: any, property: any) {
   return {
     type: "new-project/add-payload-entity-property",
-    payload: { payloadId, entity, property },
+    payload: { payloadId, entityId: entity.id, propertyId: property.id },
   };
 }
 export function addPayloadNewProperty(payloadId: number, name?: string, type?: string) {

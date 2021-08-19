@@ -13,7 +13,7 @@ import {
   goToPayloadProperties,
   removeEntityProperty,
 } from "../new-project.actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Circle from "../../../components/Circle";
 import DropDown, { RenderEnum } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
@@ -23,6 +23,7 @@ import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 import StaticField from "../../../components/StaticField";
 import { DataTypes } from "../../../extras/models";
 import WizardNavigationControl from "../WizardNavigationControl";
+import { fieldsClear } from "../../../App.actions";
 
 export default function EntityPropertiesPage(props: any) {
   const dispatch = useDispatch();
@@ -37,6 +38,17 @@ export default function EntityPropertiesPage(props: any) {
   );
   const properties = useSelector((state: any) => entity.properties || []);
   const error = useSelector((state: any) => state.operation.error);
+  const shouldClearFields = useSelector(
+    (state: any) => state.operation.clearFields
+  );
+
+  useEffect(() => {
+    if (shouldClearFields) {
+      setName("");
+      setType(undefined);
+      dispatch(fieldsClear());
+    }
+  }, [shouldClearFields]);
 
   const add = () => {
     dispatch(addEntityProperty(name, entityId, type));
@@ -50,7 +62,7 @@ export default function EntityPropertiesPage(props: any) {
     <div className="fill-space flex-col">
       <h1>Step 5 - "{entity.name}" entity properties</h1>
       <Line>
-        <Field value={name} placeholder="Operation name" onChange={setName} />
+        <Field value={name} placeholder="Property name" onChange={setName} />
         <SpaceH />
         <DropDown onSelect={setType} selected={type} className="fill-space">
           <RenderEnum enum={DataTypes}/>

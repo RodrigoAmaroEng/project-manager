@@ -43,6 +43,7 @@ export const initialState = {
   operation: {
     error: "",
     message: "",
+    clearFields: false,
   },
   context: {
     connector: {
