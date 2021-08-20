@@ -95,9 +95,9 @@ export default function newProjectReducer(
     }
     case "new-project/finish-terminator": {
       if (state.project.content.terminators.length > 0) {
-        history.push("/project/new/2")
+        history.push("/project/new/2");
       } else {
-        state.operation.error = "You need to add at least one Terminator"
+        state.operation.error = "You need to add at least one Terminator";
       }
       return state;
     }
@@ -124,10 +124,14 @@ export default function newProjectReducer(
       );
       return state;
     }
-    case "new-project/goto-operation-details": {
-      history.push(
-        "/project/new/operations/" + state.project.content.operations[0].id
-      );
+    case "new-project/finish-operation": {
+      if (state.project.content.operations.length > 0) {
+        history.push(
+          "/project/new/operations/" + state.project.content.operations[0].id
+        );
+      } else {
+        state.operation.error = "You need to add at least one Operation";
+      }
       return state;
     }
     case "new-project/save-operation-details": {

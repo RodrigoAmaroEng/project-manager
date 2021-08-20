@@ -31,7 +31,7 @@ export function removeOperation(item: string) {
 
 export function goToOperationDetails() {
   return {
-    type: "new-project/goto-operation-details",
+    type: "new-project/finish-operation",
   };
 }
 
