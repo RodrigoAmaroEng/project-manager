@@ -196,10 +196,14 @@ export default function newProjectReducer(
       );
       return state;
     }
-    case "new-project/goto-entity-properties": {
-      history.push(
-        "/project/new/entities/" + state.project.content.entities[0].id
-      );
+    case "new-project/finish-entity": {
+      if (state.project.content.entities.length > 0) {
+        history.push(
+          "/project/new/entities/" + state.project.content.entities[0].id
+        );
+      } else {
+        state.operation.error = "You need to add at least one Entity";
+      }
       return state;
     }
     case "new-project/add-entity-property": {

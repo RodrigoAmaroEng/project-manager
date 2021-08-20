@@ -52,7 +52,7 @@ export function removeEntity(item: string) {
 
 export function goToEntityProperties() {
   return {
-    type: "new-project/goto-entity-properties",
+    type: "new-project/finish-entity",
   };
 }
 
