@@ -10,7 +10,7 @@ import { Line, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addEntityProperty,
-  goToPayloadProperties,
+  finishEntityProperties,
   removeEntityProperty,
 } from "../new-project.actions";
 import { useEffect, useState } from "react";
@@ -56,7 +56,7 @@ export default function EntityPropertiesPage(props: any) {
     setType(undefined);
   };
   const remove = (e: any) => dispatch(removeEntityProperty(e, entityId));
-  const nextAction = () => goToPayloadProperties();
+  const nextAction = () => finishEntityProperties(entityId);
 
   return (
     <div className="fill-space flex-col">

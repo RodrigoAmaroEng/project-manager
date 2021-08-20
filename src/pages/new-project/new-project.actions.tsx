@@ -84,8 +84,9 @@ export function removePayloadProperty(item: string, payloadId: number) {
   return { type: "new-project/remove-payload-property", payload: {item, payloadId} };
 }
 
-export function goToPayloadProperties() {
+export function finishEntityProperties(entityId :number) {
   return {
-    type: "new-project/goto-payload-properties",
+    type: "new-project/finish-entity-properties",
+    payload: { entityId }
   };
 }

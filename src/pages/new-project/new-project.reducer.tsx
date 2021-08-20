@@ -296,10 +296,20 @@ export default function newProjectReducer(
       state.project.content.payloads[index] = payload;
       return state;
     }
-    case "new-project/goto-payload-properties": {
-      history.push(
-        "/project/new/payloads/" + state.project.content.payloads[0].id
+    case "new-project/finish-entity-properties": {
+      let entities = state.project.content.entities as any[];
+      let index = entities.findIndex(
+        (it: any) => it.id === action.payload.entityId
       );
+      if (entities[index].properties?.length > 0) {
+        if (index + 1 == entities.length)
+          history.push(
+            "/project/new/payloads/" + state.project.content.payloads[0].id
+          );
+        else history.push("/project/new/entities/" + entities[index + 1].id);
+      } else {
+        state.operation.error = "An Entity must have at least one property";
+      }
       return state;
     }
     case "new-project/save-and-finish-wizard/fulfilled": {
