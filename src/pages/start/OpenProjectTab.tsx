@@ -6,6 +6,7 @@ import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadProjectFromStorage,
+  loadProjectToWizard,
   setSelectedProject,
   setShowFolders,
 } from "./start.slice";
@@ -39,6 +40,9 @@ export function OpenProjectTab() {
   const onShowFolders = (checked: boolean) => dispatch(setShowFolders(checked));
   const loadProject = () =>
     dispatch(loadProjectFromStorage(GDriveApiInstance.download));
+
+  const loadProjectWizard = () =>
+    dispatch(loadProjectToWizard(GDriveApiInstance.download));
 
   const renderEntryInfo = (entry: any) =>
     entry.mimeType === FOLDER_MIME_TYPE ? (
@@ -85,13 +89,26 @@ export function OpenProjectTab() {
         />
       </Line>
       <SpaceV />
-      <Button
-        onClick={loadProject}
-        type={ButtonType.main}
-        disabled={!hasProjectSelected}
-      >
-        Load project
-      </Button>
+      <Line>
+        <Button
+          className="half"
+          onClick={loadProjectWizard}
+          type={ButtonType.secondary}
+          disabled={!hasProjectSelected}
+        >
+          Load project in Wizard mode
+        </Button>
+        <SpaceH />
+        <Button
+          className="half"
+          onClick={loadProject}
+          type={ButtonType.main}
+          disabled={!hasProjectSelected}
+        >
+          Load project
+        </Button>
+      </Line>
+
       <SpaceH />
     </div>
   );

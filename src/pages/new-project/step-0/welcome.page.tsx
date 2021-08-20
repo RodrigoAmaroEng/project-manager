@@ -1,12 +1,12 @@
 import Button, { ButtonType } from "../../../components/Button";
 import { Line, LineAlignment, SpaceH } from "../../../components/Utils";
-import { goToStep } from "../new-project.actions";
+import { startWizard } from "../new-project.actions";
 import { useDispatch } from "react-redux";
 import WizardNavigationControl from "../WizardNavigationControl";
 
 export function WelcomePage() {
   const dispatch = useDispatch();
-const nextAction = () => goToStep(1)
+const nextAction = () => startWizard()
   return (
     <div className="flex-col fill-space">
       <h1>New project wizard</h1>

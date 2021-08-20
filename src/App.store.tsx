@@ -7,6 +7,10 @@ import { AnyAction } from "redux";
 import newProjectReducer from "./pages/new-project/new-project.reducer";
 import "./extras/extension-functions.tsx";
 import { RecordList } from "./extras/extension-functions";
+import terminatorReducer from "./pages/new-project/reducers/terminator.reducer";
+import operationReducer from "./pages/new-project/reducers/operation.reducer";
+import entityReducer from "./pages/new-project/reducers/entity.reducer";
+import payloadReducer from "./pages/new-project/reducers/payload.reducer";
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 
@@ -58,9 +62,9 @@ export const initialState = {
     files: {
       list: [],
       isLoading: true,
-      showFolders: false
-    }
-  }
+      showFolders: false,
+    },
+  },
 };
 
 export const store = createStore((state = initialState, action: AnyAction) => {
@@ -68,10 +72,15 @@ export const store = createStore((state = initialState, action: AnyAction) => {
   if (initialState.project.name === undefined && storeState) {
     state = JSON.parse(window.sessionStorage.getItem("state") || "");
   }
-  let newState = [startReducer, appReducer, newProjectReducer].reduce(
-    (a, s: Function) => s(a, action),
-    state
-  );
+  let newState = [
+    startReducer,
+    appReducer,
+    newProjectReducer,
+    terminatorReducer,
+    operationReducer,
+    entityReducer,
+    payloadReducer,
+  ].reduce((a, s: Function) => s(a, action), state);
   window.sessionStorage.setItem("state", JSON.stringify(newState));
   return newState;
 }, composedEnhancer);

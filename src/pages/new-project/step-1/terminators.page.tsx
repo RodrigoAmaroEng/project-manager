@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addTerminator,
   finishTerminatorStep,
-  goToStep,
   removeTerminator,
 } from "../new-project.actions";
 import { useState } from "react";

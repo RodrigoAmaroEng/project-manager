@@ -11,3 +11,6 @@ export enum PropertyType {
 }
 
 export const FOLDER_MIME_TYPE = "application/vnd.google-apps.folder"
+
+export class EmptyFieldError extends Error {}
+export class DuplicatedEntry extends Error {}

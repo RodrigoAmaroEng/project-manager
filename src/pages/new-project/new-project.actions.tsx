@@ -1,5 +1,5 @@
-export function goToStep(number: number) {
-  return { type: "new-project/go-to-step", payload: number };
+export function startWizard() {
+  return { type: "new-project/start-wizard" };
 }
 
 export function finishTerminatorStep() {
@@ -64,16 +64,32 @@ export function addEntityProperty(name: string, entityId: number, type: any) {
 }
 
 export function removeEntityProperty(item: string, entityId: number) {
-  return { type: "new-project/remove-entity-property", payload: {item, entityId} };
-}
-
-export function addPayloadEntityProperty(payloadId: number, entity: any, property: any) {
   return {
-    type: "new-project/add-payload-entity-property",
-    payload: { payloadId, entityId: entity.id, propertyId: property.id, propertyName: property.name},
+    type: "new-project/remove-entity-property",
+    payload: { item, entityId },
   };
 }
-export function addPayloadNewProperty(payloadId: number, name?: string, type?: string) {
+
+export function addPayloadEntityProperty(
+  payloadId: number,
+  entity: any,
+  property: any
+) {
+  return {
+    type: "new-project/add-payload-entity-property",
+    payload: {
+      payloadId,
+      entityId: entity.id,
+      propertyId: property.id,
+      propertyName: property.name,
+    },
+  };
+}
+export function addPayloadNewProperty(
+  payloadId: number,
+  name?: string,
+  type?: string
+) {
   return {
     type: "new-project/add-payload-new-property",
     payload: { payloadId, name, type },
@@ -81,12 +97,15 @@ export function addPayloadNewProperty(payloadId: number, name?: string, type?: s
 }
 
 export function removePayloadProperty(item: string, payloadId: number) {
-  return { type: "new-project/remove-payload-property", payload: {item, payloadId} };
+  return {
+    type: "new-project/remove-payload-property",
+    payload: { item, payloadId },
+  };
 }
 
-export function finishEntityProperties(entityId :number) {
+export function finishEntityProperties(entityId: number) {
   return {
     type: "new-project/finish-entity-properties",
-    payload: { entityId }
+    payload: { entityId },
   };
 }
