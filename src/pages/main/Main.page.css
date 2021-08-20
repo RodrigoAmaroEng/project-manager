@@ -1,0 +1,28 @@
+.main-structure {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-rows: 10vh 90vh;
+  grid-template-columns: 15vw 85vw;
+}
+.main-structure header {
+  background: var(--palette-color-1-dark) !important;
+  grid-column: 1 / 3;
+  grid-row: 1;
+}
+.main-structure aside {
+  padding-top: 1rem;
+  background-color: var(--palette-color-1-medium) !important;
+  grid-column: 1 / 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+}
+.main-structure article {
+  background-color: var(--palette-color-light) !important;
+  grid-column: 2/ 3;
+  grid-row: 2;
+}

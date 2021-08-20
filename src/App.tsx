@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { listFiles } from "./pages/start/start.slice";
 import { setAuthenticatedUser, setIsInitialized } from "./App.actions";
 import NewProjectPage from "./pages/new-project/new-project.page";
+import MainPage from "./pages/main/Main.page";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route path="/project/stored">
-          {projectName}
+          <MainPage/>
         </Route>
         <Route path="/project/new">
           <NewProjectPage />
