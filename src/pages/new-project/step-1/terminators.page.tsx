@@ -10,6 +10,7 @@ import { Line, SpaceFill, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTerminator,
+  finishTerminatorStep,
   goToStep,
   removeTerminator,
 } from "../new-project.actions";
@@ -47,7 +48,7 @@ export default function TerminatorsPage(props: any) {
   const add = () => dispatch(addTerminator(name));
 
   const remove = (e: any) => dispatch(removeTerminator(e));
-  const nextAction = () => goToStep(2);
+  const nextAction = () => finishTerminatorStep();
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>

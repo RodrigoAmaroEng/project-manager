@@ -93,6 +93,14 @@ export default function newProjectReducer(
       );
       return state;
     }
+    case "new-project/finish-terminator": {
+      if (state.project.content.terminators.length > 0) {
+        history.push("/project/new/2")
+      } else {
+        state.operation.error = "You need to add at least one Terminator"
+      }
+      return state;
+    }
     case "new-project/add-operation": {
       let item = action.payload;
       const validation = (item: any) =>

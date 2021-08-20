@@ -2,6 +2,10 @@ export function goToStep(number: number) {
   return { type: "new-project/go-to-step", payload: number };
 }
 
+export function finishTerminatorStep() {
+  return { type: "new-project/finish-terminator" };
+}
+
 export function addTerminator(name: string) {
   return { type: "new-project/add-terminator", payload: { name } };
 }
