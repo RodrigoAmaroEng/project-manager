@@ -11,13 +11,16 @@ export function MenuItem(props: any) {
 }
 
 export default function Menu(props: any) {
-  const [selected, setSelected] = useState(-1);
+  const page = window.location.pathname.replace(/\/project\/stored/, "");
   return (
     <ul className="menu">
-      {React.Children.map(props.children, (child: any, index: number) =>
+      {React.Children.map(props.children, (child: any) =>
         React.cloneElement(child, {
-          selected: index === selected,
-          onClick: () => setSelected(index),
+          selected:
+            page
+              .toLocaleLowerCase()
+              .indexOf(child.props.name.toLocaleLowerCase()) > -1,
+          onClick: () => props.onChange(child.props.name.toLocaleLowerCase()),
         })
       )}
     </ul>

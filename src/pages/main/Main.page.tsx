@@ -1,28 +1,51 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import CRUD from "../../components/CRUD";
 import Menu, { MenuItem } from "../../components/Menu";
 import "./Main.page.css";
 
 export default function MainPage(props: any) {
-
-  const terminatorsCount = useSelector((state:any) => state.project.content.terminators.length)
-  const operationsCount = useSelector((state:any) => state.project.content.operations.length)
-  const entitiesCount = useSelector((state:any) => state.project.content.entities.length)
-  const payloadsCount = useSelector((state:any) => state.project.content.payloads.length)
-
+  const dispatch = useDispatch();
+  const terminators = useSelector(
+    (state: any) => state.project.content.terminators
+  );
+  const operations = useSelector(
+    (state: any) => state.project.content.operations
+  );
+  const entities = useSelector((state: any) => state.project.content.entities);
+  const payloads = useSelector((state: any) => state.project.content.payloads);
 
   return (
     <div className="main-structure">
       <header></header>
       <aside>
-        <Menu>
-          <MenuItem name="Terminators" count={terminatorsCount} />
-          <MenuItem name="Operations" count={operationsCount} />
-          <MenuItem name="Entities" count={entitiesCount} />
-          <MenuItem name="Payloads" count={payloadsCount} />
+        <Menu
+          onChange={(name: string) =>
+            dispatch({ type: "menu/navigate-to", payload: name })
+          }
+        >
+          <MenuItem name="Terminators" count={terminators.length} />
+          <MenuItem name="Operations" count={operations.length} />
+          <MenuItem name="Entities" count={entities.length} />
+          <MenuItem name="Payloads" count={payloads.length} />
         </Menu>
       </aside>
       <article>
-
+        <Switch>
+          <Route path="/project/stored/terminators">
+            <CRUD items={terminators} />
+          </Route>
+          <Route path="/project/stored/operations">
+            <CRUD items={operations} />
+          </Route>
+          <Route path="/project/stored/entities">
+            <CRUD items={entities} />
+          </Route>
+          <Route path="/project/stored/payloads">
+            <CRUD items={payloads} />
+          </Route>
+          <Route path="/project/stored">Main</Route>
+        </Switch>
       </article>
     </div>
   );

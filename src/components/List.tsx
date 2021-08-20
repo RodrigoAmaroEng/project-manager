@@ -17,7 +17,7 @@ export function IfEmpty(props: any) {
 
 export function Action(props: any) {
   React.Children.only(props.children);
-  const event = props.children.props.onClick
+  const event = props.children.props.onClick;
   const newEvent = { onClick: () => event(props.item) };
   return (
     <div className="list-action">
@@ -94,9 +94,11 @@ export default function List(props: ListProps) {
           onClick={() => onClick(row, index)}
         >
           {row}
-          {actions.map((action: any) =>
-            React.cloneElement(action, { item: row.props.item })
-          )}
+          {actions.map((action: any) => (
+            <div className="row-action">
+              {React.cloneElement(action, { item: row.props.item })}
+            </div>
+          ))}
         </div>
       ));
   };

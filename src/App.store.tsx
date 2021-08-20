@@ -11,6 +11,7 @@ import terminatorReducer from "./pages/new-project/reducers/terminator.reducer";
 import operationReducer from "./pages/new-project/reducers/operation.reducer";
 import entityReducer from "./pages/new-project/reducers/entity.reducer";
 import payloadReducer from "./pages/new-project/reducers/payload.reducer";
+import mainReducer from "./pages/main/Main.reducer";
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
 
@@ -80,6 +81,7 @@ export const store = createStore((state = initialState, action: AnyAction) => {
     operationReducer,
     entityReducer,
     payloadReducer,
+    mainReducer
   ].reduce((a, s: Function) => s(a, action), state);
   window.sessionStorage.setItem("state", JSON.stringify(newState));
   return newState;

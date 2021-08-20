@@ -25,4 +25,7 @@
   background-color: var(--palette-color-light) !important;
   grid-column: 2/ 3;
   grid-row: 2;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
 }

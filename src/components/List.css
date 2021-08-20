@@ -52,3 +52,7 @@
 .row.selected {
   background-color: var(--palette-color-2-light);
 }
+
+.row .row-action {
+  margin: 0 0.25rem;
+}
