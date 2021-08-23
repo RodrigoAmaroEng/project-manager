@@ -41,6 +41,17 @@ export enum FieldSize {
   fourth = "one-fourth",
 }
 
+
+export enum Direction {
+  input,
+  output,
+}
+
+export enum SourceType {
+  enumeration,
+  list,
+}
+
 class BasicObject {
   id: number;
   name: string;
@@ -84,6 +95,25 @@ export class Terminator extends BasicObjectWithDescription {
 }
 
 export class Property extends BasicObject {
+  static _definitions: any = {
+    id: {
+      type: FieldType.identifier,
+    },
+    name: {
+      placeholder: "Property name",
+      required: true,
+      type: FieldType.input,
+      size: FieldSize.half,
+    },
+    type: {
+      placeholder: "Data type",
+      required: true,
+      type: FieldType.dropdown,
+      source: DataTypes,
+      sourceType: SourceType.enumeration,
+      size: FieldSize.half,
+    }
+  };
   type: DataTypes;
   constructor(id: number, name: string, type: DataTypes) {
     super(id, name);
@@ -91,7 +121,31 @@ export class Property extends BasicObject {
   }
 }
 
-class Entity extends BasicObjectWithDescription {
+export class Entity extends BasicObjectWithDescription {
+  static _definitions: any = {
+    id: {
+      type: FieldType.identifier,
+    },
+    name: {
+      placeholder: "Entity name",
+      required: true,
+      type: FieldType.input,
+      size: FieldSize.half,
+    },
+    description: {
+      placeholder: "Entity description",
+      required: false,
+      type: FieldType.smartInput,
+      size: FieldSize.full,
+    },
+    properties: {
+      placeholder: "Properties for this entity",
+      required: true,
+      type: FieldType.list,
+      kind: Property,
+      size: FieldSize.full,
+    }
+  };
   properties: Property[] = [];
   constructor(id: number, name: string, description?: string) {
     super(id, name, description);
@@ -129,15 +183,6 @@ class Payload extends BasicObjectWithDescription {
   }
 }
 
-export enum Direction {
-  input,
-  output,
-}
-
-export enum SourceType {
-  enumeration,
-  list,
-}
 
 export class Operation extends BasicObjectWithDescription {
   static _definitions: any = {
