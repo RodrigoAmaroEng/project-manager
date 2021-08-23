@@ -6,9 +6,15 @@ import { Line, SpaceFill, SpaceV } from "../Utils";
 import { ReactComponent as AddIcon } from "../../img/add-icon.svg";
 import { ReactComponent as RemoveIcon } from "../../img/remove-icon.svg";
 import { ReactComponent as EditIcon } from "../../img/edit-icon.svg";
+import { useDispatch } from "react-redux";
+import { editRecord } from "../../pages/main/Main.actions";
+import { Record } from "../../extras/extension-functions";
 
 export default function ListingForm(props: any) {
+  const dispatch = useDispatch();
+
   const [query, setQuery] = useState(undefined);
+
   return (
     <div className="form-listing">
       <Line className="form-actions">
@@ -22,7 +28,7 @@ export default function ListingForm(props: any) {
           <AddIcon />
         </Button>
       </Line>
-      <SpaceV  />
+      <SpaceV />
 
       <div className="form-list">
         <List listStyle={ListStyle.Normal} className="fill-space">
@@ -30,9 +36,7 @@ export default function ListingForm(props: any) {
           <Action>
             <Button
               type={ButtonType.main}
-              onClick={() => {
-                alert("Editar");
-              }}
+              onClick={(item: Record) => dispatch(editRecord(item.id))}
               className="square"
             >
               <EditIcon />

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export {};
 declare global {
   interface String {
@@ -91,4 +93,9 @@ export class Record {
   static from(id: number, arg: any): any {
     return Object.assign(new Record(id), arg) as Record;
   }
+}
+
+export function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue((value) => value + 1); // update the state to force render
 }

@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import CRUD from "../../components/CRUD";
 import Menu, { MenuItem } from "../../components/Menu";
+import { Terminator } from "../../extras/models";
+import { navigateTo } from "./Main.actions";
 import "./Main.page.css";
 
 export default function MainPage(props: any) {
@@ -19,11 +21,7 @@ export default function MainPage(props: any) {
     <div className="main-structure">
       <header></header>
       <aside>
-        <Menu
-          onChange={(name: string) =>
-            dispatch({ type: "menu/navigate-to", payload: name })
-          }
-        >
+        <Menu onChange={(name: string) => dispatch(navigateTo(name))}>
           <MenuItem name="Terminators" count={terminators.length} />
           <MenuItem name="Operations" count={operations.length} />
           <MenuItem name="Entities" count={entities.length} />
@@ -33,7 +31,7 @@ export default function MainPage(props: any) {
       <article>
         <Switch>
           <Route path="/project/stored/terminators">
-            <CRUD items={terminators} />
+            <CRUD items={terminators} object={Terminator} />
           </Route>
           <Route path="/project/stored/operations">
             <CRUD items={operations} />
