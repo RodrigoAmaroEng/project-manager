@@ -83,7 +83,7 @@ export class Terminator extends BasicObjectWithDescription {
   }
 }
 
-class Property extends BasicObject {
+export class Property extends BasicObject {
   type: DataTypes;
   constructor(id: number, name: string, type: DataTypes) {
     super(id, name);
@@ -129,13 +129,88 @@ class Payload extends BasicObjectWithDescription {
   }
 }
 
-class Operation extends BasicObjectWithDescription {
+export enum Direction {
+  input,
+  output,
+}
+
+export enum SourceType {
+  enumeration,
+  list,
+}
+
+export class Operation extends BasicObjectWithDescription {
+  static _definitions: any = {
+    id: {
+      type: FieldType.identifier,
+    },
+    name: {
+      placeholder: "Operation name",
+      required: true,
+      type: FieldType.input,
+      size: FieldSize.half,
+      onWizard: true,
+    },
+    description: {
+      placeholder: "Operation description",
+      required: false,
+      type: FieldType.smartInput,
+      size: FieldSize.full,
+      onWizard: false,
+    },
+    trigger: {
+      placeholder: "What triggers the operation",
+      required: true,
+      type: FieldType.smartInput,
+      size: FieldSize.full,
+      onWizard: true,
+    },
+    direction: {
+      placeholder: "Direction",
+      required: true,
+      type: FieldType.radio,
+      source: Direction,
+      sourceType: SourceType.enumeration,
+      size: FieldSize.full,
+      onWizard: true,
+    },
+    terminatorId: {
+      placeholder: "Who performs/receives it",
+      required: true,
+      type: FieldType.dropdown,
+      source: Terminator,
+      sourceType: SourceType.list,
+      size: FieldSize.half,
+      onWizard: true,
+    },
+    inputPayloadId: {
+      placeholder: "Input payload",
+      required: true,
+      type: FieldType.dropdown,
+      source: Payload,
+      sourceType: SourceType.list,
+      size: FieldSize.half,
+      onWizard: true,
+    },
+    outputPayloadId: {
+      placeholder: "Output payload",
+      required: false,
+      type: FieldType.dropdown,
+      source: Payload,
+      sourceType: SourceType.list,
+      size: FieldSize.half,
+      onWizard: true,
+    },
+  };
+
   trigger: string;
   inputPayloadId: number;
   outputPayloadId?: number;
   constructor(
     id: number,
     name: string,
+    direction: Direction,
+    terminatorId: number,
     trigger: string,
     inputPayloadId: number,
     description?: string,

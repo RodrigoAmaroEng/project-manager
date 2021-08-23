@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import CRUD from "../../components/CRUD";
 import Menu, { MenuItem } from "../../components/Menu";
-import { Terminator } from "../../extras/models";
+import { Operation, Terminator } from "../../extras/models";
 import { navigateTo } from "./Main.actions";
 import "./Main.page.css";
 
@@ -34,7 +34,7 @@ export default function MainPage(props: any) {
             <CRUD items={terminators} object={Terminator} />
           </Route>
           <Route path="/project/stored/operations">
-            <CRUD items={operations} />
+            <CRUD items={operations} object={Operation} />
           </Route>
           <Route path="/project/stored/entities">
             <CRUD items={entities} />

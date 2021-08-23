@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./DropDown.css";
 
 export function Option(props: any) {
-  // React.Children.only(props.children)
   return (
     <div className="dropdown-option" onClick={props.onClick}>
       {props.children}

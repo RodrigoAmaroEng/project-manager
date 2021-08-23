@@ -1,21 +1,58 @@
-import {  useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useForceUpdate } from "../../extras/extension-functions";
-import { FieldType, Terminator } from "../../extras/models";
+import { FieldType } from "../../extras/models";
 import Button, { ButtonType } from "../Button";
+import DropDown, { RenderEnum, RenderList } from "../DropDown";
 import Field from "../Field";
+import { RadioGroup } from "../Radio";
 import { Line, SpaceFill, SpaceH, SpaceV } from "../Utils";
 
 function FieldRenderer(props: any) {
+  const content = useSelector((state: any) => state.project.content);
   if (props.type === FieldType.input) {
     return (
       <Field
+        placeholder={props.placeholder}
         value={props.value}
         onChange={props.onChange}
         className={props.size}
       />
     );
   } else if (props.type === FieldType.smartInput) {
-    return <Field value={props.value} onChange={props.onChange} />;
+    return (
+      <Field
+        placeholder={props.placeholder}
+        value={props.value}
+        onChange={props.onChange}
+        className={props.size}
+      />
+    );
+  } else if (props.type === FieldType.radio) {
+    return (
+      <RadioGroup
+        title={props.placeholder}
+        onSelect={props.onChange}
+        className={props.size}
+        selected={props.value}
+      >
+        <RenderEnum enum={props.source} />
+      </RadioGroup>
+    );
+  } else if (props.type === FieldType.dropdown) {
+    return (
+      <DropDown
+        placeholder={props.placeholder}
+        onSelect={props.onChange}
+        className={props.size}
+        selected={props.value}
+      >
+        <RenderList
+          items={content[props.source.name.toLowerCase() + "s"]}
+          displayProperty="name"
+        />
+      </DropDown>
+    );
   }
   return <br />;
 }
