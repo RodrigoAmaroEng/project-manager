@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { editRecord } from "../../pages/main/Main.actions";
 import { Record } from "../../extras/extension-functions";
 import { AddIcon, EditIcon, RemoveIcon } from "../../img/Icons";
+import history from "../../navigation/history";
 
 export default function ListingForm(props: any) {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export default function ListingForm(props: any) {
           onChange={setQuery}
         />
         <SpaceFill />
-        <Button type={ButtonType.main} onClick={() => {}} className="square">
+        <Button type={ButtonType.main} onClick={() => {history.push(window.location.pathname + "/new" )}} className="square">
           <AddIcon />
         </Button>
       </Line>

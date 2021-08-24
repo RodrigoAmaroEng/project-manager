@@ -41,7 +41,6 @@ export enum FieldSize {
   fourth = "one-fourth",
 }
 
-
 export enum Direction {
   input,
   output,
@@ -112,7 +111,7 @@ export class Property extends BasicObject {
       source: DataTypes,
       sourceType: SourceType.enumeration,
       size: FieldSize.half,
-    }
+    },
   };
   type: DataTypes;
   constructor(id: number, name: string, type: DataTypes) {
@@ -122,6 +121,7 @@ export class Property extends BasicObject {
 }
 
 export class Entity extends BasicObjectWithDescription {
+  static _source = "entities";
   static _definitions: any = {
     id: {
       type: FieldType.identifier,
@@ -144,7 +144,7 @@ export class Entity extends BasicObjectWithDescription {
       type: FieldType.list,
       kind: Property,
       size: FieldSize.full,
-    }
+    },
   };
   properties: Property[] = [];
   constructor(id: number, name: string, description?: string) {
@@ -152,7 +152,66 @@ export class Entity extends BasicObjectWithDescription {
   }
 }
 
-class PayloadProperty {
+export class PayloadProperty {
+  static _source = "entities.properties";
+  static _validation = (item: any) =>
+    item.kind === PropertyType.EntityProperty
+      ? item.entityId && item.propertyId
+      : item.name && item.type;
+  static _definitions: any = {
+    id: {
+      type: FieldType.identifier,
+    },
+
+    kind: {
+      placeholder: "What kind of property is it?",
+      required: true,
+      type: FieldType.radio,
+      source: PropertyType,
+      sourceType: SourceType.enumeration,
+      size: FieldSize.full,
+    },
+    name: {
+      placeholder: "Payload name",
+      required: false,
+      type: FieldType.input,
+      size: FieldSize.half,
+      conditionField: "kind",
+      condition: PropertyType.Variable,
+    },
+    type: {
+      placeholder: "Data type of this property",
+      required: false,
+      type: FieldType.dropdown,
+      source: DataTypes,
+      sourceType: SourceType.enumeration,
+      size: FieldSize.half,
+      conditionField: "kind",
+      condition: PropertyType.Variable,
+    },
+    entityId: {
+      placeholder: "Entity that ows the property",
+      required: false,
+      type: FieldType.dropdown,
+      source: Entity,
+      sourceType: SourceType.list,
+      size: FieldSize.half,
+      conditionField: "kind",
+      condition: PropertyType.EntityProperty,
+    },
+    propertyId: {
+      placeholder: "Entity property",
+      required: false,
+      type: FieldType.dropdown,
+      source: Property,
+      sourceType: SourceType.list,
+      size: FieldSize.half,
+      dependsOn: "entityId",
+      conditionField: "kind",
+      condition: PropertyType.EntityProperty,
+    },
+  };
+
   id: number;
   kind: PropertyType;
   name?: string;
@@ -176,13 +235,36 @@ class PayloadProperty {
   }
 }
 
-class Payload extends BasicObjectWithDescription {
+export class Payload extends BasicObjectWithDescription {
+  static _definitions: any = {
+    id: {
+      type: FieldType.identifier,
+    },
+    name: {
+      placeholder: "Payload name",
+      required: true,
+      type: FieldType.input,
+      size: FieldSize.half,
+    },
+    description: {
+      placeholder: "Payload description",
+      required: false,
+      type: FieldType.smartInput,
+      size: FieldSize.full,
+    },
+    properties: {
+      placeholder: "Properties for this entity",
+      required: true,
+      type: FieldType.list,
+      kind: PayloadProperty,
+      size: FieldSize.full,
+    },
+  };
   properties: PayloadProperty[] = [];
   constructor(id: number, name: string, description?: string) {
     super(id, name, description);
   }
 }
-
 
 export class Operation extends BasicObjectWithDescription {
   static _definitions: any = {
@@ -194,21 +276,18 @@ export class Operation extends BasicObjectWithDescription {
       required: true,
       type: FieldType.input,
       size: FieldSize.half,
-      onWizard: true,
     },
     description: {
       placeholder: "Operation description",
       required: false,
       type: FieldType.smartInput,
       size: FieldSize.full,
-      onWizard: false,
     },
     trigger: {
       placeholder: "What triggers the operation",
       required: true,
       type: FieldType.smartInput,
       size: FieldSize.full,
-      onWizard: true,
     },
     direction: {
       placeholder: "Direction",
@@ -217,7 +296,6 @@ export class Operation extends BasicObjectWithDescription {
       source: Direction,
       sourceType: SourceType.enumeration,
       size: FieldSize.full,
-      onWizard: true,
     },
     terminatorId: {
       placeholder: "Who performs/receives it",
@@ -226,7 +304,6 @@ export class Operation extends BasicObjectWithDescription {
       source: Terminator,
       sourceType: SourceType.list,
       size: FieldSize.half,
-      onWizard: true,
     },
     inputPayloadId: {
       placeholder: "Input payload",
@@ -235,7 +312,6 @@ export class Operation extends BasicObjectWithDescription {
       source: Payload,
       sourceType: SourceType.list,
       size: FieldSize.half,
-      onWizard: true,
     },
     outputPayloadId: {
       placeholder: "Output payload",
@@ -244,7 +320,6 @@ export class Operation extends BasicObjectWithDescription {
       source: Payload,
       sourceType: SourceType.list,
       size: FieldSize.half,
-      onWizard: true,
     },
   };
 

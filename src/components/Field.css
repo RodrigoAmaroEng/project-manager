@@ -1,7 +1,7 @@
 .field {
   box-sizing: border-box;
   border: 1px solid var(--palette-color-1-medium);
-  height: 2.5rem;
+  height: 2.6rem;
   border-radius: var(--radius-small);
   background-color: var(--palette-color-glow);
   padding: 0 0.5rem;

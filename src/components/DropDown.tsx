@@ -30,7 +30,7 @@ export default function DropDown(props: any) {
     if (children[0].type.name == "RenderEnum") {
       children = Object.values(children[0].props.enum);
     } else if (children[0].type.name == "RenderList") {
-      let temp = children[0]
+      let temp = children[0];
       children = Object.values(temp.props.items);
       displayProperty = temp.props.displayProperty;
     }
@@ -59,8 +59,8 @@ export default function DropDown(props: any) {
     >
       <div className={`dropdown`} onClick={() => setOpen(!isOpen)}>
         <div className="dropdown-selected-item">
-          {children[selectedIndex] &&
-            render(children[selectedIndex].props.item)}
+          {children[selectedIndex] ? 
+            render(children[selectedIndex].props.item) : ""}
         </div>
       </div>
       <div className="dropdown-option-container">
