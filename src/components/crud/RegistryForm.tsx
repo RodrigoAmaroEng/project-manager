@@ -6,14 +6,58 @@ import {
   removeFromList,
 } from "../../extras/crud-operations";
 import { RecordList, useForceUpdate } from "../../extras/extension-functions";
-import { FieldType, Property, SourceType } from "../../extras/models";
+import { FieldType, SourceType } from "../../extras/models";
 import { RemoveIcon } from "../../img/Icons";
-import Button, { ButtonType } from "../Button";
+import Button, { ButtonType, SquareMainButton } from "../Button";
 import DropDown, { RenderEnum, RenderList } from "../DropDown";
 import Field from "../Field";
 import List, { Action, IfEmpty, ListStyle, Row } from "../List";
 import { RadioGroup } from "../Radio";
 import { Line, SpaceFill, SpaceH, SpaceV } from "../Utils";
+
+function SubForm(props: any) {
+  const onSelectionChange = (items: any[]) => {
+    if (items.length > 0) props.onListSelect(items[0].item.props.item);
+    else props.onListSelect(undefined);
+  };
+  return (
+    <Line className="fill-space">
+      <div className="flex-col half flex-align-top">
+        <RegistryForm
+          object={props.kind}
+          forList={true}
+          onSave={props.onAdd}
+          item={props.item}
+        />
+      </div>
+      <SpaceH />
+      <SpaceH />
+      <div className="flex-col half stretch">
+        <SpaceV />
+        <SpaceV />
+        <SpaceV />
+        <SpaceV />
+        <List
+          listStyle={ListStyle.SingleSelect}
+          className="fill-space"
+          onSelectionChange={onSelectionChange}
+        >
+          <IfEmpty>No {props.name} registered</IfEmpty>
+          <Action>
+            <SquareMainButton onClick={props.onRemove}>
+              <RemoveIcon />
+            </SquareMainButton>
+          </Action>
+          {props.list.map((p: any, index: number) => (
+            <Row item={p} key={`row-${index}`}>
+              {props.renderer(props.kind, p, props.content)}
+            </Row>
+          ))}
+        </List>
+      </div>
+    </Line>
+  );
+}
 
 function FieldRenderer(props: any) {
   const content = useSelector((state: any) => state.project.content);
@@ -57,7 +101,7 @@ function FieldRenderer(props: any) {
 
     if (props.sourceType === SourceType.list) {
       if (props.dependsOn) {
-        let parts = props.object._source.split(".");
+        let parts = props.object._meta.storeName.split(".");
         let id = Number(props.item?.[props.dependsOn]?.id);
         if (!isNaN(id)) {
           const store = RecordList.fromList(content[parts[0]]);
@@ -66,7 +110,7 @@ function FieldRenderer(props: any) {
           onRender = { onRender: (item: any) => item.name };
         }
       } else {
-        items = content[props.source._source];
+        items = content[props.source._meta.storeName];
         onRender = { onRender: (item: any) => item.name };
       }
     }
@@ -87,10 +131,12 @@ function FieldRenderer(props: any) {
     );
   } else if (props.type === FieldType.list) {
     let list = props.value || [];
-
     const onAdd = (item: any) => {
       try {
-        list = includeSimpleRegistry(list, item, props.kind._validation);
+        if (props.transform) {
+          item = props.transform(item)
+        }
+        list = includeSimpleRegistry(list, item, props.kind._meta.validation);
       } catch (e) {
         let error = buildErrorMessage(
           e,
@@ -105,48 +151,18 @@ function FieldRenderer(props: any) {
       props.onChange(list);
     };
     return (
-      <Line className="fill-space">
-        <div className="flex-col half flex-align-top">
-          <RegistryForm
-            object={props.kind}
-            forList={true}
-            onSave={onAdd}
-            item={item}
-          />
-        </div>
-        <SpaceH />
-        <SpaceH />
-        <div className="flex-col half stretch">
-          <SpaceV />
-          <SpaceV />
-          <SpaceV />
-          <SpaceV />
-          <List
-            listStyle={ListStyle.SingleSelect}
-            className="fill-space"
-            onSelectionChange={(items: any[]) => {
-              if (items.length > 0) setItem(items[0].item.props.item);
-              else setItem(undefined);
-            }}
-          >
-            <IfEmpty>No {props.kind.name} registered</IfEmpty>
-            <Action>
-              <Button
-                type={ButtonType.main}
-                onClick={onRemove}
-                className="square"
-              >
-                <RemoveIcon />
-              </Button>
-            </Action>
-            {list.map((p: any, index: number) => (
-              <Row item={p} key={`row-${index}`}>
-                <h6>{p.name}</h6>
-              </Row>
-            ))}
-          </List>
-        </div>
-      </Line>
+      <SubForm
+        kind={props.kind}
+        onAdd={onAdd}
+        onRemove={onRemove}
+        list={list}
+        item={item}
+        renderer={props.renderer}
+        name={props.kind.name}
+        onListSelect={setItem}
+        render={props.render}
+        content={content}
+      />
     );
   }
   return <b />;
@@ -165,27 +181,21 @@ export default function RegistryForm(props: any) {
   useEffect(() => {
     setItem(props.item);
   }, [props.item]);
-  const title = forList ? (
-    <h4>{props.object.name} list</h4>
-  ) : (
-    <h1>
-      {item && item.id ? `Editing '${item.name}'` : `New ${props.object.name}`}{" "}
-    </h1>
-  );
-  const fields = Object.entries(props.object._definitions)
+  const fields = Object.entries(props.object._meta.fields)
     .filter(([key, value]: any) => value.type !== FieldType.identifier)
     .filter(
       ([key, value]: any) =>
-        !value.conditionField || item?.[value.conditionField] === value.condition
+        !value.conditionField ||
+        item?.[value.conditionField] === value.condition
     );
   return (
     <div className="form-registry">
-      {title}
+      {renderTitle(forList, props.object.name, item)}
       {fields.map(([key, value]: any, index: number) => (
         <div
           key={`field-${index}`}
           className={`flex-col${
-            index == fields.length - 1 ? " fill-space" : ""
+            value.type === FieldType.list ? " fill-space" : ""
           }`}
         >
           <FieldRenderer
@@ -194,6 +204,7 @@ export default function RegistryForm(props: any) {
             object={props.object}
             item={item}
             value={item ? item[key] : ""}
+            renderer={props.renderer}
             onChange={(v: any) => setValueFor(key, v)}
           />
           <SpaceV />
@@ -233,5 +244,12 @@ export default function RegistryForm(props: any) {
         </Line>
       )}
     </div>
+  );
+}
+function renderTitle(forList: boolean, objectName: string, item: any) {
+  return forList ? (
+    <h4>{objectName} list</h4>
+  ) : (
+    <h1>{item?.id ? `Editing '${item.name}'` : `New ${objectName}`} </h1>
   );
 }

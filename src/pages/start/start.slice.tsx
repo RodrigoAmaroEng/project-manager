@@ -107,7 +107,7 @@ export default function startReducer(state = initialState, action: AnyAction) {
     case "start/load-project/fulfilled": {
       state.start.files.isLoading = false;
       state.project = JSON.parse(action.payload.body);
-      history.push("/project/stored");
+      setTimeout(() => history.push("/project/stored"), 1000);
       return state;
     }
     case "start/load-project-to-wizard/pending":

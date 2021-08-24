@@ -1,16 +1,28 @@
 .circle-icon {
-  border-radius: 50%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: var(--palette-color-2-medium);
+  font-weight: bold;
+  font-size: 1.5rem;
+  height: 3rem;
+  width: 3rem;
+  transform-style: preserve-3d;
+}
+.circle-icon::before {
+  position: absolute;
+  content: "";
+  border-radius: 60%;
+  opacity: 0.75;
   background-color: var(--palette-color-1-medium);
   height: 3rem;
   width: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: var(--palette-color-2-medium);
-  font-size: 1.5rem;
-  position: relative;
+  padding: 0;
+  box-sizing: border-box;
+  transform: translateZ(-1px);
 }
+
 .arrow-left {
   border: 0.75rem solid transparent;
   border-right: 0.75rem solid var(--palette-color-2-medium);
@@ -24,8 +36,9 @@
   position: absolute;
   margin-right: -1rem;
 }
-.circle-icon img, .circle-icon svg {
+.circle-icon img,
+.circle-icon svg {
   width: 1.5rem;
   height: 1.5rem;
-  fill: var(--palette-color-2-medium)
+  fill: var(--palette-color-2-medium);
 }

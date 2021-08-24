@@ -5,9 +5,13 @@ export enum ButtonType {
   secondary = "secondary",
 }
 
-export interface ButtonProps {
+export interface BaseButtonProps {
   onClick: (e?: any) => void;
   children: any;
+}
+
+
+export interface ButtonProps extends BaseButtonProps {
   type: ButtonType;
   disabled?: boolean;
   className?: string;
@@ -30,4 +34,8 @@ export default function Button(props: ButtonProps) {
       {props.children}
     </div>
   );
+}
+
+export function SquareMainButton(props: BaseButtonProps) {
+  return <Button {...props} type={ButtonType.main} className="square">{props.children}</Button>
 }

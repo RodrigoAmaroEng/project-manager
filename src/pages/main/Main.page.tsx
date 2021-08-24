@@ -2,9 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import CRUD from "../../components/CRUD";
 import Menu, { MenuItem } from "../../components/Menu";
-import { Entity, Operation, Payload, Terminator } from "../../extras/models";
+import { Payload } from "../../extras/Payload.model";
+import { Entity } from "../../extras/Entity.model";
+import { Operation } from "../../extras/Operation.model";
+import { Terminator } from "../../extras/Terminator.model";
 import { navigateTo } from "./Main.actions";
 import "./Main.page.css";
+import { forModel } from "../../renderers/ForModel";
 
 export default function MainPage(props: any) {
   const dispatch = useDispatch();
@@ -31,16 +35,16 @@ export default function MainPage(props: any) {
       <article>
         <Switch>
           <Route path="/project/stored/terminators">
-            <CRUD items={terminators} object={Terminator} />
+            <CRUD items={terminators} object={Terminator} renderer={forModel} />
           </Route>
           <Route path="/project/stored/operations">
-            <CRUD items={operations} object={Operation} />
+            <CRUD items={operations} object={Operation} renderer={forModel} />
           </Route>
           <Route path="/project/stored/entities">
-            <CRUD items={entities} object={Entity} />
+            <CRUD items={entities} object={Entity} renderer={forModel} />
           </Route>
           <Route path="/project/stored/payloads">
-            <CRUD items={payloads} object={Payload}  />
+            <CRUD items={payloads} object={Payload} renderer={forModel} />
           </Route>
           <Route path="/project/stored">Main</Route>
         </Switch>
