@@ -8,9 +8,6 @@ import List, {
 } from "../../../components/List";
 import { Line, SpaceFill, SpaceH, SpaceV } from "../../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
-import { ReactComponent as OperationIcon } from "../../../img/operation-icon.svg";
-import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
-import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 import {
   addOperation,
   goToOperationDetails,
@@ -25,6 +22,7 @@ import StaticField from "../../../components/StaticField";
 import WizardNavigationControl from "../WizardNavigationControl";
 import { useEffect } from "react";
 import { fieldsClear } from "../../../App.actions";
+import { AddIcon, OperationIcon, RemoveIcon } from "../../../img/Icons";
 
 export default function OperationsPage(props: any) {
   const dispatch = useDispatch();

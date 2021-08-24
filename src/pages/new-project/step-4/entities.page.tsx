@@ -15,12 +15,10 @@ import {
 } from "../new-project.actions";
 import { useEffect, useState } from "react";
 import Circle from "../../../components/Circle";
-import { ReactComponent as EntityIcon } from "../../../img/entity-icon.svg";
-import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
-import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 import StaticField from "../../../components/StaticField";
 import WizardNavigationControl from "../WizardNavigationControl";
 import { fieldsClear } from "../../../App.actions";
+import { AddIcon, EntityIcon, RemoveIcon } from "../../../img/Icons";
 export default function EntitiesPage(props: any) {
   const dispatch = useDispatch();
 

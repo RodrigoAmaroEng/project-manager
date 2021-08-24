@@ -15,14 +15,12 @@ import {
 } from "../new-project.actions";
 import { useState } from "react";
 import Circle from "../../../components/Circle";
-import { ReactComponent as TerminatorIcon } from "../../../img/terminator-icon.svg";
-import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
-import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 
 import StaticField from "../../../components/StaticField";
 import WizardNavigationControl from "../WizardNavigationControl";
 import { useEffect } from "react";
 import { fieldsClear } from "../../../App.actions";
+import { AddIcon, RemoveIcon, TerminatorIcon } from "../../../img/Icons";
 
 export default function TerminatorsPage(props: any) {
   const dispatch = useDispatch();

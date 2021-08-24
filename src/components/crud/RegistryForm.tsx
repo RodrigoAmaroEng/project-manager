@@ -7,13 +7,14 @@ import {
 } from "../../extras/crud-operations";
 import { useForceUpdate } from "../../extras/extension-functions";
 import { FieldType, Property, SourceType } from "../../extras/models";
+import { RemoveIcon } from "../../img/Icons";
 import Button, { ButtonType } from "../Button";
 import DropDown, { RenderEnum, RenderList } from "../DropDown";
 import Field from "../Field";
 import List, { Action, IfEmpty, ListStyle, Row } from "../List";
 import { RadioGroup } from "../Radio";
 import { Line, SpaceFill, SpaceH, SpaceV } from "../Utils";
-import { ReactComponent as RemoveIcon } from "../../img/remove-icon.svg";
+
 
 function FieldRenderer(props: any) {
   const content = useSelector((state: any) => state.project.content);
@@ -80,13 +81,13 @@ function FieldRenderer(props: any) {
       }
       props.onChange(list);
     };
-    const onRemove =(item: any) => {
+    const onRemove = (item: any) => {
       list = removeFromList(list, item);
       props.onChange(list);
-    }
+    };
     return (
-      <Line>
-        <div className="flex-col half">
+      <Line className="fill-space">
+        <div className="flex-col half flex-align-top">
           <RegistryForm
             object={Property}
             forList={true}
@@ -148,23 +149,27 @@ export default function RegistryForm(props: any) {
       {item && item.id ? `Editing '${item.name}'` : `New ${props.object.name}`}{" "}
     </h1>
   );
-
+  const fields = Object.entries(props.object._definitions).filter(
+    ([key, value]: any) => value.type !== FieldType.identifier
+  );
   return (
     <div className="form-registry">
       {title}
-      {Object.entries(props.object._definitions)
-        .filter(([key, value]: any) => value.type !== FieldType.identifier)
-        .map(([key, value]: any) => (
-          <div className="flex-col">
-            <FieldRenderer
-              {...value}
-              object={props.object}
-              value={item ? item[key] : ""}
-              onChange={(v: any) => setValueFor(key, v)}
-            />
-            <SpaceV />
-          </div>
-        ))}
+      {fields.map(([key, value]: any, index: number) => (
+        <div
+          className={`flex-col${
+            index == fields.length - 1 ? " fill-space" : ""
+          }`}
+        >
+          <FieldRenderer
+            {...value}
+            object={props.object}
+            value={item ? item[key] : ""}
+            onChange={(v: any) => setValueFor(key, v)}
+          />
+          <SpaceV />
+        </div>
+      ))}
       <SpaceFill />
       {forList ? (
         <Line className="line-align-right">

@@ -17,13 +17,11 @@ import { useEffect, useState } from "react";
 import Circle from "../../../components/Circle";
 import DropDown, { RenderEnum } from "../../../components/DropDown";
 import { RecordList } from "../../../extras/extension-functions";
-import { ReactComponent as PropertyIcon } from "../../../img/property-icon.svg";
-import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
-import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 import StaticField from "../../../components/StaticField";
 import { DataTypes } from "../../../extras/models";
 import WizardNavigationControl from "../WizardNavigationControl";
 import { fieldsClear } from "../../../App.actions";
+import { AddIcon, PropertyIcon, RemoveIcon } from "../../../img/Icons";
 
 export default function EntityPropertiesPage(props: any) {
   const dispatch = useDispatch();

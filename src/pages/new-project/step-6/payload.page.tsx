@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { ButtonType } from "../../../components/Button";
 import DropDown, { RenderEnum } from "../../../components/DropDown";
-import { ReactComponent as EntityIcon } from "../../../img/entity-icon.svg";
-import { ReactComponent as VariableIcon } from "../../../img/informacion.svg";
-import { ReactComponent as AddIcon } from "../../../img/add-icon.svg";
-import { ReactComponent as RemoveIcon } from "../../../img/remove-icon.svg";
 import List, {
   Action,
   IfEmpty,
@@ -28,6 +24,7 @@ import { NewVariableForm } from "./NewVariableForm";
 import { GDriveApiInstance } from "../../../extras/gdrive-api";
 import { saveAndFinishWizard } from "../new-project.reducer";
 import { fieldsClear } from "../../../App.actions";
+import { AddIcon, EntityIcon, RemoveIcon, VariableIcon } from "../../../img/Icons";
 
 export default function PayloadsPage(props: any) {
   // INITIALIZERS
@@ -54,7 +51,6 @@ export default function PayloadsPage(props: any) {
   const shouldClearFields = useSelector(
     (state: any) => state.operation.clearFields
   );
-console.log(properties)
   useEffect(() => {
     if (shouldClearFields) {
       setKind(undefined);

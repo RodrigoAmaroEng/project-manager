@@ -3,12 +3,10 @@ import Button, { ButtonType } from "../Button";
 import Field from "../Field";
 import List, { Action, IfEmpty, ListStyle, Row } from "../List";
 import { Line, SpaceFill, SpaceV } from "../Utils";
-import { ReactComponent as AddIcon } from "../../img/add-icon.svg";
-import { ReactComponent as RemoveIcon } from "../../img/remove-icon.svg";
-import { ReactComponent as EditIcon } from "../../img/edit-icon.svg";
 import { useDispatch } from "react-redux";
 import { editRecord } from "../../pages/main/Main.actions";
 import { Record } from "../../extras/extension-functions";
+import { AddIcon, EditIcon, RemoveIcon } from "../../img/Icons";
 
 export default function ListingForm(props: any) {
   const dispatch = useDispatch();
