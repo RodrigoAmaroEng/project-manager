@@ -68,6 +68,30 @@ export default function payloadReducer(state = initialState, action: any) {
       state.project.content.payloads[index] = payload;
       return state;
     }
+    case "new-project/add-payload": {
+      let item = action.payload;
+      let name = item.propertyName;
+      try {
+        item.kind = PropertyType.EntityProperty;
+        state.project.content.payloads = includeSimpleRegistry(
+          state.project.content.payloads,
+          item
+        );
+        state.operation.clearFields = true;
+      } catch (e) {
+        state.operation.error = buildErrorMessage(e, name, "selected property");
+      }
+      return state;
+    }
+    case "form/remove-payload": {
+      console.log(action)
+      state.project.content.payloads = removeFromList(
+        state.project.content.payloads,
+        action.payload
+      );
+      return state;
+    }
+
     default: {
       return state;
     }

@@ -13,7 +13,7 @@ export default function operationReducer(state = initialState, action: any) {
     case "new-project/add-operation": {
       let item = action.payload;
       const validation = (item: any) =>
-        item.name && item.terminator && item.direction;
+        item.name && item.terminatorId && item.direction;
       try {
         state.project.content.operations = includeSimpleRegistry(
           state.project.content.operations,
@@ -23,9 +23,11 @@ export default function operationReducer(state = initialState, action: any) {
         state.operation.clearFields = true;
       } catch (e) {
         state.operation.error = buildErrorMessage(e, item.name, "Operation");
+        console.log(state.operation.error)
       }
       return state;
     }
+    case "form/remove-operation":
     case "new-project/remove-operation": {
       state.project.content.operations = removeFromList(
         state.project.content.operations,

@@ -16,6 +16,12 @@ export class PayloadProperty {
       item.kind === PropertyType.EntityProperty
         ? item.entityId && item.propertyId
         : item.name && item.type,
+    uniquenessRule: (target: any, iter: any) =>
+      target.kind === PropertyType.EntityProperty
+        ? iter.entityId === target.entityId &&
+          iter.propertyId === target.propertyId
+        : iter.name === target.name,
+
     fields: {
       id: {
         type: FieldType.identifier,

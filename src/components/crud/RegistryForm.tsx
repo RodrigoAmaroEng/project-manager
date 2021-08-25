@@ -8,7 +8,12 @@ import {
 import { RecordList, useForceUpdate } from "../../extras/extension-functions";
 import { FieldType, SourceType } from "../../extras/models";
 import { RemoveIcon } from "../../img/Icons";
-import Button, { ButtonType, SquareMainButton } from "../Button";
+import Button, {
+  ButtonType,
+  MainButton,
+  SecondaryButton,
+  SquareMainButton,
+} from "../Button";
 import DropDown, { RenderEnum, RenderList } from "../DropDown";
 import Field from "../Field";
 import List, { Action, IfEmpty, ListStyle, Row } from "../List";
@@ -105,7 +110,6 @@ function FieldRenderer(props: any) {
         let id = Number(props.item?.[props.dependsOn]?.id);
         if (!isNaN(id)) {
           const store = RecordList.fromList(content[parts[0]]);
-          console.log(store.byId(id));
           items = store.byId(id)[parts[1]];
           onRender = { onRender: (item: any) => item.name };
         }
@@ -134,15 +138,21 @@ function FieldRenderer(props: any) {
     const onAdd = (item: any) => {
       try {
         if (props.transform) {
-          item = props.transform(item)
+          item = props.transform(item);
         }
-        list = includeSimpleRegistry(list, item, props.kind._meta.validation);
+        list = includeSimpleRegistry(
+          list,
+          item,
+          props.kind._meta.validation,
+          props.kind._meta.uniquenessRule
+        );
       } catch (e) {
         let error = buildErrorMessage(
           e,
           item.name,
           `${props.object.name} ${props.kind.name}`
         );
+        console.log(error);
       }
       props.onChange(list);
     };
@@ -188,6 +198,16 @@ export default function RegistryForm(props: any) {
         !value.conditionField ||
         item?.[value.conditionField] === value.condition
     );
+
+  const onSave = () => {
+    let finalItem = item;
+    if (props.object._meta.transform) {
+      finalItem = props.object._meta.transform(finalItem)
+    }
+    props.onSave(finalItem);
+    setItem(undefined);
+  };
+
   return (
     <div className="form-registry">
       {renderTitle(forList, props.object.name, item)}
@@ -213,34 +233,19 @@ export default function RegistryForm(props: any) {
       <SpaceFill />
       {forList ? (
         <Line className="line-align-right">
-          <Button
-            type={ButtonType.main}
-            onClick={() => {
-              props.onSave(item);
-              setItem(undefined);
-            }}
-            className="one-twenty"
-          >
+          <MainButton onClick={onSave} className="one-twenty">
             {item && item.id ? "Update" : "Add"}
-          </Button>
+          </MainButton>
         </Line>
       ) : (
         <Line className="line-align-right">
-          <Button
-            type={ButtonType.secondary}
-            onClick={props.onCancel}
-            className="one-twenty"
-          >
+          <SecondaryButton onClick={props.onCancel} className="one-twenty">
             Cancel
-          </Button>
+          </SecondaryButton>
           <SpaceH />
-          <Button
-            type={ButtonType.main}
-            onClick={() => props.onSave(item)}
-            className="one-twenty"
-          >
+          <MainButton onClick={onSave} className="one-twenty">
             Save
-          </Button>
+          </MainButton>
         </Line>
       )}
     </div>

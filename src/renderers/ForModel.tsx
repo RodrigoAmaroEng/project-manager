@@ -10,18 +10,18 @@ import { Terminator } from "../extras/Terminator.model";
 import { EntityIcon, VariableIcon } from "../img/Icons";
 
 function forTerminator(item: any) {
-  return <h6>{item.name}</h6>;
+  return <StaticField label="Name" value={item.name} className="fill-space" />;
 }
 function forEntity(item: any) {
-  return <h6>{item.name}</h6>;
+  return <StaticField label="Name" value={item.name} className="fill-space" />
 }
 
 function forPayload(item: any) {
-  return <h6>{item.name}</h6>;
+  return <StaticField label="Name" value={item.name} className="fill-space" />
 }
 
 function forOperation(item: any) {
-  return <h6>{item.name}</h6>;
+  return <StaticField label="Name" value={item.name} className="fill-space" />
 }
 
 function forPayloadProperty(item: any, stores: any) {
@@ -66,10 +66,10 @@ function forProperty(item: any) {
 }
 
 export function forModel(type: any, item: any, stores: any) {
-  if (type === Terminator) return forTerminator(item);
-  if (type === Entity) return forEntity(item);
-  if (type === Payload) return forPayload(item);
-  if (type === Operation) return forOperation(item);
+  if (type === Terminator || type === "terminators") return forTerminator(item);
+  if (type === Entity || type === "entities") return forEntity(item);
+  if (type === Payload || type === "payloads") return forPayload(item);
+  if (type === Operation || type === "opeartions") return forOperation(item);
   if (type === PayloadProperty) return forPayloadProperty(item, stores);
   if (type === Property) return forProperty(item);
 }

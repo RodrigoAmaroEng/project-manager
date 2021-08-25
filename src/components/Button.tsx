@@ -10,11 +10,13 @@ export interface BaseButtonProps {
   children: any;
 }
 
-
-export interface ButtonProps extends BaseButtonProps {
-  type: ButtonType;
-  disabled?: boolean;
+export interface BaseButtonPropsWithClass extends BaseButtonProps {
   className?: string;
+}
+
+export interface ButtonProps extends BaseButtonPropsWithClass {
+  type: ButtonType;
+  disabled?: boolean; 
 }
 
 export default function Button(props: ButtonProps) {
@@ -36,6 +38,13 @@ export default function Button(props: ButtonProps) {
   );
 }
 
+export function MainButton(props: BaseButtonPropsWithClass) {
+  return <Button {...props} type={ButtonType.main} className={props.className}>{props.children}</Button>
+}
+export function SecondaryButton(props: BaseButtonPropsWithClass) {
+  return <Button {...props} type={ButtonType.secondary} className={props.className}>{props.children}</Button>
+}
+
 export function SquareMainButton(props: BaseButtonProps) {
-  return <Button {...props} type={ButtonType.main} className="square">{props.children}</Button>
+  return <MainButton {...props} className="square">{props.children}</MainButton>
 }

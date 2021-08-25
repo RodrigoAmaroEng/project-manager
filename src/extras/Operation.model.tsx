@@ -10,6 +10,12 @@ import { Payload } from "./Payload.model";
 
 export class Operation extends BasicObjectWithDescription {
   static _meta: any = {
+    transform: (item: any) =>
+      Object.assign(item, {
+        terminatorId: item.terminatorId?.id ?? item.terminatorId,
+        inputPayloadId: item.inputPayloadId?.id ?? item.inputPayloadId,
+        outputPayloadId: item.outputPayloadId?.id ?? item.outputPayloadId,
+      }),
     fields: {
       id: {
         type: FieldType.identifier,

@@ -43,7 +43,7 @@ export default function CRUD(props: any) {
       </Route>
       <Route path="/project/stored/:object/:id">2</Route>
       <Route path="/project/stored/:object">
-        <ListingForm items={props.items} />
+        <ListingForm items={props.items} object={props.object} renderer={props.renderer}/>
       </Route>
     </Switch>
   );
