@@ -1,16 +1,9 @@
-import Button, { ButtonType } from "../../components/Button";
+import { SquareMainButton } from "../../components/Button";
 import Field from "../../components/Field";
-import List, {
-  Action,
-  IfEmpty,
-  ListStyle,
-  Row,
-} from "../../components/List";
+import List, { Action, IfEmpty, ListStyle, Row } from "../../components/List";
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  finishEntityProperties,
-} from "./new-project.actions";
+import { finishEntityProperties } from "./new-project.actions";
 import { useEffect, useState } from "react";
 import Circle from "../../components/Circle";
 import DropDown, { RenderEnum } from "../../components/DropDown";
@@ -20,7 +13,10 @@ import { DataTypes } from "../../extras/models";
 import WizardNavigationControl from "./WizardNavigationControl";
 import { fieldsClear } from "../../App.actions";
 import { AddIcon, PropertyIcon, RemoveIcon } from "../../img/Icons";
-import { addEntityProperty, removeEntityProperty } from "../../base/entity/Entity.actions";
+import {
+  addEntityProperty,
+  removeEntityProperty,
+} from "../../base/entity/Entity.actions";
 
 export default function Step5Page(props: any) {
   const dispatch = useDispatch();
@@ -62,20 +58,20 @@ export default function Step5Page(props: any) {
         <Field value={name} placeholder="Property name" onChange={setName} />
         <SpaceH />
         <DropDown onSelect={setType} selected={type} className="fill-space">
-          <RenderEnum enum={DataTypes}/>
+          <RenderEnum enum={DataTypes} />
         </DropDown>
         <SpaceH />
-        <Button type={ButtonType.main} onClick={add} className="square">
+        <SquareMainButton onClick={add}>
           <AddIcon />
-        </Button>
+        </SquareMainButton>
       </Line>
       <SpaceV />
       <List listStyle={ListStyle.Normal} className="fill-space">
         <IfEmpty>Add your first operation to see it here</IfEmpty>
         <Action>
-          <Button type={ButtonType.main} onClick={remove} className="square">
+          <SquareMainButton onClick={remove}>
             <RemoveIcon />
-          </Button>
+          </SquareMainButton>
         </Action>
         {properties.map((item: any, index: number) => (
           <Row item={item} key={index}>

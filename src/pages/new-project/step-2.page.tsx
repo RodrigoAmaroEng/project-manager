@@ -1,27 +1,23 @@
-import Button, { ButtonType } from "../../components/Button";
+import { SquareMainButton } from "../../components/Button";
 import Field from "../../components/Field";
-import List, {
-  Action,
-  IfEmpty,
-  ListStyle,
-  Row,
-} from "../../components/List";
+import List, { Action, IfEmpty, ListStyle, Row } from "../../components/List";
 import { Line, SpaceFill, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  goToOperationDetails,
-} from "./new-project.actions";
+import { goToOperationDetails } from "./new-project.actions";
 import { useState } from "react";
 import Circle from "../../components/Circle";
 import { Radio, RadioGroup } from "../../components/Radio";
-import DropDown, { Option, RenderList } from "../../components/DropDown";
+import DropDown, { RenderList } from "../../components/DropDown";
 import { RecordList } from "../../extras/extension-functions";
 import StaticField from "../../components/StaticField";
 import WizardNavigationControl from "./WizardNavigationControl";
 import { useEffect } from "react";
 import { fieldsClear } from "../../App.actions";
 import { AddIcon, OperationIcon, RemoveIcon } from "../../img/Icons";
-import { addOperation, removeOperation } from "../../base/operation/Operation.actions";
+import {
+  addOperation,
+  removeOperation,
+} from "../../base/operation/Operation.actions";
 
 export default function Step2Page(props: any) {
   const dispatch = useDispatch();
@@ -80,17 +76,17 @@ export default function Step2Page(props: any) {
         </RadioGroup>
         <SpaceH />
         <SpaceFill />
-        <Button type={ButtonType.main} className="square" onClick={add}>
+        <SquareMainButton onClick={add}>
           <AddIcon />
-        </Button>
+        </SquareMainButton>
       </Line>
       <SpaceV />
       <List listStyle={ListStyle.Normal} className="fill-space">
         <IfEmpty>Add your first operation to see it here</IfEmpty>
         <Action>
-          <Button type={ButtonType.main} onClick={remove} className="square">
+          <SquareMainButton onClick={remove}>
             <RemoveIcon />
-          </Button>
+          </SquareMainButton>
         </Action>
         {operations.map((item: any, index: number) => (
           <Row item={item} key={index}>

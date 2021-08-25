@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button, { ButtonType } from "../../components/Button";
+import { SquareMainButton } from "../../components/Button";
 import DropDown, { RenderEnum } from "../../components/DropDown";
-import List, {
-  Action,
-  IfEmpty,
-  ListStyle,
-  Row,
-} from "../../components/List";
+import List, { Action, IfEmpty, ListStyle, Row } from "../../components/List";
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { RecordList } from "../../extras/extension-functions";
 import Circle from "../../components/Circle";
@@ -20,7 +15,11 @@ import { GDriveApiInstance } from "../../extras/gdrive-api";
 import { saveAndFinishWizard } from "./new-project.reducer";
 import { fieldsClear } from "../../App.actions";
 import { AddIcon, EntityIcon, RemoveIcon, VariableIcon } from "../../img/Icons";
-import { addPayloadEntityProperty, addPayloadNewProperty, removePayloadProperty } from "../../base/payload/Payload.actions";
+import {
+  addPayloadEntityProperty,
+  addPayloadNewProperty,
+  removePayloadProperty,
+} from "../../base/payload/Payload.actions";
 
 export default function Step6Page(props: any) {
   // INITIALIZERS
@@ -132,22 +131,26 @@ export default function Step6Page(props: any) {
         <SpaceH />
         {form}
         <SpaceH />
-        <Button type={ButtonType.main} onClick={add} className="square">
+        <SquareMainButton onClick={add}>
           <AddIcon />
-        </Button>
+        </SquareMainButton>
       </Line>
       <SpaceV />
       <List listStyle={ListStyle.Normal} className="fill-space">
         <IfEmpty>Add your first payload property to see it here</IfEmpty>
         <Action>
-          <Button className="square" type={ButtonType.main} onClick={remove}>
+          <SquareMainButton onClick={remove}>
             <RemoveIcon />
-          </Button>
+          </SquareMainButton>
         </Action>
         {properties.map((item: any, index: number) => (
           <Row item={item} key={index}>
             <Circle>
-              {item.kind === PropertyType.EntityProperty ? <EntityIcon /> : <VariableIcon />}
+              {item.kind === PropertyType.EntityProperty ? (
+                <EntityIcon />
+              ) : (
+                <VariableIcon />
+              )}
             </Circle>
             <SpaceH />
             {rowDescription(item)}

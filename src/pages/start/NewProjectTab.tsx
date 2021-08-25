@@ -1,4 +1,4 @@
-import Button, { ButtonType } from "../../components/Button";
+import {  MainButton, SecondaryButton } from "../../components/Button";
 import Field from "../../components/Field";
 import StaticField from "../../components/StaticField";
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
@@ -23,18 +23,17 @@ export function NewProjectTab() {
       <Line>
         <StaticField label="Location" value="Root Folder" />
         <SpaceH />
-        <Button type={ButtonType.secondary} onClick={() => { }}>
+        <SecondaryButton onClick={() => { }}>
           Change
-        </Button>
+        </SecondaryButton>
       </Line>
       <SpaceV />
-      <Button
+      <MainButton
         onClick={() => dispatch(createProject(GDriveApiInstance.upload))}
-        type={ButtonType.main}
         disabled={blockCreateButton}
       >
         Create
-      </Button>
+      </MainButton>
     </div>
   );
 }

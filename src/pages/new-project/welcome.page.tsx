@@ -1,10 +1,8 @@
 import { startWizard } from "./new-project.actions";
-import { useDispatch } from "react-redux";
 import WizardNavigationControl from "./WizardNavigationControl";
 
 export function WelcomePage() {
-  const dispatch = useDispatch();
-const nextAction = () => startWizard()
+  const nextAction = () => startWizard();
   return (
     <div className="flex-col fill-space">
       <h1>New project wizard</h1>
@@ -21,8 +19,7 @@ const nextAction = () => startWizard()
         <br />
         Press, next to proceed.
       </p>
-      <WizardNavigationControl error="" nextAction={nextAction}/>
-  
+      <WizardNavigationControl error="" nextAction={nextAction} />
     </div>
   );
 }

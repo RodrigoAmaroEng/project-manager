@@ -8,6 +8,7 @@ export enum ButtonType {
 export interface BaseButtonProps {
   onClick: (e?: any) => void;
   children: any;
+  disabled?: boolean; 
 }
 
 export interface BaseButtonPropsWithClass extends BaseButtonProps {
@@ -16,7 +17,6 @@ export interface BaseButtonPropsWithClass extends BaseButtonProps {
 
 export interface ButtonProps extends BaseButtonPropsWithClass {
   type: ButtonType;
-  disabled?: boolean; 
 }
 
 export default function Button(props: ButtonProps) {

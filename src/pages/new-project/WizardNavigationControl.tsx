@@ -1,5 +1,5 @@
 import { dismissError } from "../../App.actions";
-import Button, { ButtonType } from "../../components/Button";
+import { MainButton, SecondaryButton } from "../../components/Button";
 import ErrorBox from "../../components/ErrorBox";
 import { Line, LineAlignment, SpaceH } from "../../components/Utils";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import { GDriveApiInstance } from "../../extras/gdrive-api";
 
 export default function WizardNavigationControl(props: any) {
   const dispatch = useDispatch();
+  const onSkip = () => dispatch(saveAndFinishWizard(GDriveApiInstance.upload));
   return (
     <Line align={LineAlignment.right}>
       <ErrorBox
@@ -18,13 +19,9 @@ export default function WizardNavigationControl(props: any) {
         {props.error}
       </ErrorBox>
       <SpaceH />
-      <Button type={ButtonType.secondary} onClick={() => dispatch(saveAndFinishWizard(GDriveApiInstance.upload))}>
-        Skip
-      </Button>
+      <SecondaryButton onClick={onSkip}>Skip</SecondaryButton>
       <SpaceH />
-      <Button type={ButtonType.main} onClick={() => dispatch(props.nextAction())}>
-        Next
-      </Button>
+      <MainButton onClick={() => dispatch(props.nextAction())}>Next</MainButton>
     </Line>
   );
 }

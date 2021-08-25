@@ -1,16 +1,9 @@
-import Button, { ButtonType } from "../../components/Button";
+import { SquareMainButton } from "../../components/Button";
 import Field from "../../components/Field";
-import List, {
-  Action,
-  IfEmpty,
-  ListStyle,
-  Row,
-} from "../../components/List";
+import List, { Action, IfEmpty, ListStyle, Row } from "../../components/List";
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  goToEntityProperties,
-} from "./new-project.actions";
+import { goToEntityProperties } from "./new-project.actions";
 import { useEffect, useState } from "react";
 import Circle from "../../components/Circle";
 import StaticField from "../../components/StaticField";
@@ -47,17 +40,17 @@ export default function Step4Page(props: any) {
       <Line>
         <Field value={name} placeholder="Entity name" onChange={setName} />
         <SpaceH />
-        <Button type={ButtonType.main} onClick={add} className="square">
+        <SquareMainButton onClick={add}>
           <AddIcon />
-        </Button>
+        </SquareMainButton>
       </Line>
       <SpaceV />
       <List listStyle={ListStyle.Normal} className="fill-space">
         <IfEmpty>Add your first entity to see it here</IfEmpty>
         <Action>
-          <Button type={ButtonType.main} onClick={remove} className="square">
+          <SquareMainButton onClick={remove}>
             <RemoveIcon />
-          </Button>
+          </SquareMainButton>
         </Action>
         {entities.map((entity: any, index: number) => (
           <Row item={entity} key={index}>

@@ -1,4 +1,4 @@
-import Button, { ButtonType } from "../../components/Button";
+import { MainButton, SecondaryButton } from "../../components/Button";
 import Circle from "../../components/Circle";
 import List, { IfEmpty, ListStyle, Row } from "../../components/List";
 import StaticField from "../../components/StaticField";
@@ -90,23 +90,21 @@ export function OpenProjectTab() {
       </Line>
       <SpaceV />
       <Line>
-        <Button
+        <SecondaryButton
           className="half"
           onClick={loadProjectWizard}
-          type={ButtonType.secondary}
           disabled={!hasProjectSelected}
         >
           Load project in Wizard mode
-        </Button>
+        </SecondaryButton>
         <SpaceH />
-        <Button
+        <MainButton
           className="half"
           onClick={loadProject}
-          type={ButtonType.main}
           disabled={!hasProjectSelected}
         >
           Load project
-        </Button>
+        </MainButton>
       </Line>
 
       <SpaceH />
