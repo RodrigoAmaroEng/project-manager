@@ -1,12 +1,12 @@
 import Circle from "../components/Circle";
 import StaticField from "../components/StaticField";
 import { Line, SpaceH } from "../components/Utils";
-import { Entity, Property } from "../extras/Entity.model";
+import { Entity, Property } from "../base/entity/Entity.model";
 import { RecordList } from "../extras/extension-functions";
 import { PropertyType } from "../extras/models";
-import { Operation } from "../extras/Operation.model";
-import { Payload, PayloadProperty } from "../extras/Payload.model";
-import { Terminator } from "../extras/Terminator.model";
+import { Operation } from "../base/operation/Operation.model";
+import { Payload, PayloadProperty } from "../base/payload/Payload.model";
+import { Terminator } from "../base/terminator/Terminator.model";
 import { EntityIcon, VariableIcon } from "../img/Icons";
 
 function forTerminator(item: any) {

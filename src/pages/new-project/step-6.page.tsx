@@ -1,32 +1,32 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button, { ButtonType } from "../../../components/Button";
-import DropDown, { RenderEnum } from "../../../components/DropDown";
+import Button, { ButtonType } from "../../components/Button";
+import DropDown, { RenderEnum } from "../../components/DropDown";
 import List, {
   Action,
   IfEmpty,
   ListStyle,
   Row,
-} from "../../../components/List";
-import { Line, SpaceH, SpaceV } from "../../../components/Utils";
-import { RecordList } from "../../../extras/extension-functions";
+} from "../../components/List";
+import { Line, SpaceH, SpaceV } from "../../components/Utils";
+import { RecordList } from "../../extras/extension-functions";
 import {
   addPayloadEntityProperty,
   addPayloadNewProperty,
   removePayloadProperty,
-} from "../new-project.actions";
-import Circle from "../../../components/Circle";
-import StaticField from "../../../components/StaticField";
-import { PropertyType } from "../../../extras/models";
-import WizardNavigationControl from "../WizardNavigationControl";
+} from "./new-project.actions";
+import Circle from "../../components/Circle";
+import StaticField from "../../components/StaticField";
+import { PropertyType } from "../../extras/models";
+import WizardNavigationControl from "./WizardNavigationControl";
 import { EntityPropertyForm } from "./EntityPropertyForm";
 import { NewVariableForm } from "./NewVariableForm";
-import { GDriveApiInstance } from "../../../extras/gdrive-api";
-import { saveAndFinishWizard } from "../new-project.reducer";
-import { fieldsClear } from "../../../App.actions";
-import { AddIcon, EntityIcon, RemoveIcon, VariableIcon } from "../../../img/Icons";
+import { GDriveApiInstance } from "../../extras/gdrive-api";
+import { saveAndFinishWizard } from "./new-project.reducer";
+import { fieldsClear } from "../../App.actions";
+import { AddIcon, EntityIcon, RemoveIcon, VariableIcon } from "../../img/Icons";
 
-export default function PayloadsPage(props: any) {
+export default function Step6Page(props: any) {
   // INITIALIZERS
   const dispatch = useDispatch();
   let id = parseInt(props.match.params.id);

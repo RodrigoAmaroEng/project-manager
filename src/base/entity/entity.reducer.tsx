@@ -1,11 +1,11 @@
-import { initialState } from "../../../App.store";
+import { initialState } from "../../App.store";
 import {
   buildErrorMessage,
   includeSimpleRegistry,
   removeFromList,
-} from "../../../extras/crud-operations";
-import { RecordList } from "../../../extras/extension-functions";
-import history from "../../../navigation/history";
+} from "../../extras/crud-operations";
+import { RecordList } from "../../extras/extension-functions";
+import history from "../../navigation/history";
 
 export default function entityReducer(state = initialState, action: any) {
   switch (action.type) {

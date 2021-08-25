@@ -1,4 +1,3 @@
-import { Line } from "../components/Utils";
 import {
   BasicObjectWithDescription,
   FieldType,
@@ -6,7 +5,7 @@ import {
   BasicObject,
   DataTypes,
   SourceType,
-} from "./models";
+} from "../../extras/models";
 
 export class Property extends BasicObject {
   static _meta: any = {

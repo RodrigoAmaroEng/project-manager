@@ -1,25 +1,26 @@
-import Button, { ButtonType } from "../../../components/Button";
-import Field from "../../../components/Field";
+import Button, { ButtonType } from "../../components/Button";
+import Field from "../../components/Field";
 import List, {
   Action,
   IfEmpty,
   ListStyle,
   Row,
-} from "../../../components/List";
-import { Line, SpaceH, SpaceV } from "../../../components/Utils";
+} from "../../components/List";
+import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addEntity,
   goToEntityProperties,
   removeEntity,
-} from "../new-project.actions";
+} from "./new-project.actions";
 import { useEffect, useState } from "react";
-import Circle from "../../../components/Circle";
-import StaticField from "../../../components/StaticField";
-import WizardNavigationControl from "../WizardNavigationControl";
-import { fieldsClear } from "../../../App.actions";
-import { AddIcon, EntityIcon, RemoveIcon } from "../../../img/Icons";
-export default function EntitiesPage(props: any) {
+import Circle from "../../components/Circle";
+import StaticField from "../../components/StaticField";
+import WizardNavigationControl from "./WizardNavigationControl";
+import { fieldsClear } from "../../App.actions";
+import { AddIcon, EntityIcon, RemoveIcon } from "../../img/Icons";
+
+export default function Step4Page(props: any) {
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");

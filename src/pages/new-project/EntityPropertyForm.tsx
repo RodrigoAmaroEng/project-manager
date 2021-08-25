@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import DropDown, { Option, RenderList } from "../../../components/DropDown";
-import { Line, SpaceH } from "../../../components/Utils";
-import { RecordList } from "../../../extras/extension-functions";
+import DropDown, { Option, RenderList } from "../../components/DropDown";
+import { Line, SpaceH } from "../../components/Utils";
+import { RecordList } from "../../extras/extension-functions";
 
 export function EntityPropertyForm(props: any) {
   const entities = useSelector((state: any) => RecordList.fromList(state.project.content.entities)

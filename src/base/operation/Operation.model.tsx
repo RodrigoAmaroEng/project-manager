@@ -1,12 +1,12 @@
-import { Terminator } from "./Terminator.model";
+import { Terminator } from "../terminator/Terminator.model";
 import {
   BasicObjectWithDescription,
   FieldType,
   FieldSize,
   Direction,
   SourceType,
-} from "./models";
-import { Payload } from "./Payload.model";
+} from "../../extras/models";
+import { Payload } from "../payload/Payload.model";
 
 export class Operation extends BasicObjectWithDescription {
   static _meta: any = {

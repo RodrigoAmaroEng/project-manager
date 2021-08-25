@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fieldsClear } from "../../../App.actions";
-import Field from "../../../components/Field";
-import { SpaceFill, SpaceV } from "../../../components/Utils";
-import { RecordList } from "../../../extras/extension-functions";
-import { saveOperationDetail } from "../new-project.actions";
-import WizardNavigationControl from "../WizardNavigationControl";
+import { fieldsClear } from "../../App.actions";
+import Field from "../../components/Field";
+import { SpaceFill, SpaceV } from "../../components/Utils";
+import { RecordList } from "../../extras/extension-functions";
+import { saveOperationDetail } from "./new-project.actions";
+import WizardNavigationControl from "./WizardNavigationControl";
 
-export default function OperationDetailsPage(props: any) {
+export default function Step3Page(props: any) {
   const dispatch = useDispatch();
 
   const [description, setDescription] = useState("");

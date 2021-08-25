@@ -1,12 +1,12 @@
-import { initialState } from "../../../App.store";
+import { initialState } from "../../App.store";
 import {
   addToList,
   buildErrorMessage,
   includeSimpleRegistry,
   removeFromList,
-} from "../../../extras/crud-operations";
-import { RecordList } from "../../../extras/extension-functions";
-import history from "../../../navigation/history";
+} from "../../extras/crud-operations";
+import { RecordList } from "../../extras/extension-functions";
+import history from "../../navigation/history";
 
 export default function operationReducer(state = initialState, action: any) {
   switch (action.type) {

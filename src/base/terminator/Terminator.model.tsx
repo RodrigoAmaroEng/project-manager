@@ -1,4 +1,4 @@
-import { BasicObjectWithDescription, FieldType, FieldSize } from "./models";
+import { BasicObjectWithDescription, FieldType, FieldSize } from "../../extras/models";
 
 
 export class Terminator extends BasicObjectWithDescription {

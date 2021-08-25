@@ -1,28 +1,28 @@
-import Button, { ButtonType } from "../../../components/Button";
-import Field from "../../../components/Field";
+import Button, { ButtonType } from "../../components/Button";
+import Field from "../../components/Field";
 import List, {
   Action,
   IfEmpty,
   ListStyle,
   Row,
-} from "../../../components/List";
-import { Line, SpaceFill, SpaceH, SpaceV } from "../../../components/Utils";
+} from "../../components/List";
+import { Line, SpaceFill, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTerminator,
   finishTerminatorStep,
   removeTerminator,
-} from "../new-project.actions";
+} from "./new-project.actions";
 import { useState } from "react";
-import Circle from "../../../components/Circle";
+import Circle from "../../components/Circle";
 
-import StaticField from "../../../components/StaticField";
-import WizardNavigationControl from "../WizardNavigationControl";
+import StaticField from "../../components/StaticField";
+import WizardNavigationControl from "./WizardNavigationControl";
 import { useEffect } from "react";
-import { fieldsClear } from "../../../App.actions";
-import { AddIcon, RemoveIcon, TerminatorIcon } from "../../../img/Icons";
+import { fieldsClear } from "../../App.actions";
+import { AddIcon, RemoveIcon, TerminatorIcon } from "../../img/Icons";
 
-export default function TerminatorsPage(props: any) {
+export default function Step1Page(props: any) {
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");

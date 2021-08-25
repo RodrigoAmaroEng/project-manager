@@ -1,29 +1,29 @@
-import Button, { ButtonType } from "../../../components/Button";
-import Field from "../../../components/Field";
+import Button, { ButtonType } from "../../components/Button";
+import Field from "../../components/Field";
 import List, {
   Action,
   IfEmpty,
   ListStyle,
   Row,
-} from "../../../components/List";
-import { Line, SpaceH, SpaceV } from "../../../components/Utils";
+} from "../../components/List";
+import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addEntityProperty,
   finishEntityProperties,
   removeEntityProperty,
-} from "../new-project.actions";
+} from "./new-project.actions";
 import { useEffect, useState } from "react";
-import Circle from "../../../components/Circle";
-import DropDown, { RenderEnum } from "../../../components/DropDown";
-import { RecordList } from "../../../extras/extension-functions";
-import StaticField from "../../../components/StaticField";
-import { DataTypes } from "../../../extras/models";
-import WizardNavigationControl from "../WizardNavigationControl";
-import { fieldsClear } from "../../../App.actions";
-import { AddIcon, PropertyIcon, RemoveIcon } from "../../../img/Icons";
+import Circle from "../../components/Circle";
+import DropDown, { RenderEnum } from "../../components/DropDown";
+import { RecordList } from "../../extras/extension-functions";
+import StaticField from "../../components/StaticField";
+import { DataTypes } from "../../extras/models";
+import WizardNavigationControl from "./WizardNavigationControl";
+import { fieldsClear } from "../../App.actions";
+import { AddIcon, PropertyIcon, RemoveIcon } from "../../img/Icons";
 
-export default function EntityPropertiesPage(props: any) {
+export default function Step5Page(props: any) {
   const dispatch = useDispatch();
 
   let entityId = parseInt(props.match.params.id);

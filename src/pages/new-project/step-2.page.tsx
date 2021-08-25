@@ -1,30 +1,30 @@
-import Button, { ButtonType } from "../../../components/Button";
-import Field from "../../../components/Field";
+import Button, { ButtonType } from "../../components/Button";
+import Field from "../../components/Field";
 import List, {
   Action,
   IfEmpty,
   ListStyle,
   Row,
-} from "../../../components/List";
-import { Line, SpaceFill, SpaceH, SpaceV } from "../../../components/Utils";
+} from "../../components/List";
+import { Line, SpaceFill, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addOperation,
   goToOperationDetails,
   removeOperation,
-} from "../new-project.actions";
+} from "./new-project.actions";
 import { useState } from "react";
-import Circle from "../../../components/Circle";
-import { Radio, RadioGroup } from "../../../components/Radio";
-import DropDown, { Option, RenderList } from "../../../components/DropDown";
-import { RecordList } from "../../../extras/extension-functions";
-import StaticField from "../../../components/StaticField";
-import WizardNavigationControl from "../WizardNavigationControl";
+import Circle from "../../components/Circle";
+import { Radio, RadioGroup } from "../../components/Radio";
+import DropDown, { Option, RenderList } from "../../components/DropDown";
+import { RecordList } from "../../extras/extension-functions";
+import StaticField from "../../components/StaticField";
+import WizardNavigationControl from "./WizardNavigationControl";
 import { useEffect } from "react";
-import { fieldsClear } from "../../../App.actions";
-import { AddIcon, OperationIcon, RemoveIcon } from "../../../img/Icons";
+import { fieldsClear } from "../../App.actions";
+import { AddIcon, OperationIcon, RemoveIcon } from "../../img/Icons";
 
-export default function OperationsPage(props: any) {
+export default function Step2Page(props: any) {
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");

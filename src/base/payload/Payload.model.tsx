@@ -1,5 +1,4 @@
-import { Line } from "../components/Utils";
-import { Entity, Property } from "./Entity.model";
+import { Entity, Property } from "../entity/Entity.model";
 import {
   BasicObjectWithDescription,
   FieldType,
@@ -7,7 +6,7 @@ import {
   PropertyType,
   SourceType,
   DataTypes,
-} from "./models";
+} from "../../extras/models";
 
 export class PayloadProperty {
   static _meta: any = {
@@ -125,11 +124,7 @@ export class Payload extends BasicObjectWithDescription {
         type: FieldType.list,
         kind: PayloadProperty,
         size: FieldSize.full,
-        render: (item: any) => (
-          <Line>
-            {item.kind === PropertyType.Variable ? item.name : item.entityId.id}
-          </Line>
-        ),
+
         transform: (item: any) =>
           Object.assign(item, {
             entityId: item.entityId?.id ?? item.entityId,

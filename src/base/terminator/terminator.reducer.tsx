@@ -1,10 +1,10 @@
-import { initialState } from "../../../App.store";
+import { initialState } from "../../App.store";
 import {
   buildErrorMessage,
   includeSimpleRegistry,
   removeFromList,
-} from "../../../extras/crud-operations";
-import history from "../../../navigation/history";
+} from "../../extras/crud-operations";
+import history from "../../navigation/history";
 
 export default function terminatorReducer(state = initialState, action: any) {
   switch (action.type) {

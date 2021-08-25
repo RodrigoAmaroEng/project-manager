@@ -1,8 +1,6 @@
-import Button, { ButtonType } from "../../../components/Button";
-import { Line, LineAlignment, SpaceH } from "../../../components/Utils";
-import { startWizard } from "../new-project.actions";
+import { startWizard } from "./new-project.actions";
 import { useDispatch } from "react-redux";
-import WizardNavigationControl from "../WizardNavigationControl";
+import WizardNavigationControl from "./WizardNavigationControl";
 
 export function WelcomePage() {
   const dispatch = useDispatch();

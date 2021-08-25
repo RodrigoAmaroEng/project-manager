@@ -2,13 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import CRUD from "../../components/CRUD";
 import Menu, { MenuItem } from "../../components/Menu";
-import { Payload } from "../../extras/Payload.model";
-import { Entity } from "../../extras/Entity.model";
-import { Operation } from "../../extras/Operation.model";
-import { Terminator } from "../../extras/Terminator.model";
+import { Payload } from "../../base/payload/Payload.model";
+import { Entity } from "../../base/entity/Entity.model";
+import { Operation } from "../../base/operation/Operation.model";
+import { Terminator } from "../../base/terminator/Terminator.model";
 import { navigateTo } from "./Main.actions";
 import "./Main.page.css";
 import { forModel } from "../../renderers/ForModel";
+import { MainButton } from "../../components/Button";
+import { saveAndFinishWizard } from "../new-project/new-project.reducer";
+import { GDriveApiInstance } from "../../extras/gdrive-api";
 
 export default function MainPage(props: any) {
   const dispatch = useDispatch();
@@ -23,7 +26,11 @@ export default function MainPage(props: any) {
 
   return (
     <div className="main-structure">
-      <header></header>
+      <header>
+        <MainButton onClick={() => dispatch(saveAndFinishWizard(GDriveApiInstance.upload))}>
+          Save
+        </MainButton>
+      </header>
       <aside>
         <Menu onChange={(name: string) => dispatch(navigateTo(name))}>
           <MenuItem name="Terminators" count={terminators.length} />

@@ -1,12 +1,12 @@
 import { Route, Switch } from "react-router-dom";
 import ModalWindow from "../../components/Modal";
-import TerminatorsPage from "./step-1/terminators.page";
-import OperationsPage from "./step-2/operations.page";
-import { WelcomePage } from "./step-0/welcome.page";
-import OperationDetailsPage from "./step-3/operation-details.page";
-import EntitiesPage from "./step-4/entities.page";
-import EntityPropertiesPage from "./step-5/entity-properties.page";
-import PayloadsPage from "./step-6/payload.page";
+import Step1Page from "./step-1.page";
+import Step2Page from "./step-2.page";
+import { WelcomePage } from "./welcome.page";
+import Step3Page from "./step-3.page";
+import Step4Page from "./step-4.page";
+import Step5Page from "./step-5.page";
+import Step6Page from "./step-6.page";
 
 export default function NewProjectPage() {
   return (
@@ -14,24 +14,24 @@ export default function NewProjectPage() {
       <Switch>
         <Route
           path="/project/new/entities/:id"
-          render={(props) => <EntityPropertiesPage {...props} />}
+          render={(props) => <Step5Page {...props} />}
         />
         <Route
           path="/project/new/operations/:id"
-          render={(props) => <OperationDetailsPage {...props} />}
+          render={(props) => <Step3Page {...props} />}
         />
         <Route
           path="/project/new/payloads/:id"
-          render={(props) => <PayloadsPage {...props} />}
+          render={(props) => <Step6Page {...props} />}
         />
         <Route path="/project/new/4">
-          <EntitiesPage />
+          <Step4Page />
         </Route>
         <Route path="/project/new/2">
-          <OperationsPage />
+          <Step2Page />
         </Route>
         <Route path="/project/new/1">
-          <TerminatorsPage />
+          <Step1Page />
         </Route>
         <Route path="/project/new">
           <WelcomePage />

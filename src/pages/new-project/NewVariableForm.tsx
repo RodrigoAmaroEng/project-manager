@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import DropDown, { RenderEnum } from "../../../components/DropDown";
-import Field from "../../../components/Field";
-import { Line, SpaceH } from "../../../components/Utils";
-import { DataTypes } from "../../../extras/models";
+import DropDown, { RenderEnum } from "../../components/DropDown";
+import Field from "../../components/Field";
+import { Line, SpaceH } from "../../components/Utils";
+import { DataTypes } from "../../extras/models";
 
 export function NewVariableForm(props: any) {
   const [value, setValue] = useState(undefined as any);
