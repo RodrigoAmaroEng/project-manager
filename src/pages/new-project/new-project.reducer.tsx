@@ -16,7 +16,7 @@ export const saveAndFinishWizard = createAsyncThunk(
     }
     let project = thunkAPI.getState().project;
 
-    await service(
+    return await service(
       project.name,
       JSON.stringify(project),
       project.fileInfo.fileId
@@ -34,6 +34,7 @@ export default function newProjectReducer(
       return state;
     }
     case "new-project/save-and-finish-wizard/fulfilled": {
+      state.project.fileInfo.fileId = action.payload.id
       history.push("/project/stored");
       return state;
     }

@@ -144,9 +144,7 @@ class GDriveApi {
   }
 
   download(fileId: string) {
-    return gapi.client.drive.files.get(
-      { fileId, alt:"media" }
-    );
+    return gapi.client.drive.files.get({ fileId, alt: "media" });
   }
 
   upload(fileName: string, fileContent: string, fileId: string) {
@@ -154,8 +152,10 @@ class GDriveApi {
     var metadata = {
       name: fileName.replace(/\s/g, "-") + ".uml.json", // Filename at Google Drive
       mimeType: "application/json", // mimeType at Google Drive
-      parents: ["root"],
     };
+    if (!fileId) {
+      metadata = Object.assign(metadata, { parents: ["root"] });
+    }
 
     var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.
     var form = new FormData();
