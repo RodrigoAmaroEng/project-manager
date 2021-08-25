@@ -9,9 +9,7 @@ import List, {
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addEntity,
   goToEntityProperties,
-  removeEntity,
 } from "./new-project.actions";
 import { useEffect, useState } from "react";
 import Circle from "../../components/Circle";
@@ -19,6 +17,7 @@ import StaticField from "../../components/StaticField";
 import WizardNavigationControl from "./WizardNavigationControl";
 import { fieldsClear } from "../../App.actions";
 import { AddIcon, EntityIcon, RemoveIcon } from "../../img/Icons";
+import { addEntity, removeEntity } from "../../base/entity/Entity.actions";
 
 export default function Step4Page(props: any) {
   const dispatch = useDispatch();

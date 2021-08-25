@@ -10,7 +10,7 @@ import history from "../../navigation/history";
 
 export default function operationReducer(state = initialState, action: any) {
   switch (action.type) {
-    case "new-project/add-operation": {
+    case "crud/add-operation": {
       let item = action.payload;
       const validation = (item: any) =>
         item.name && item.terminatorId && item.direction;
@@ -27,8 +27,7 @@ export default function operationReducer(state = initialState, action: any) {
       }
       return state;
     }
-    case "form/remove-operation":
-    case "new-project/remove-operation": {
+    case "crud/remove-operation": {
       state.project.content.operations = removeFromList(
         state.project.content.operations,
         action.payload

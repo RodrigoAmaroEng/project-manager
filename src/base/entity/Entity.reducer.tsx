@@ -9,7 +9,7 @@ import history from "../../navigation/history";
 
 export default function entityReducer(state = initialState, action: any) {
   switch (action.type) {
-    case "new-project/add-entity": {
+    case "crud/add-entity": {
       let item = action.payload;
       try {
         state.project.content.entities = includeSimpleRegistry(
@@ -22,7 +22,7 @@ export default function entityReducer(state = initialState, action: any) {
       }
       return state;
     }
-    case "new-project/remove-entity": {
+    case "crud/remove-entity": {
       state.project.content.entities = removeFromList(
         state.project.content.entities,
         action.payload
@@ -39,7 +39,7 @@ export default function entityReducer(state = initialState, action: any) {
       }
       return state;
     }
-    case "new-project/add-entity-property": {
+    case "crud/add-entity-property": {
       let item = action.payload;
       let entity = RecordList.fromList([
         ...state.project.content.entities,
@@ -58,7 +58,7 @@ export default function entityReducer(state = initialState, action: any) {
 
       return state;
     }
-    case "new-project/remove-entity-property": {
+    case "crud/remove-entity-property": {
       let item = action.payload.item;
       let entity = RecordList.fromList([
         ...state.project.content.entities,

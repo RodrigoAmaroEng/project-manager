@@ -9,7 +9,7 @@ import { PropertyType } from "../../extras/models";
 
 export default function payloadReducer(state = initialState, action: any) {
   switch (action.type) {
-    case "new-project/add-payload-entity-property": {
+    case "crud/add-payload-entity-property": {
       let item = action.payload;
       let name = item.propertyName;
       delete item.propertyName;
@@ -33,7 +33,7 @@ export default function payloadReducer(state = initialState, action: any) {
       }
       return state;
     }
-    case "new-project/add-payload-new-property": {
+    case "crud/add-payload-new-property": {
       let item = action.payload;
       let payload = RecordList.fromList([
         ...state.project.content.payloads,
@@ -56,7 +56,7 @@ export default function payloadReducer(state = initialState, action: any) {
       }
       return state;
     }
-    case "new-project/remove-payload-property": {
+    case "crud/remove-payload-property": {
       let item = action.payload.item;
       let payload = RecordList.fromList([
         ...state.project.content.payloads,
@@ -68,7 +68,7 @@ export default function payloadReducer(state = initialState, action: any) {
       state.project.content.payloads[index] = payload;
       return state;
     }
-    case "new-project/add-payload": {
+    case "crud/add-payload": {
       let item = action.payload;
       let name = item.propertyName;
       try {
@@ -83,8 +83,7 @@ export default function payloadReducer(state = initialState, action: any) {
       }
       return state;
     }
-    case "form/remove-payload": {
-      console.log(action)
+    case "crud/remove-payload": {
       state.project.content.payloads = removeFromList(
         state.project.content.payloads,
         action.payload

@@ -8,7 +8,7 @@ import history from "../../navigation/history";
 
 export default function terminatorReducer(state = initialState, action: any) {
   switch (action.type) {
-    case "new-project/add-terminator": {
+    case "crud/add-terminator": {
       let item = action.payload;
       try {
         state.project.content.terminators = includeSimpleRegistry(
@@ -21,7 +21,7 @@ export default function terminatorReducer(state = initialState, action: any) {
       }
       return state;
     }
-    case "new-project/remove-terminator": {
+    case "crud/remove-terminator": {
       state.project.content.terminators = removeFromList(
         state.project.content.terminators,
         action.payload

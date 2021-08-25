@@ -9,9 +9,7 @@ import List, {
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addEntityProperty,
   finishEntityProperties,
-  removeEntityProperty,
 } from "./new-project.actions";
 import { useEffect, useState } from "react";
 import Circle from "../../components/Circle";
@@ -22,6 +20,7 @@ import { DataTypes } from "../../extras/models";
 import WizardNavigationControl from "./WizardNavigationControl";
 import { fieldsClear } from "../../App.actions";
 import { AddIcon, PropertyIcon, RemoveIcon } from "../../img/Icons";
+import { addEntityProperty, removeEntityProperty } from "../../base/entity/Entity.actions";
 
 export default function Step5Page(props: any) {
   const dispatch = useDispatch();

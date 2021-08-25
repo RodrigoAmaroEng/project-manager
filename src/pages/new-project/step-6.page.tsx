@@ -10,11 +10,6 @@ import List, {
 } from "../../components/List";
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { RecordList } from "../../extras/extension-functions";
-import {
-  addPayloadEntityProperty,
-  addPayloadNewProperty,
-  removePayloadProperty,
-} from "./new-project.actions";
 import Circle from "../../components/Circle";
 import StaticField from "../../components/StaticField";
 import { PropertyType } from "../../extras/models";
@@ -25,6 +20,7 @@ import { GDriveApiInstance } from "../../extras/gdrive-api";
 import { saveAndFinishWizard } from "./new-project.reducer";
 import { fieldsClear } from "../../App.actions";
 import { AddIcon, EntityIcon, RemoveIcon, VariableIcon } from "../../img/Icons";
+import { addPayloadEntityProperty, addPayloadNewProperty, removePayloadProperty } from "../../base/payload/Payload.actions";
 
 export default function Step6Page(props: any) {
   // INITIALIZERS

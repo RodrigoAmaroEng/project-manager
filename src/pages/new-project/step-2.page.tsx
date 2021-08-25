@@ -9,9 +9,7 @@ import List, {
 import { Line, SpaceFill, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addOperation,
   goToOperationDetails,
-  removeOperation,
 } from "./new-project.actions";
 import { useState } from "react";
 import Circle from "../../components/Circle";
@@ -23,6 +21,7 @@ import WizardNavigationControl from "./WizardNavigationControl";
 import { useEffect } from "react";
 import { fieldsClear } from "../../App.actions";
 import { AddIcon, OperationIcon, RemoveIcon } from "../../img/Icons";
+import { addOperation, removeOperation } from "../../base/operation/Operation.actions";
 
 export default function Step2Page(props: any) {
   const dispatch = useDispatch();

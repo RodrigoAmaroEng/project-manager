@@ -7,10 +7,10 @@ import { AnyAction } from "redux";
 import newProjectReducer from "./pages/new-project/new-project.reducer";
 import "./extras/extension-functions.tsx";
 import { RecordList } from "./extras/extension-functions";
-import terminatorReducer from "./base/terminator/terminator.reducer";
-import operationReducer from "./base/operation/operation.reducer";
-import entityReducer from "./base/entity/entity.reducer";
-import payloadReducer from "./base/payload/payload.reducer";
+import terminatorReducer from "./base/terminator/Terminator.reducer";
+import operationReducer from "./base/operation/Operation.reducer";
+import entityReducer from "./base/entity/Entity.reducer";
+import payloadReducer from "./base/payload/Payload.reducer";
 import mainReducer from "./pages/main/Main.reducer";
 
 const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));

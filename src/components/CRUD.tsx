@@ -8,8 +8,7 @@ import { useDispatch } from "react-redux";
 import history from "../navigation/history";
 
 function saveObject(obj: any, type: any) {
-  console.log("new-project/add-" + type.name.toLowerCase());
-  return { type: "new-project/add-" + type.name.toLowerCase(), payload: obj };
+  return { type: "crud/add-" + type.name.toLowerCase(), payload: obj };
 }
 
 export default function CRUD(props: any) {

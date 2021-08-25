@@ -9,9 +9,7 @@ import List, {
 import { Line, SpaceFill, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addTerminator,
   finishTerminatorStep,
-  removeTerminator,
 } from "./new-project.actions";
 import { useState } from "react";
 import Circle from "../../components/Circle";
@@ -21,6 +19,7 @@ import WizardNavigationControl from "./WizardNavigationControl";
 import { useEffect } from "react";
 import { fieldsClear } from "../../App.actions";
 import { AddIcon, RemoveIcon, TerminatorIcon } from "../../img/Icons";
+import { addTerminator, removeTerminator } from "../../base/terminator/Terminator.actions";
 
 export default function Step1Page(props: any) {
   const dispatch = useDispatch();
