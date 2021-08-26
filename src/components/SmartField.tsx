@@ -1,5 +1,5 @@
 import ContentEditable from "react-contenteditable";
-import React, { Component, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import "./SmartField.css";
 
 export default function SmartField(props: any) {
@@ -73,7 +73,8 @@ export default function SmartField(props: any) {
     updateValue(current);
     contentEditable.current.focus();
   };
-  const className = props.required && !value && " required" || "";
+  let className = props.required && !value && " required" || "";
+  className += props.className ? ` ${props.className}` : ""
   return (
     <div className={`smart-field-container${className}`}>
       <div

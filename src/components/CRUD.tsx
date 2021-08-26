@@ -6,6 +6,7 @@ import RegistryForm from "./crud/RegistryForm";
 import { RecordList } from "../extras/extension-functions";
 import { useDispatch } from "react-redux";
 import history from "../navigation/history";
+import { cancelOperation } from "../pages/main/Main.actions";
 
 function saveObject(obj: any, type: any) {
   return { type: "crud/add-" + type.name.toLowerCase(), payload: obj };
@@ -13,6 +14,8 @@ function saveObject(obj: any, type: any) {
 
 export default function CRUD(props: any) {
   const dispatch = useDispatch();
+
+  const onCancel = () => dispatch(cancelOperation())
   const onSave = (item: any) => {
     dispatch(saveObject(item, props.object));
     let path = window.location.pathname.split("/")[3];
@@ -29,6 +32,7 @@ export default function CRUD(props: any) {
             item={RecordList.fromList(props.items).byId(
               parseInt(params.match.params.id)
             )}
+            onCancel={onCancel}
             onSave={onSave}
           />
         )}
@@ -37,6 +41,8 @@ export default function CRUD(props: any) {
         <RegistryForm
           object={props.object}
           onSave={onSave}
+          onCancel={onCancel}
+
           renderer={props.renderer}
         />
       </Route>

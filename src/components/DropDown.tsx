@@ -41,8 +41,15 @@ export default function DropDown(props: any) {
     ));
   }
   const getSelectedIndex = (item: any) => {
-    if (!props.selected) return -1;
-    return children.findIndex((child: any) => child.props.item === item) ?? -1;
+    if (!item) return -1;
+    if (item instanceof Object)
+      return (
+        children.findIndex((child: any) => child.props.item === item) ?? -1
+      );
+    else
+      return (
+        children.findIndex((child: any) => child.props.item.id === item) ?? -1
+      );
   };
   const [selectedIndex, setSelectedIndex] = useState(
     getSelectedIndex(props.selected)
@@ -59,8 +66,9 @@ export default function DropDown(props: any) {
     >
       <div className={`dropdown`} onClick={() => setOpen(!isOpen)}>
         <div className="dropdown-selected-item">
-          {children[selectedIndex] ? 
-            render(children[selectedIndex].props.item) : ""}
+          {children[selectedIndex]
+            ? render(children[selectedIndex].props.item)
+            : ""}
         </div>
       </div>
       <div className="dropdown-option-container">

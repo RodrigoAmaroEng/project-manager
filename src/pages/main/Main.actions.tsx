@@ -7,3 +7,6 @@ export function editRecord(id: number) {
 export function deleteRecord(type: string, item: any) {
   return { type: "crud/remove-"+ type.toLowerCase() , payload: item };
 }
+export function cancelOperation() {
+  return { type: "crud/cancel", payload: window.location.pathname };
+}

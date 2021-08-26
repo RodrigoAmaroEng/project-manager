@@ -7,8 +7,12 @@ export default function mainReducer(state = initialState, action: any) {
       history.push("/project/stored/" + action.payload);
       return state;
     }
-    case "form/edit-record": {
+    case "crud/edit-record": {
       history.push(window.location.pathname + "/edit/" + action.payload);
+      return state;
+    }
+    case "crud/cancel": {
+      history.push( action.payload.split("/").slice(0, 4).join("/"));
       return state;
     }
     default: {

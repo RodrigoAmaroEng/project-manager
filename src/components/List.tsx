@@ -94,8 +94,8 @@ export default function List(props: ListProps) {
           onClick={() => onClick(row, index)}
         >
           {row}
-          {actions.map((action: any) => (
-            <div className="row-action">
+          {actions.map((action: any, index: number) => (
+            <div className="row-action" key={`action-${index}`}>
               {React.cloneElement(action, { item: row.props.item })}
             </div>
           ))}
