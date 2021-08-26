@@ -65,3 +65,44 @@ export class BasicObjectWithDescription extends BasicObject {
     this.description = description;
   }
 }
+
+export function searchObject(content: any, search: string) {
+  return content.terminators
+    .map((it: any) => Object.assign(it, { tag: "T" }))
+    .concat(content.entities.map((it: any) => Object.assign(it, { tag: "E" })))
+    .concat(
+      content.entities
+        .flatMap((it: any) => it.properties)
+        .map((it: any) => Object.assign(it, { tag: "R" }))
+    )
+    .concat(content.payloads.map((it: any) => Object.assign(it, { tag: "P" })))
+    .concat(
+      content.operations.map((it: any) => Object.assign(it, { tag: "O" }))
+    )
+    .map((it: any) =>
+      Object.assign({}, { id: it.id, name: it.name, tag: it.tag })
+    )
+    .filter(
+      (it: any) => it.name.toLowerCase().indexOf(search?.toLowerCase()) > -1
+    );
+}
+
+export function findObject(content: any, id: number, type: string) {
+  let item = content.terminators
+    .map((it: any) => Object.assign(it, { tag: "T" }))
+    .concat(content.entities.map((it: any) => Object.assign(it, { tag: "E" })))
+    .concat(
+      content.entities
+        .flatMap((it: any) => it.properties)
+        .map((it: any) => Object.assign(it, { tag: "R" }))
+    )
+    .concat(content.payloads.map((it: any) => Object.assign(it, { tag: "P" })))
+    .concat(
+      content.operations.map((it: any) => Object.assign(it, { tag: "O" }))
+    )
+    .map((it: any) =>
+      Object.assign({}, { id: it.id, name: it.name, tag: it.tag })
+    )
+    .find((it: any) => Number(it.id) ===  Number(id) && it.tag === type);
+  return item;
+}

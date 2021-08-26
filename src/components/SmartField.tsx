@@ -1,6 +1,24 @@
 import ContentEditable from "react-contenteditable";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./SmartField.css";
+
+const getCursorPosition = (target: any) => {
+  const range = document.createRange();
+  range.selectNodeContents(target);
+  range.collapse(false);
+  target.focus();
+  console.log(range.endOffset);
+  const div = document.createElement("span");
+  range.insertNode(div);
+  const { top, left } = div.getBoundingClientRect();
+  div.remove();
+  return {
+    top: top - target.getBoundingClientRect().top + target.offsetTop,
+    left: left - target.getBoundingClientRect().left + target.offsetLeft,
+  };
+};
+
+const extractText = (text = "") => text.replace(/<br\/?>/, "&#65279;");
 
 export default function SmartField(props: any) {
   const [isActive, setActive] = useState(false);
@@ -9,10 +27,13 @@ export default function SmartField(props: any) {
   const contentEditable: any = useRef();
 
   const parseText = (text = "") => {
-    let regex = /@\((\d+),([A-Z]{2,})\)/;
+    let regex = /@\((\d+),([A-Z]{1})\)/;
     while (text.match(regex)) {
       setActive(false);
-      let item = props.onRequestItem(text?.match(regex)?.[1]);
+      let item = props.onQueryItem(
+        text?.match(regex)?.[1],
+        text?.match(regex)?.[2]
+      );
       text = text.replace(
         regex,
         "<span class='pill $2' contenteditable='false'><a href='#$2$1'>" +
@@ -22,35 +43,22 @@ export default function SmartField(props: any) {
     }
     return text;
   };
+  console.log("St");
   const [value, setValue] = useState(props.value ? parseText(props.value) : "");
-  const extractText = (text = "") => text.replace(/<br\/?>/, "&#65279;");
-  const getCursorPosition = () => {
-    let target: any = contentEditable.current;
-    const range = document.createRange();
-    range.selectNodeContents(target);
-    range.collapse(false);
-    target.focus();
-    const div = document.createElement("span");
-    range.insertNode(div);
-    const { top, left } = div.getBoundingClientRect();
-    div.remove();
-    return {
-      top: top - target.getBoundingClientRect().top + target.offsetTop,
-      left: left - target.getBoundingClientRect().left + target.offsetLeft,
-    };
-  };
   const updateValue = (value: string) => {
     let text = extractText(parseText(value));
     if (props.onChange) {
       let sanitizedText = text.replaceAll(
-        /<span[^>]*><a href=['"]#(\w{2,})(\d+)['"]>[^>]*<\/a><\/span>/g,
+        /<span[^>]*><a href=['"]#(\w{1})(\d+)['"]>[^>]*<\/a><\/span>/g,
         "@($2,$1)"
       );
-      props.onChange(sanitizedText);
+      if (text !== sanitizedText) {
+        props.onChange(sanitizedText);
+      }
     }
     setValue(text);
-    setCaretPos(getCursorPosition());
-
+    setCaretPos(getCursorPosition(contentEditable.current));
+    console.log(document.getSelection());
     if (text[text.length - 1] === "@") {
       setActive(true);
       setOptions(props.onSearch());
@@ -68,13 +76,13 @@ export default function SmartField(props: any) {
     let current = value;
     current =
       current.substr(0, current.lastIndexOf("@")) +
-      `@(${item.id},${item.type}) `;
+      `@(${item.id},${item.tag}) `;
     setActive(false);
     updateValue(current);
     contentEditable.current.focus();
   };
-  let className = props.required && !value && " required" || "";
-  className += props.className ? ` ${props.className}` : ""
+  let className = (props.required && !value && " required") || "";
+  className += props.className ? ` ${props.className}` : "";
   return (
     <div className={`smart-field-container${className}`}>
       <div
@@ -87,7 +95,7 @@ export default function SmartField(props: any) {
         }}
       >
         {options.map((it: any, i: number) => (
-          <div className={it.type} key={i} onClick={() => select(it)}>
+          <div className={it.tag} key={i} onClick={() => select(it)}>
             {it.name}
           </div>
         ))}

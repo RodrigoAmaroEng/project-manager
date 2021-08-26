@@ -20,12 +20,11 @@ export class PayloadProperty {
         ? iter.entityId === target.entityId &&
           iter.propertyId === target.propertyId
         : iter.name === target.name,
-
+    tag: "P",
     fields: {
       id: {
         type: FieldType.identifier,
       },
-
       kind: {
         placeholder: "What kind of property is it?",
         required: true,

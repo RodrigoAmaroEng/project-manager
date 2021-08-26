@@ -16,9 +16,11 @@ import SmartField from "../../components/SmartField";
 import { Line } from "../../components/Utils";
 import Field from "../../components/Field";
 import { RecordList } from "../../extras/extension-functions";
+import { findObject, searchObject } from "../../extras/models";
 
 export default function MainPage(props: any) {
   const dispatch = useDispatch();
+  const content = useSelector((state: any) => state.project.content);
   const terminators = useSelector(
     (state: any) => state.project.content.terminators
   );
@@ -33,6 +35,10 @@ export default function MainPage(props: any) {
     )
   );
   const payloads = useSelector((state: any) => state.project.content.payloads);
+
+  const onSearch = (search: string) => searchObject(content, search);
+  const onQueryItem = (id: number, type: string) =>
+    findObject(content, id, type);
 
   return (
     <div className="main-structure">
@@ -56,22 +62,47 @@ export default function MainPage(props: any) {
       <article>
         <Switch>
           <Route path="/project/stored/terminators">
-            <CRUD items={terminators} object={Terminator} renderer={forModel} />
+            <CRUD
+              items={terminators}
+              object={Terminator}
+              renderer={forModel}
+              onSearch={onSearch}
+              onQueryItem={onQueryItem}
+            />
           </Route>
           <Route path="/project/stored/operations">
-            <CRUD items={operations} object={Operation} renderer={forModel} />
+            <CRUD
+              items={operations}
+              object={Operation}
+              renderer={forModel}
+              onSearch={onSearch}
+              onQueryItem={onQueryItem}
+            />
           </Route>
           <Route path="/project/stored/entities">
-            <CRUD items={entities} object={Entity} renderer={forModel} />
+            <CRUD
+              items={entities}
+              object={Entity}
+              renderer={forModel}
+              onSearch={onSearch}
+              onQueryItem={onQueryItem}
+            />
           </Route>
           <Route path="/project/stored/payloads">
-            <CRUD items={payloads} object={Payload} renderer={forModel} />
+            <CRUD
+              items={payloads}
+              object={Payload}
+              renderer={forModel}
+              onSearch={onSearch}
+              onQueryItem={onQueryItem}
+            />
           </Route>
           <Route path="/project/stored">
             <Line>
               <SmartField
-                onSearch={() => entities}
-                onRequestItem={(id: number) => entities.byId(id)}
+                className="fill-space"
+                onSearch={() => entities.map((it:any) => Object.assign(it, {tag: "T"}))}
+                onQueryItem={(id: number) => Object.assign(entities.byId(id), {tag: "T"})}
               />{" "}
               <Field onChange={() => {}} />
             </Line>

@@ -8,11 +8,7 @@ import {
 import { RecordList, useForceUpdate } from "../../extras/extension-functions";
 import { FieldType, SourceType } from "../../extras/models";
 import { RemoveIcon } from "../../img/Icons";
-import {
-  MainButton,
-  SecondaryButton,
-  SquareMainButton,
-} from "../Button";
+import { MainButton, SecondaryButton, SquareMainButton } from "../Button";
 import DropDown, { RenderEnum, RenderList } from "../DropDown";
 import Field from "../Field";
 import List, { Action, IfEmpty, ListStyle, Row } from "../List";
@@ -32,6 +28,8 @@ function SubForm(props: any) {
           object={props.kind}
           forList={true}
           onSave={props.onAdd}
+          onSearch={props.onSearch}
+          onQueryItem={props.onQueryItem}
           item={props.item}
         />
       </div>
@@ -85,6 +83,8 @@ function FieldRenderer(props: any) {
       <SmartField
         placeholder={props.placeholder}
         value={props.value}
+        onSearch={props.onSearch}
+        onQueryItem={props.onQueryItem}
         onChange={onChange}
         className={props.size}
       />
@@ -165,6 +165,8 @@ function FieldRenderer(props: any) {
         kind={props.kind}
         onAdd={onAdd}
         onRemove={onRemove}
+        onSearch={props.onSearch}
+        onQueryItem={props.onQueryItem}
         list={list}
         item={item}
         renderer={props.renderer}
@@ -202,7 +204,7 @@ export default function RegistryForm(props: any) {
   const onSave = () => {
     let finalItem = item;
     if (props.object._meta.transform) {
-      finalItem = props.object._meta.transform(finalItem)
+      finalItem = props.object._meta.transform(finalItem);
     }
     props.onSave(finalItem);
     setItem(undefined);
@@ -223,6 +225,8 @@ export default function RegistryForm(props: any) {
             {...value}
             object={props.object}
             item={item}
+            onSearch={props.onSearch}
+            onQueryItem={props.onQueryItem}
             value={item ? item[key] : ""}
             renderer={props.renderer}
             onChange={(v: any) => setValueFor(key, v)}

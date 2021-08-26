@@ -28,6 +28,8 @@ export default function CRUD(props: any) {
         render={(params: any) => (
           <RegistryForm
             renderer={props.renderer}
+            onSearch={props.onSearch}
+            onQueryItem={props.onQueryItem}
             object={props.object}
             item={RecordList.fromList(props.items).byId(
               parseInt(params.match.params.id)
@@ -40,9 +42,10 @@ export default function CRUD(props: any) {
       <Route path="/project/stored/:object/new">
         <RegistryForm
           object={props.object}
+          onSearch={props.onSearch}
+          onQueryItem={props.onQueryItem}
           onSave={onSave}
           onCancel={onCancel}
-
           renderer={props.renderer}
         />
       </Route>

@@ -16,6 +16,7 @@ export class Operation extends BasicObjectWithDescription {
         inputPayloadId: item.inputPayloadId?.id ?? item.inputPayloadId,
         outputPayloadId: item.outputPayloadId?.id ?? item.outputPayloadId,
       }),
+    tag: "O",
     fields: {
       id: {
         type: FieldType.identifier,

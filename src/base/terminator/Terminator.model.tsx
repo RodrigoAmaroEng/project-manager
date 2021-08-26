@@ -4,6 +4,7 @@ import { BasicObjectWithDescription, FieldType, FieldSize } from "../../extras/m
 export class Terminator extends BasicObjectWithDescription {
   static _meta: any = {
     storeName: "terminators",
+    tag: "T",
     validation: undefined,
     fields: {
       id: {
