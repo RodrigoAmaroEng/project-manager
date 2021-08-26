@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  FieldType } from "../extras/models";
+import { FieldType } from "../extras/models";
 import { RenderEnum, RenderList } from "./DropDown";
 import "./Radio.css";
 
@@ -25,7 +25,7 @@ export enum RadioStack {
 }
 
 interface RadioGroupProps {
-  title? : string;
+  title?: string;
   className?: string;
   children:
     | React.ReactElement<typeof Radio>[]
@@ -37,13 +37,15 @@ interface RadioGroupProps {
 }
 
 const filterEnumValues = (e: any) => {
-  const values: any[] = Object.values(e)
-  if (values.length % 2 !== 0) return values
-  if (isNaN(Number(values[values.length / 2 - 1])) && !isNaN(Number(values[values.length- 1])))
-    return values.slice(0, values.length / 2)
-    else 
-    return values
-} 
+  const values: any[] = Object.values(e);
+  if (values.length % 2 !== 0) return values;
+  if (
+    isNaN(Number(values[values.length / 2 - 1])) &&
+    !isNaN(Number(values[values.length - 1]))
+  )
+    return values.slice(0, values.length / 2);
+  else return values;
+};
 
 export function RadioGroup(props: RadioGroupProps) {
   const [selected, setSelected] = useState(props.selected);
@@ -67,21 +69,28 @@ export function RadioGroup(props: RadioGroupProps) {
   }
 
   return (
-    <div className={`radio-group ${props.className || ""}`}>
-      {children.map((radio: any, index: number) => (
-        <div
-          key={index}
-          onClick={() => {
-            setSelected(radio.props.value);
-            props.onSelect(radio.props.value);
-          }}
-          className={`radio-item ${
-            radio.props.value == selected ? "selected" : ""
-          }`}
-        >
-          {radio}
-        </div>
-      ))}
+    <div className={`radio-group-container ${props.className || ""}`}>
+      {props.title ? (
+        <div className="radio-group-title">{props.title}</div>
+      ) : (
+        ""
+      )}
+      <div className="radio-group">
+        {children.map((radio: any, index: number) => (
+          <div
+            key={index}
+            onClick={() => {
+              setSelected(radio.props.value);
+              props.onSelect(radio.props.value);
+            }}
+            className={`radio-item ${
+              radio.props.value == selected ? "selected" : ""
+            }`}
+          >
+            {radio}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

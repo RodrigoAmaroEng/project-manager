@@ -65,7 +65,7 @@ export default function DropDown(props: any) {
       }`}
     >
       <div className={`dropdown`} onClick={() => setOpen(!isOpen)}>
-        <div className="dropdown-selected-item">
+        <div className="dropdown-selected-item" placeholder={props.placeholder}>
           {children[selectedIndex]
             ? render(children[selectedIndex].props.item)
             : ""}

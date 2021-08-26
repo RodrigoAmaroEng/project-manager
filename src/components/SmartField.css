@@ -51,3 +51,8 @@
   left:0.25rem;
   top: 0.2rem;
 }
+
+.smart-field-container .smart-field:empty::after {
+  content: attr(placeholder);
+  color: var(--palette-color-1-dark)
+}
