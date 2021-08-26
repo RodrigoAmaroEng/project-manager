@@ -8,8 +8,7 @@ import {
 import { RecordList, useForceUpdate } from "../../extras/extension-functions";
 import { FieldType, SourceType } from "../../extras/models";
 import { RemoveIcon } from "../../img/Icons";
-import Button, {
-  ButtonType,
+import {
   MainButton,
   SecondaryButton,
   SquareMainButton,
@@ -18,6 +17,7 @@ import DropDown, { RenderEnum, RenderList } from "../DropDown";
 import Field from "../Field";
 import List, { Action, IfEmpty, ListStyle, Row } from "../List";
 import { RadioGroup } from "../Radio";
+import SmartField from "../SmartField";
 import { Line, SpaceFill, SpaceH, SpaceV } from "../Utils";
 
 function SubForm(props: any) {
@@ -82,7 +82,7 @@ function FieldRenderer(props: any) {
     );
   } else if (props.type === FieldType.smartInput) {
     return (
-      <Field
+      <SmartField
         placeholder={props.placeholder}
         value={props.value}
         onChange={onChange}

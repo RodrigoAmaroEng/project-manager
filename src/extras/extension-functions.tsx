@@ -81,7 +81,7 @@ export class RecordList extends Array<Record> {
     return this;
   }
   byId(id: number): any {
-    return this.find(it => it.id === id)
+    return this.find(it => it.id === parseInt(String(id)))
   }
 }
 

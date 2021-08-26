@@ -1,0 +1,54 @@
+.smart-field-container {
+  position: relative;
+  display:flex;
+  align-items: center;
+  width: 300px;
+}
+
+.smart-field-container .smart-field {
+  box-sizing: border-box;
+  border: 1px solid var(--palette-color-1-medium);
+  height: 2.6rem;
+  border-radius: var(--radius-small);
+  background-color: var(--palette-color-glow);
+  padding: 0.5rem;
+  padding-top: 0.45rem;
+  padding-bottom: 0rem;
+  font-size: 1.25rem;
+  outline: none;
+  transition: 0.5s;
+  flex-grow: 1;
+}
+
+.smart-field-container .smart-field:focus {
+  transition: 0.5s;
+  border: 1px solid var(--palette-color-2-medium);
+  background-color: var(--palette-color-focus-overlay);
+}
+
+.smart-field-container .caret{ 
+  position: absolute;
+}
+
+.smart-field-container .smart-field span a {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 0.3rem;
+  padding-right: 0.75rem;
+  padding-left: 2.25rem;
+  font-size: 1.15rem;
+  text-decoration: none;
+  color: var(--palette-color-light);
+  background-color: var(--palette-color-2-light);
+  margin-right: 0.25rem;
+}
+.smart-field-container .smart-field span a::after {
+  position:absolute;
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 1.5rem;
+  background-color: var(--palette-color-2-dark);
+  left:0.25rem;
+  top: 0.2rem;
+}

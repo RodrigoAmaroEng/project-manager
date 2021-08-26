@@ -12,6 +12,10 @@ import { forModel } from "../../renderers/ForModel";
 import { MainButton } from "../../components/Button";
 import { saveAndFinishWizard } from "../new-project/new-project.reducer";
 import { GDriveApiInstance } from "../../extras/gdrive-api";
+import SmartField from "../../components/SmartField";
+import { Line } from "../../components/Utils";
+import Field from "../../components/Field";
+import { RecordList } from "../../extras/extension-functions";
 
 export default function MainPage(props: any) {
   const dispatch = useDispatch();
@@ -21,13 +25,23 @@ export default function MainPage(props: any) {
   const operations = useSelector(
     (state: any) => state.project.content.operations
   );
-  const entities = useSelector((state: any) => state.project.content.entities);
+  const entities = useSelector((state: any) =>
+    RecordList.fromList(
+      state.project.content.entities.map((it: any) => {
+        return { ...it, type: "ET" };
+      })
+    )
+  );
   const payloads = useSelector((state: any) => state.project.content.payloads);
 
   return (
     <div className="main-structure">
       <header>
-        <MainButton onClick={() => dispatch(saveAndFinishWizard(GDriveApiInstance.upload))}>
+        <MainButton
+          onClick={() =>
+            dispatch(saveAndFinishWizard(GDriveApiInstance.upload))
+          }
+        >
           Save
         </MainButton>
       </header>
@@ -53,7 +67,15 @@ export default function MainPage(props: any) {
           <Route path="/project/stored/payloads">
             <CRUD items={payloads} object={Payload} renderer={forModel} />
           </Route>
-          <Route path="/project/stored">Main</Route>
+          <Route path="/project/stored">
+            <Line>
+              <SmartField
+                onSearch={() => entities}
+                onRequestItem={(id: number) => entities.byId(id)}
+              />{" "}
+              <Field onChange={() => {}} />
+            </Line>
+          </Route>
         </Switch>
       </article>
     </div>
