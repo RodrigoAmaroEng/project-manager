@@ -68,7 +68,6 @@ function FieldRenderer(props: any) {
   const onChange = (value: any) => {
     props.onChange(value);
   };
-
   if (props.type === FieldType.input) {
     return (
       <Field
@@ -209,7 +208,6 @@ export default function RegistryForm(props: any) {
     props.onSave(finalItem);
     setItem(undefined);
   };
-
   return (
     <div className="form-registry">
       {renderTitle(forList, props.object.name, item)}

@@ -42,14 +42,14 @@
 
 .smart-field-container .caret div:hover {
   background-color: var(--palette-color-2-light);
-  color: var(--palette-color-light)
+  color: var(--palette-color-light);
 }
 
 .smart-field-container .caret div::after {
   content: "";
   width: 1.25rem;
   height: 1.25rem;
-  border-radius:1rem;
+  border-radius: 1rem;
   position: absolute;
   left: 0.25rem;
   top: 0.4rem;
@@ -67,7 +67,7 @@
   content: "T";
 }
 
-.smart-field-container .smart-field span a {
+.smart-field-container .smart-field span {
   position: relative;
   border-radius: 1.5rem;
   padding: 0.3rem;
@@ -78,8 +78,11 @@
   color: var(--palette-color-light);
   background-color: var(--palette-color-2-light);
   margin-right: 0.25rem;
+  -webkit-user-modify: read-only;
+  -moz-user-modify: read-only;
+  user-modify: read-only;
 }
-.smart-field-container .smart-field span a::after {
+.smart-field-container .smart-field span::after {
   position: absolute;
   content: "";
   height: 1.5rem;

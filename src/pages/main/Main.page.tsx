@@ -99,6 +99,7 @@ export default function MainPage(props: any) {
           </Route>
           <Route path="/project/stored">
             <Line>
+              <textarea id="test"/>
               <SmartField
                 className="fill-space"
                 onSearch={() => entities.map((it:any) => Object.assign(it, {tag: "T"}))}

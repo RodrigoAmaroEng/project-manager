@@ -4,6 +4,7 @@ export {};
 declare global {
   interface String {
     toCompleteDateTime(): String;
+    render(args:any): string;
   }
   interface Array<T> {
     contains(item: T): boolean;
@@ -12,7 +13,6 @@ declare global {
     indexOfObject(item: T): number;
     remove(item: T): Array<T>;
   }
-  
 }
 function getLocale() {
   return navigator.language || navigator.languages[0];
@@ -26,9 +26,29 @@ String.prototype.toCompleteDateTime = function () {
   });
   return f.format(d);
 };
+
+String.prototype.render = function () {
+  "use strict";
+  var str = this.toString();
+  if (arguments.length) {
+    var t = typeof arguments[0];
+    var key;
+    var args =
+      "string" === t || "number" === t
+        ? Array.prototype.slice.call(arguments)
+        : arguments[0];
+
+    for (key in args) {
+      str = str.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]);
+    }
+  }
+
+  return str;
+};
+
 Array.prototype.indexOfObject = function (item: any): number {
-  return this.findIndex(it => JSON.stringify(item) == JSON.stringify(it))
-}
+  return this.findIndex((it) => JSON.stringify(item) == JSON.stringify(it));
+};
 Array.prototype.contains = function (item: any) {
   return this.indexOfObject(item) >= 0;
 };
@@ -76,12 +96,12 @@ export class RecordList extends Array<Record> {
     this.push(Record.from(id, item));
     return this;
   }
-  public delete(item: any) : RecordList{
+  public delete(item: any): RecordList {
     this.splice(this.indexOf(item), 1);
     return this;
   }
   byId(id: number): any {
-    return this.find(it => it.id === parseInt(String(id)))
+    return this.find((it) => it.id === parseInt(String(id)));
   }
 }
 
