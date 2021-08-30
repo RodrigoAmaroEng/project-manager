@@ -81,8 +81,9 @@ export default function SmartField(props: any) {
   };
   let className = (props.required && !props.value && " required") || "";
   className += props.className ? ` ${props.className}` : "";
+  className += value ? " filled" : ""
   return (
-    <div className={`smart-field-container${className}`}>
+    <div className={`smart-field-container${className}`} placeholder={props.placeholder}>
       <div className="caret" data-testid="options-menu" style={style}>
         {options.map((it: any, i: number) => (
           <div className={it.tag} key={i} onClick={() => select(it)}>

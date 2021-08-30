@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  margin-top:0.75rem;
 }
 
 .smart-field-container .smart-field {
@@ -17,6 +18,29 @@
   outline: none;
   transition: 0.5s;
   flex-grow: 1;
+}
+
+.smart-field-container::after {
+  position: absolute;
+  content: attr(placeholder);
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  color: black;
+  align-items: center;
+  padding-left: 0.5rem;
+  font-size: 1.25rem;
+  opacity: 0;
+  z-index: 5;
+  transition: 0.25s;
+}
+
+.smart-field-container.filled::after {
+  transform: translateY(-2rem) translateX(-0.25rem);
+  transition: 0.25s;
+  font-size: 0.8rem;
+  opacity: 1;
 }
 
 .smart-field-container .smart-field:focus {
