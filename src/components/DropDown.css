@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 }
 .dropdown {
   border: 1px solid var(--palette-color-1-medium);
@@ -77,9 +78,22 @@
   font-weight: bold;
 }
 
+
+.dropdown-selected-item:not(:empty):after {
+  content: attr(placeholder);
+  color: var(--palette-color-dark);
+  font-weight: normal;
+  transform: translateY(-2rem) translateX(0.25rem);
+  transition: 0.25s;
+  font-size: 0.8rem;
+  position: absolute;
+  left: 0;
+}
+
 .dropdown-selected-item:empty::after {
   content: attr(placeholder);
   color: var(--palette-color-1-dark);
   font-weight: normal;
   margin-left: -0.5rem;
+  transition: 0.25s;
 }
