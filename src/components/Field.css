@@ -9,8 +9,36 @@
   outline: none;
   transition: 0.5s;
 }
+span.field-wrap {
+  position: relative;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
 .field:focus {
   transition: 0.5s;
   border: 1px solid var(--palette-color-2-medium);
   background-color: var(--palette-color-focus-overlay);
+}
+span.field-wrap::after {
+  position: absolute;
+  content: attr(placeholder);
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  color: black;
+  align-items: center;
+  padding-left: 0.5rem;
+  font-size: 1.25rem;
+  opacity: 0;
+  z-index: 5;
+  transition: 0.25s;
+}
+
+span.field-wrap.filled::after {
+  transform: translateY(-2rem) translateX(-0.25rem);
+  transition: 0.25s;
+  font-size: 0.8rem;
+  opacity: 1;
 }

@@ -12,9 +12,6 @@ import { forModel } from "../../renderers/ForModel";
 import { MainButton } from "../../components/Button";
 import { saveAndFinishWizard } from "../new-project/new-project.reducer";
 import { GDriveApiInstance } from "../../extras/gdrive-api";
-import SmartField from "../../components/SmartField";
-import { Line } from "../../components/Utils";
-import Field from "../../components/Field";
 import { RecordList } from "../../extras/extension-functions";
 import { findObject, searchObject } from "../../extras/models";
 
@@ -39,7 +36,6 @@ export default function MainPage(props: any) {
   const onSearch = (search: string) => searchObject(content, search);
   const onQueryItem = (id: number, type: string) =>
     findObject(content, id, type);
-
   return (
     <div className="main-structure">
       <header>
@@ -97,17 +93,7 @@ export default function MainPage(props: any) {
               onQueryItem={onQueryItem}
             />
           </Route>
-          <Route path="/project/stored">
-            <Line>
-              <textarea id="test"/>
-              <SmartField
-                className="fill-space"
-                onSearch={() => entities.map((it:any) => Object.assign(it, {tag: "T"}))}
-                onQueryItem={(id: number) => Object.assign(entities.byId(id), {tag: "T"})}
-              />{" "}
-              <Field onChange={() => {}} />
-            </Line>
-          </Route>
+          <Route path="/project/stored"></Route>
         </Switch>
       </article>
     </div>
