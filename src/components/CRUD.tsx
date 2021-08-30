@@ -1,12 +1,13 @@
 import "./CRUD.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import ListingForm from "./crud/ListingForm";
 import RegistryForm from "./crud/RegistryForm";
 import { RecordList } from "../extras/extension-functions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import history from "../navigation/history";
 import { cancelOperation } from "../pages/main/Main.actions";
+import { fieldsClear } from "../App.actions";
 
 function saveObject(obj: any, type: any) {
   return { type: "crud/add-" + type.name.toLowerCase(), payload: obj };
@@ -15,12 +16,21 @@ function saveObject(obj: any, type: any) {
 export default function CRUD(props: any) {
   const dispatch = useDispatch();
 
-  const onCancel = () => dispatch(cancelOperation())
+  const onCancel = () => dispatch(cancelOperation());
   const onSave = (item: any) => {
     dispatch(saveObject(item, props.object));
-    let path = window.location.pathname.split("/")[3];
-    history.push(`/project/stored/${path}`);
   };
+  const shouldClearFields = useSelector(
+    (state: any) => state.operation.clearFields
+  );
+  useEffect(() => {
+    if (shouldClearFields) {
+      let path = window.location.pathname.split("/")[3];
+      history.push(`/project/stored/${path}`);
+      dispatch(fieldsClear());
+    }
+  }, [shouldClearFields]);
+
   return (
     <Switch>
       <Route
@@ -51,7 +61,11 @@ export default function CRUD(props: any) {
       </Route>
       <Route path="/project/stored/:object/:id">2</Route>
       <Route path="/project/stored/:object">
-        <ListingForm items={props.items} object={props.object} renderer={props.renderer}/>
+        <ListingForm
+          items={props.items}
+          object={props.object}
+          renderer={props.renderer}
+        />
       </Route>
     </Switch>
   );

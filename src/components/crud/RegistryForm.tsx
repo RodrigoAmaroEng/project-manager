@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { dismissError } from "../../App.actions";
 import {
   buildErrorMessage,
   includeSimpleRegistry,
@@ -10,6 +11,7 @@ import { FieldType, SourceType } from "../../extras/models";
 import { RemoveIcon } from "../../img/Icons";
 import { MainButton, SecondaryButton, SquareMainButton } from "../Button";
 import DropDown, { RenderEnum, RenderList } from "../DropDown";
+import ErrorBox from "../ErrorBox";
 import Field from "../Field";
 import List, { Action, IfEmpty, ListStyle, Row } from "../List";
 import { RadioGroup } from "../Radio";
@@ -180,6 +182,7 @@ function FieldRenderer(props: any) {
 }
 
 export default function RegistryForm(props: any) {
+  const dispatch = useDispatch();
   const [item, setItem] = useState(props.item);
   const forceUpdate = useForceUpdate();
   const forList = !!props.forList;
@@ -208,6 +211,7 @@ export default function RegistryForm(props: any) {
     props.onSave(finalItem);
     setItem(undefined);
   };
+  const error = useSelector((state: any) => state.operation.error);
   return (
     <div className="form-registry">
       {renderTitle(forList, props.object.name, item)}
@@ -233,6 +237,7 @@ export default function RegistryForm(props: any) {
         </div>
       ))}
       <SpaceFill />
+      
       {forList ? (
         <Line className="line-align-right">
           <MainButton onClick={onSave} className="one-twenty">
@@ -241,6 +246,15 @@ export default function RegistryForm(props: any) {
         </Line>
       ) : (
         <Line className="line-align-right">
+          <ErrorBox
+            visible={!!error}
+            className="fill-space"
+            onDismiss={() => dispatch(dismissError())}
+          >
+            {error}
+          </ErrorBox>
+          <SpaceH />
+
           <SecondaryButton onClick={props.onCancel} className="one-twenty">
             Cancel
           </SecondaryButton>

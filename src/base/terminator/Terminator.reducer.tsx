@@ -9,7 +9,7 @@ import history from "../../navigation/history";
 export default function terminatorReducer(state = initialState, action: any) {
   switch (action.type) {
     case "crud/add-terminator": {
-      let item = action.payload;
+      let item = action.payload ?? {};
       try {
         state.project.content.terminators = includeSimpleRegistry(
           state.project.content.terminators,
