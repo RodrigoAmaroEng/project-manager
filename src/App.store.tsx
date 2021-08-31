@@ -48,6 +48,7 @@ export const initialState = {
   operation: {
     error: "",
     message: "",
+    lastOperation: "",
     clearFields: false,
   },
   context: {
@@ -73,7 +74,7 @@ export const store = createStore((state = initialState, action: AnyAction) => {
   if (initialState.project.name === undefined && storeState) {
     state = JSON.parse(window.sessionStorage.getItem("state") || "");
   }
-  let newState = [
+  let newState: any = [
     startReducer,
     appReducer,
     newProjectReducer,
@@ -84,5 +85,6 @@ export const store = createStore((state = initialState, action: AnyAction) => {
     mainReducer
   ].reduce((a, s: Function) => s(a, action), state);
   window.sessionStorage.setItem("state", JSON.stringify(newState));
+  newState.operation.lastOperation = action.type
   return newState;
 }, composedEnhancer);

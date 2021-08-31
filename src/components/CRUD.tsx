@@ -23,8 +23,12 @@ export default function CRUD(props: any) {
   const shouldClearFields = useSelector(
     (state: any) => state.operation.clearFields
   );
+  const lastOperation = useSelector(
+    (state: any) => state.operation.lastOperation
+  );
   useEffect(() => {
-    if (shouldClearFields) {
+    console.log(lastOperation)
+    if (shouldClearFields && lastOperation.indexOf("add-simple") < 0) {
       let path = window.location.pathname.split("/")[3];
       history.push(`/project/stored/${path}`);
       dispatch(fieldsClear());

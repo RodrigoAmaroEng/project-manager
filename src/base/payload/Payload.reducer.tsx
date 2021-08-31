@@ -68,18 +68,32 @@ export default function payloadReducer(state = initialState, action: any) {
       state.project.content.payloads[index] = payload;
       return state;
     }
-    case "crud/add-payload": {
+    case "crud/add-simple-payload": {
+      console.log(action)
       let item = action.payload;
-      let name = item.propertyName;
       try {
-        item.kind = PropertyType.EntityProperty;
         state.project.content.payloads = includeSimpleRegistry(
           state.project.content.payloads,
-          item
+          item,
+          (it: any) => it.name
         );
         state.operation.clearFields = true;
       } catch (e) {
-        state.operation.error = buildErrorMessage(e, name, "selected property");
+        state.operation.error = buildErrorMessage(e, item.name, "Payload");
+      }
+      return state;
+    }
+    case "crud/add-payload": {
+      let item = action.payload;
+      try {
+        state.project.content.payloads = includeSimpleRegistry(
+          state.project.content.payloads,
+          item,
+          (it: any) => it.name && it.properties.length > 0
+        );
+        state.operation.clearFields = true;
+      } catch (e) {
+        state.operation.error = buildErrorMessage(e, item.name, "Payload");
       }
       return state;
     }

@@ -8,7 +8,8 @@ import {
 } from "../../extras/crud-operations";
 import { RecordList, useForceUpdate } from "../../extras/extension-functions";
 import { FieldType, SourceType } from "../../extras/models";
-import { RemoveIcon } from "../../img/Icons";
+import { AddIcon, RemoveIcon } from "../../img/Icons";
+import { addSimpleRecord } from "../../pages/main/Main.actions";
 import { MainButton, SecondaryButton, SquareMainButton } from "../Button";
 import DropDown, { RenderEnum, RenderList } from "../DropDown";
 import ErrorBox from "../ErrorBox";
@@ -17,6 +18,24 @@ import List, { Action, IfEmpty, ListStyle, Row } from "../List";
 import { RadioGroup } from "../Radio";
 import SmartField from "../SmartField";
 import { Line, SpaceFill, SpaceH, SpaceV } from "../Utils";
+
+function SimpleForm(props: any) {
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  return (
+    <Line className="fill-space  flex-align-bottom">
+      /
+      <SpaceH />
+      <Field onChange={setName} />
+      <SpaceH />
+      <SquareMainButton
+        onClick={() => dispatch(addSimpleRecord(props.object, name))}
+      >
+        <AddIcon />
+      </SquareMainButton>
+    </Line>
+  );
+}
 
 function SubForm(props: any) {
   const onSelectionChange = (items: any[]) => {
@@ -119,7 +138,7 @@ function FieldRenderer(props: any) {
         onRender = { onRender: (item: any) => item.name };
       }
     }
-    return (
+    let field = (
       <DropDown
         placeholder={props.placeholder}
         onSelect={onChange}
@@ -133,6 +152,19 @@ function FieldRenderer(props: any) {
           <RenderEnum enum={props.source} />
         )}
       </DropDown>
+    );
+
+    return (
+      <Line className="fill-space flex-align-bottom">
+        {field}
+        <SpaceH />
+
+        {props.allowAdd ? (
+          <SimpleForm object={props.source.name.toLowerCase()} />
+        ) : (
+          ""
+        )}
+      </Line>
     );
   } else if (props.type === FieldType.list) {
     let list = props.value || [];
@@ -237,7 +269,7 @@ export default function RegistryForm(props: any) {
         </div>
       ))}
       <SpaceFill />
-      
+
       {forList ? (
         <Line className="line-align-right">
           <MainButton onClick={onSave} className="one-twenty">

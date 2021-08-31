@@ -27,6 +27,7 @@ export default function appReducer(state = initialState, action: AnyAction) {
     }
     case "app/fields-were-cleared": {
       state.operation.clearFields = false
+      state.operation.lastOperation = ""
       return state
     }
     default: {

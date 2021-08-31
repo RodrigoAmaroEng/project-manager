@@ -8,6 +8,7 @@ import history from "../../navigation/history";
 
 export default function terminatorReducer(state = initialState, action: any) {
   switch (action.type) {
+    case "crud/add-simple-terminator":
     case "crud/add-terminator": {
       let item = action.payload ?? {};
       try {

@@ -23,7 +23,6 @@ export default function operationReducer(state = initialState, action: any) {
         state.operation.clearFields = true;
       } catch (e) {
         state.operation.error = buildErrorMessage(e, item.name, "Operation");
-        console.log(state.operation.error)
       }
       return state;
     }
@@ -81,6 +80,7 @@ export default function operationReducer(state = initialState, action: any) {
           ].id;
       }
       state.project.content.operations[index] = item;
+      
       state.operation.clearFields = true;
       if (index + 1 == operations.length) history.push("/project/new/4");
       else history.push("/project/new/operations/" + operations[index + 1].id);

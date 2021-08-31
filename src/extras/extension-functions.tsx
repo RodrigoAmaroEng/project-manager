@@ -4,7 +4,7 @@ export {};
 declare global {
   interface String {
     toCompleteDateTime(): String;
-    render(args:any): string;
+    render(args: any): string;
   }
   interface Array<T> {
     contains(item: T): boolean;
@@ -47,6 +47,8 @@ String.prototype.render = function () {
 };
 
 Array.prototype.indexOfObject = function (item: any): number {
+  if (item.id)
+    return this.findIndex((it) => it.id === parseInt(String(item.id)));
   return this.findIndex((it) => JSON.stringify(item) == JSON.stringify(it));
 };
 Array.prototype.contains = function (item: any) {

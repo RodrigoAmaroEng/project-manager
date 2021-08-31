@@ -111,6 +111,9 @@ h6 {
 .flex-align-top {
   align-self: flex-start;
 }
+.flex-align-bottom {
+  align-items: flex-end;
+}
 .flex-col {
   display: flex;
   flex-direction: column;
