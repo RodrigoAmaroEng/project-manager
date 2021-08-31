@@ -86,5 +86,8 @@ export const store = createStore((state = initialState, action: AnyAction) => {
   ].reduce((a, s: Function) => s(a, action), state);
   window.sessionStorage.setItem("state", JSON.stringify(newState));
   newState.operation.lastOperation = action.type
+  if (newState.operation.message) {
+    setTimeout(() => store.dispatch({type: "menu/clear-message"}), 3000)
+  }
   return newState;
 }, composedEnhancer);

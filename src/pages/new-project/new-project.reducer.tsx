@@ -2,7 +2,6 @@ import { initialState } from "../../App.store";
 import { AnyAction } from "redux";
 import history from "../../navigation/history";
 import "../../extras/extension-functions";
-import { RecordList } from "../../extras/extension-functions";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const saveAndFinishWizard = createAsyncThunk(

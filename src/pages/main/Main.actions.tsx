@@ -1,3 +1,5 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
 export function navigateTo(payload: string) {
   return { type: "menu/navigate-to", payload };
 }
@@ -14,3 +16,22 @@ export function cancelOperation() {
 export function addSimpleRecord(type: string, name: string) {
   return { type: `crud/add-simple-${type}`, payload: { name } };
 }
+
+export const saveProject = createAsyncThunk(
+  "menu/update-file",
+  async (
+    service: (fileName: string, content: string, fileId: string) => void,
+    thunkAPI: any
+  ) => {
+    if (!thunkAPI.getState().context.connector.isAuthenticated) {
+      throw new Error("User is not authenticated");
+    }
+    let project = thunkAPI.getState().project;
+
+    return await service(
+      project.name,
+      JSON.stringify(project),
+      project.fileInfo.fileId
+    );
+  }
+);

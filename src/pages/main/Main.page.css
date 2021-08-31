@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   padding: 2rem;
+  position: relative;
 }
 .main-structure aside {
   padding-top: 1rem;
@@ -37,7 +38,7 @@
   aspect-ratio: 1/1;
   margin: 0 2rem;
   position: relative;
-  transform:translateY(-0.75rem)
+  transform: translateY(-0.75rem);
 }
 .main-structure header span {
   position: relative;
@@ -46,17 +47,18 @@
   box-sizing: border-box;
   border: 1px solid transparent;
   padding: 1.5rem 0;
- transition: 0.25s;
-
+  transition: 0.25s;
 }
 .main-structure header span:hover {
- box-shadow: inset 0px 0px 5px var(--palette-color-light-shadow),  0px 0px 5px var(--palette-color-glow);
- border-radius: 50%;
- transition: 0.25s;
+  box-shadow: inset 0px 0px 5px var(--palette-color-light-shadow),
+    0px 0px 5px var(--palette-color-glow);
+  border-radius: 50%;
+  transition: 0.25s;
 }
 
 .main-structure header span:active {
-  box-shadow: inset 0px 0px 5px var(--palette-color-glow),  0px 0px 5px var(--palette-color-light-shadow);
+  box-shadow: inset 0px 0px 5px var(--palette-color-glow),
+    0px 0px 5px var(--palette-color-light-shadow);
   border-radius: 50%;
   transition: 0.25s;
 }
@@ -69,4 +71,14 @@
   text-align: center;
   bottom: 1rem;
   font-size: 1rem;
+}
+.main-structure header .message {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: var(--palette-color-1-light);
+  padding: 0.5rem;
+  font-weight: bold;
+  color: var(--palette-color-1-dark);
+  border-left: 0.25rem solid var(--palette-color-1-medium);
 }
