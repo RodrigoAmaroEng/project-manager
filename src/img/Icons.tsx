@@ -6,6 +6,12 @@ import { ReactComponent as OperationIcon } from "./operation-icon.svg";
 import { ReactComponent as EntityIcon } from "./entity-icon.svg";
 import { ReactComponent as EditIcon } from "./edit-icon.svg";
 import { ReactComponent as VariableIcon } from "./informacion.svg";
+import { ReactComponent as SaveIcon } from "./save-icon.svg"
+import { ReactComponent as ConfigIcon } from "./config-icon.svg" 
+import { ReactComponent as FindIcon } from "./search-icon.svg" 
+import { ReactComponent as ReportIcon } from "./report-icon.svg" 
+import { ReactComponent as FolderIcon } from "./folder-icon.svg"
+import { ReactComponent as HomeIcon } from "./home-icon.svg" 
 
 export {
   AddIcon,
@@ -15,5 +21,12 @@ export {
   PropertyIcon,
   OperationIcon,
   EntityIcon,
-  VariableIcon
+  VariableIcon,
+// HEADER ICONS
+  SaveIcon,
+  ConfigIcon,
+  FindIcon,
+  ReportIcon,
+  FolderIcon,
+  HomeIcon
 };

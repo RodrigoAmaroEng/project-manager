@@ -15,6 +15,16 @@ import { GDriveApiInstance } from "../../extras/gdrive-api";
 import { RecordList } from "../../extras/extension-functions";
 import { findObject, searchObject } from "../../extras/models";
 
+import { SpaceH } from "../../components/Utils";
+import {
+  ConfigIcon,
+  FindIcon,
+  FolderIcon,
+  HomeIcon,
+  ReportIcon,
+  SaveIcon,
+} from "../../img/Icons";
+
 export default function MainPage(props: any) {
   const dispatch = useDispatch();
   const content = useSelector((state: any) => state.project.content);
@@ -39,13 +49,16 @@ export default function MainPage(props: any) {
   return (
     <div className="main-structure">
       <header>
-        <MainButton
+        <span aria-alt="Home"><HomeIcon/></span>
+        <span aria-alt="Save"><SaveIcon
           onClick={() =>
             dispatch(saveAndFinishWizard(GDriveApiInstance.upload))
           }
-        >
-          Save
-        </MainButton>
+        /></span>
+        <span aria-alt="Config"><ConfigIcon /></span>
+        <span aria-alt="Search"><FindIcon /></span>
+        <span aria-alt="Report"><ReportIcon /></span>
+        <span aria-alt="Folder"><FolderIcon /></span>
       </header>
       <aside>
         <Menu onChange={(name: string) => dispatch(navigateTo(name))}>
