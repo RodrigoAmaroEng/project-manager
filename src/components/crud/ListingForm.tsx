@@ -8,6 +8,7 @@ import { deleteRecord, editRecord } from "../../pages/main/Main.actions";
 import { Record } from "../../extras/extension-functions";
 import { AddIcon, EditIcon, RemoveIcon } from "../../img/Icons";
 import history from "../../navigation/history";
+import { askBefore } from "../../App.actions";
 
 export default function ListingForm(props: any) {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function ListingForm(props: any) {
   };
   const onEdit = (item: Record) => dispatch(editRecord(item.id));
   const onDelete = (item: Record) =>
-    dispatch(deleteRecord(props.object.name, item));
+    dispatch(askBefore(deleteRecord(props.object.name, item), "Do you really want to delete this record?"));
   return (
     <div className="form-listing">
       <Line className="form-actions">

@@ -52,6 +52,7 @@ export const initialState = {
     messageHandler: undefined as any,
     lastOperation: "",
     clearFields: false,
+    waitingToConfirm: undefined as any,
   },
   context: {
     connector: {

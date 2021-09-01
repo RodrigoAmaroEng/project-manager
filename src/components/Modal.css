@@ -8,6 +8,7 @@
   bottom: 0;
   align-items: center;
   justify-content: space-around;
+  z-index: 1000;
   background-color: var(--palette-color-shadow);
 }
 

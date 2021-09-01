@@ -22,6 +22,11 @@ import {
   ReportIcon,
   SaveIcon,
 } from "../../img/Icons";
+import ModalWindow from "../../components/Modal";
+import { Line } from "../../components/Utils";
+import { MainButton, SecondaryButton } from "../../components/Button";
+import { answerNo, answerYes } from "../../App.actions";
+import ConfirmationBox from "../../components/ConfirmationBox";
 
 export default function MainPage(props: any) {
   const dispatch = useDispatch();
@@ -33,6 +38,9 @@ export default function MainPage(props: any) {
     (state: any) => state.project.content.operations
   );
   const message = useSelector((state: any) => state.operation.message);
+  const somethingToConfirm = useSelector(
+    (state: any) => state.operation.waitingToConfirm
+  );
   const entities = useSelector((state: any) =>
     RecordList.fromList(
       state.project.content.entities.map((it: any) => {
@@ -47,15 +55,14 @@ export default function MainPage(props: any) {
     findObject(content, id, type);
   return (
     <div className="main-structure">
+      <ConfirmationBox message={somethingToConfirm?.message}/>
       <header>
         <span aria-alt="Home">
           <HomeIcon />
         </span>
         <span aria-alt="Save">
           <SaveIcon
-            onClick={() =>
-              dispatch(saveProject(GDriveApiInstance.upload))
-            }
+            onClick={() => dispatch(saveProject(GDriveApiInstance.upload))}
           />
         </span>
         <span aria-alt="Config">

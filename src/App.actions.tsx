@@ -27,3 +27,13 @@ export function fieldsClear() {
 export function putMessage(message: string) {
   return { type: "app/put-message", payload: message };
 }
+
+export function askBefore(action: any, message: string) {
+  return { type: "app/ask-before-run", payload: { action, message } };
+}
+export function answerYes() {
+  return { type: "app/answer-yes" };
+}
+export function answerNo() {
+  return { type: "app/answer-no" };
+}

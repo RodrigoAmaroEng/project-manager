@@ -47,6 +47,19 @@ export default function appReducer(state = initialState, action: AnyAction) {
       state.operation.messageHandler = undefined
       return state;
     }
+    case "app/ask-before-run": {
+      state.operation.waitingToConfirm = action.payload
+      return state;
+    }
+    case "app/answer-yes": {
+      action.asyncDispatch(state.operation.waitingToConfirm?.action)
+      state.operation.waitingToConfirm = undefined;
+      return state;
+    }
+    case "app/answer-no": {
+      state.operation.waitingToConfirm = undefined;
+      return state;
+    }
     default: {
       return state;
     }
