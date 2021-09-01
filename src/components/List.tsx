@@ -18,7 +18,12 @@ export function IfEmpty(props: any) {
 export function Action(props: any) {
   React.Children.only(props.children);
   const event = props.children.props.onClick;
-  const newEvent = { onClick: () => event(props.item) };
+  const newEvent = {
+    onClick: (e: any) => {
+      e.stopPropagation();
+      event(props.item);
+    },
+  };
   return (
     <div className="list-action">
       {React.cloneElement(props.children, newEvent)}

@@ -48,3 +48,6 @@ export function SecondaryButton(props: BaseButtonPropsWithClass) {
 export function SquareMainButton(props: BaseButtonProps) {
   return <MainButton {...props} className="square">{props.children}</MainButton>
 }
+export function SquareSecondaryButton(props: BaseButtonProps) {
+  return <SecondaryButton {...props} className="square">{props.children}</SecondaryButton>
+}

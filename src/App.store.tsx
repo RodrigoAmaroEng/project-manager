@@ -14,7 +14,9 @@ import payloadReducer from "./base/payload/Payload.reducer";
 import mainReducer from "./pages/main/Main.reducer";
 import asyncDispatchMiddleware from "./extras/async-dispatcher";
 
-const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware, asyncDispatchMiddleware));
+const composedEnhancer = composeWithDevTools(
+  applyMiddleware(thunkMiddleware, asyncDispatchMiddleware)
+);
 
 export enum ProjecState {
   undefined,
@@ -68,6 +70,8 @@ export const initialState = {
       list: [],
       isLoading: true,
       showFolders: false,
+      selectedFolder: { id: "root", name: "Root", parent: undefined as any },
+      folderSelectionOpen: false
     },
   },
 };
@@ -85,9 +89,9 @@ export const store = createStore((state = initialState, action: AnyAction) => {
     operationReducer,
     entityReducer,
     payloadReducer,
-    mainReducer
+    mainReducer,
   ].reduce((a, s: Function) => s(a, action), state);
   window.sessionStorage.setItem("state", JSON.stringify(newState));
-  newState.operation.lastOperation = action.type
+  newState.operation.lastOperation = action.type;
   return newState;
 }, composedEnhancer);

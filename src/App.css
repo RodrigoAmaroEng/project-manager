@@ -137,3 +137,7 @@ h6 {
 .one-twenty {
   width: 5%;
 }
+.small-icon {
+  width: 2rem;
+  aspect-ratio: 1/1;
+}

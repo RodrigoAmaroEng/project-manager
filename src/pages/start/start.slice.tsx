@@ -11,16 +11,35 @@ export function setSelectedProject(project: any) {
   return { type: "start/set-selected-project", payload: project };
 }
 
+export function chooseFolder() {
+  return { type: "start/choose-folder" };
+}
+
 export function setShowFolders(isActive: boolean = false) {
   return { type: "start/set-show-folders", payload: isActive };
 }
+
+export function openFolder(folder: any, service: (arg?: string) => void) {
+  return { type: "start/open-folder", payload: { folder, service } };
+}
+
+export function selectFolder(folder: any) {
+  return { type: "start/select-folder", payload: folder };
+}
+
+export function backToParentFolder(service: (arg?: string) => void) {
+  return { type: "start/back-to-parent-folder", payload: service };
+}
+
 export const listFiles = createAsyncThunk(
   "start/files",
-  async (service: (arg: string) => void, thunkAPI: any) => {
+  async (service: (arg?: string) => void, thunkAPI: any) => {
     if (!thunkAPI.getState().context.connector.isAuthenticated) {
       throw new Error("User is not authenticated");
     }
-    let files = await service("");
+    let files = await service(
+      thunkAPI.getState().start.files.selectedFolder.id
+    );
     return files;
   }
 );
@@ -28,7 +47,7 @@ export const listFiles = createAsyncThunk(
 export const createProject = createAsyncThunk(
   "start/store-project",
   async (
-    service: (fileName: string, content: string, fileId: string) => any,
+    service: (fileName: string, content: string, fileId: string, folderId: string) => any,
     thunkAPI: any
   ) => {
     if (!thunkAPI.getState().context.connector.isAuthenticated) {
@@ -38,7 +57,8 @@ export const createProject = createAsyncThunk(
     let fileInfo = await service(
       project.name,
       JSON.stringify(project),
-      project.fileInfo.fileId
+      project.fileInfo.fileId,
+      thunkAPI.getState().start.files.selectedFolder.id
     );
     return fileInfo;
   }
@@ -68,6 +88,34 @@ export const loadProjectToWizard = createAsyncThunk(
 
 export default function startReducer(state = initialState, action: AnyAction) {
   switch (action.type) {
+    case "start/choose-folder": {
+      state.start.files.folderSelectionOpen = true;
+      return state;
+    }
+    case "start/back-to-parent-folder": {
+      state.start.files.selectedFolder =
+        state.start.files.selectedFolder.parent;
+      action.asyncDispatch(listFiles(action.payload));
+      return state;
+    }
+    case "start/select-folder": {
+      console.log(action.payload.item);
+      state.start.files.selectedFolder = {
+        ...action.payload.item.props.item,
+        parent: state.start.files.selectedFolder,
+      };
+      state.start.files.folderSelectionOpen = false;
+      return state;
+    }
+    case "start/open-folder": {
+      console.log(action.type);
+      state.start.files.selectedFolder = {
+        ...action.payload.folder,
+        parent: state.start.files.selectedFolder,
+      };
+      action.asyncDispatch(listFiles(action.payload.service));
+      return state;
+    }
     case "start/set-project-name": {
       state.project.name = action.payload;
       return state;

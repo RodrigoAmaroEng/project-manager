@@ -44,6 +44,22 @@ export class GoogleUser {
     );
   }
 }
+const compareName = (a: any, b: any) => (a.name < b.name ? -1 : 1);
+const sortByFilename = (a: any, b: any) => {
+  if (a.mimeType === FOLDER_MIME_TYPE) {
+    if (b.mimeType === FOLDER_MIME_TYPE) {
+      return compareName(a, b);
+    } else {
+      return -1;
+    }
+  } else {
+    if (b.mimeType === FOLDER_MIME_TYPE) {
+      return 1;
+    } else {
+      return compareName(a, b);
+    }
+  }
+};
 
 class GDriveApi {
   callbacks: any[];
@@ -61,6 +77,8 @@ class GDriveApi {
     this.registerListener = this.registerListener.bind(this);
     this.removeListener = this.removeListener.bind(this);
     this.listFiles = this.listFiles.bind(this);
+    this.listFolders = this.listFolders.bind(this);
+    this.list = this.list.bind(this);
   }
 
   initialize() {
@@ -102,59 +120,55 @@ class GDriveApi {
     gapi.auth2.getAuthInstance().signOut();
   }
 
-  listFiles(pageToken: string) {
-    const compareName = (a: any, b: any) => (a.name < b.name ? -1 : 1);
+  listFolders(currentFolder: string = "root") {
+    return this.list({
+      pageSize: 10,
+      fields: "nextPageToken, files(id, name, mimeType)",
+      q: `trashed = false and '${currentFolder}' in parents and mimeType = '${FOLDER_MIME_TYPE}'`,
+    });
+  }
+
+  listFiles(currentFolder: string = "root") {
+    return this.list({
+      pageSize: 10,
+      fields: "nextPageToken, files(id, name, mimeType, modifiedTime)",
+      q: `trashed = false and '${currentFolder}' in parents and (name contains '.uml.json' or mimeType = '${FOLDER_MIME_TYPE}')`,
+    });
+  }
+
+  list(setup: any, pageToken?: string) {
     return gapi.client.drive.files
-      .list({
-        pageSize: 10,
-        fields: "nextPageToken, files(id, name, mimeType, modifiedTime)",
-        pageToken,
-        q:
-          "trashed = false and 'root' in parents and (name contains '.uml.json' or mimeType = '" +
-          FOLDER_MIME_TYPE +
-          "')",
-      })
+      .list(Object.assign(setup, { pageToken }))
       .then((response: any) => JSON.parse(response.body))
       .then((response: any) => {
         if (response.nextPageToken) {
-          return this.listFiles(response.nextPageToken).then(
+          return this.list(setup, response.nextPageToken).then(
             (nextResponse: any) => nextResponse.concat(response.files)
           );
         } else {
           return response.files;
         }
       })
-      .then((files: any) =>
-        files.sort((a: any, b: any) => {
-          if (a.mimeType === FOLDER_MIME_TYPE) {
-            if (b.mimeType === FOLDER_MIME_TYPE) {
-              return compareName(a, b);
-            } else {
-              return -1;
-            }
-          } else {
-            if (b.mimeType === FOLDER_MIME_TYPE) {
-              return 1;
-            } else {
-              return compareName(a, b);
-            }
-          }
-        })
-      );
+      .then((files: any) => files.sort(sortByFilename));
   }
 
   download(fileId: string) {
     return gapi.client.drive.files.get({ fileId, alt: "media" });
   }
 
-  upload(fileName: string, fileContent: string, fileId: string) {
+  upload(
+    fileName: string,
+    fileContent: string,
+    fileId: string,
+    folderId: string = "root"
+  ) {
     var file = new Blob([fileContent], { type: "application/json" });
     var metadata = {
       name: fileName.replace(/\s/g, "-") + ".uml.json", // Filename at Google Drive
       mimeType: "application/json", // mimeType at Google Drive
     };
     if (!fileId) {
-      metadata = Object.assign(metadata, { parents: ["root"] });
+      metadata = Object.assign(metadata, { parents: [folderId] });
     }
 
     var accessToken = gapi.auth.getToken().access_token; // Here gapi is used for retrieving the access token.

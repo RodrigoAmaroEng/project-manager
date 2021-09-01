@@ -22,10 +22,6 @@ import {
   ReportIcon,
   SaveIcon,
 } from "../../img/Icons";
-import ModalWindow from "../../components/Modal";
-import { Line } from "../../components/Utils";
-import { MainButton, SecondaryButton } from "../../components/Button";
-import { answerNo, answerYes } from "../../App.actions";
 import ConfirmationBox from "../../components/ConfirmationBox";
 
 export default function MainPage(props: any) {
@@ -73,9 +69,6 @@ export default function MainPage(props: any) {
         </span>
         <span aria-alt="Report">
           <ReportIcon />
-        </span>
-        <span aria-alt="Folder">
-          <FolderIcon />
         </span>
         {message ? <div className="message">{message}</div> : ""}
       </header>
