@@ -12,8 +12,9 @@ import operationReducer from "./base/operation/Operation.reducer";
 import entityReducer from "./base/entity/Entity.reducer";
 import payloadReducer from "./base/payload/Payload.reducer";
 import mainReducer from "./pages/main/Main.reducer";
+import asyncDispatchMiddleware from "./extras/async-dispatcher";
 
-const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware, asyncDispatchMiddleware));
 
 export enum ProjecState {
   undefined,
@@ -48,6 +49,7 @@ export const initialState = {
   operation: {
     error: "",
     message: "",
+    messageHandler: undefined as any,
     lastOperation: "",
     clearFields: false,
   },
@@ -86,8 +88,5 @@ export const store = createStore((state = initialState, action: AnyAction) => {
   ].reduce((a, s: Function) => s(a, action), state);
   window.sessionStorage.setItem("state", JSON.stringify(newState));
   newState.operation.lastOperation = action.type
-  if (newState.operation.message) {
-    setTimeout(() => store.dispatch({type: "menu/clear-message"}), 3000)
-  }
   return newState;
 }, composedEnhancer);

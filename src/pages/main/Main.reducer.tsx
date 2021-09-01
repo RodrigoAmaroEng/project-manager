@@ -1,3 +1,4 @@
+import { putMessage } from "../../App.actions";
 import { initialState } from "../../App.store";
 import history from "../../navigation/history";
 
@@ -16,20 +17,15 @@ export default function mainReducer(state = initialState, action: any) {
       return state;
     }
     case "menu/update-file/pending": {
-      state.operation.message = "Uploading file..."
+      action.asyncDispatch(putMessage("Uploading file..."))
       return state
     }
     case "menu/update-file/fulfilled": {
-      state.operation.message = "File saved successfully"
+      action.asyncDispatch(putMessage("File saved successfully"))
       return state
     }
     case "menu/update-file/rejected": {
       return { ...state, error: action.error.message };
-    }
-    case "menu/clear-message": {
-      console.log("Cleanning")
-      state.operation.message = ""
-      return state
     }
     default: {
       return state;

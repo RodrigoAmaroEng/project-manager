@@ -23,3 +23,7 @@ export function deleteExistingProject() {
 export function fieldsClear() {
   return { type: "app/fields-were-cleared" };
 }
+
+export function putMessage(message: string) {
+  return { type: "app/put-message", payload: message };
+}

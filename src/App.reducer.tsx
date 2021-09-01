@@ -15,20 +15,37 @@ export default function appReducer(state = initialState, action: AnyAction) {
     }
     case "app/authenticate": {
       GDriveApiInstance.signIn();
-      return state
+      return state;
     }
     case "app/dismiss-error": {
       state.operation.error = "";
-      return state
+      return state;
     }
     case "app/delete-existing-project": {
       window.sessionStorage.clear();
       return initialState;
     }
     case "app/fields-were-cleared": {
-      state.operation.clearFields = false
-      state.operation.lastOperation = ""
-      return state
+      state.operation.clearFields = false;
+      state.operation.lastOperation = "";
+      return state;
+    }
+    case "app/put-message": {
+      if (state.operation.messageHandler) {
+        clearTimeout(state.operation.messageHandler)
+      }
+      state.operation.message = action.payload;
+      state.operation.messageHandler = setTimeout(
+        () => action.asyncDispatch({ type: "app/clear-message" }),
+        3000
+      );
+      return state;
+    }
+    case "app/clear-message": {
+      state.operation.message = "";
+      clearTimeout(state.operation.messageHandler)
+      state.operation.messageHandler = undefined
+      return state;
     }
     default: {
       return state;
