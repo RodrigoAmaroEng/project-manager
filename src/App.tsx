@@ -2,9 +2,8 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import { GDriveApiInstance } from "./extras/gdrive-api";
 import StartPage from "./pages/start/start.page";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { listFiles } from "./pages/start/start.slice";
 import { setAuthenticatedUser, setIsInitialized } from "./App.actions";
 import NewProjectPage from "./pages/new-project/new-project.page";
 import MainPage from "./pages/main/Main.page";
@@ -17,7 +16,6 @@ function App() {
       if (connStatus.isInitialized) dispatch(setIsInitialized());
       if (connStatus.isSignedIn) {
         dispatch(setAuthenticatedUser(connStatus.user));
-        dispatch(listFiles(GDriveApiInstance.listFiles));
       }
     }
   };
@@ -26,7 +24,6 @@ function App() {
     GDriveApiInstance.registerListener(onConnectGDrive);
   }, []);
 
-  const projectName = useSelector((state: any) => state.project.name);
   return (
     <div className="App">
       <Switch>

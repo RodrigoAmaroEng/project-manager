@@ -5,6 +5,7 @@ import StaticField from "../../components/StaticField";
 import { Line, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  listFiles,
   loadProjectFromStorage,
   loadProjectToWizard,
   setSelectedProject,
@@ -13,6 +14,9 @@ import {
 import { FOLDER_MIME_TYPE } from "../../extras/models";
 import Switcher from "../../components/Switcher";
 import { GDriveApiInstance } from "../../extras/gdrive-api";
+import { buildPath } from "../../extras/extension-functions";
+import { useEffect } from "react";
+import { FolderIcon, ReportIcon } from "../../img/Icons";
 
 export function OpenProjectTab() {
   const dispatch = useDispatch();
@@ -44,6 +48,13 @@ export function OpenProjectTab() {
   const loadProjectWizard = () =>
     dispatch(loadProjectToWizard(GDriveApiInstance.download));
 
+  const folderPath = useSelector((state: any) =>
+    buildPath(state.start.files.selectedFolder)
+  );
+  useEffect(() => {
+    dispatch(listFiles(GDriveApiInstance.listFiles));
+  }, []);
+
   const renderEntryInfo = (entry: any) =>
     entry.mimeType === FOLDER_MIME_TYPE ? (
       <h6 className="one-fourth">Folder</h6>
@@ -57,6 +68,10 @@ export function OpenProjectTab() {
 
   return (
     <div className="flex-col fill-space">
+      <span>
+        <b>Path:</b> {folderPath}
+      </span>
+      <SpaceV />
       <List
         className="fill-space"
         listStyle={ListStyle.SingleSelect}
@@ -69,7 +84,13 @@ export function OpenProjectTab() {
         </IfEmpty>
         {availableProjects.map((project: any, index: number) => (
           <Row item={project} key={index}>
-            <Circle>P</Circle>
+            <Circle>
+              {project.mimeType === FOLDER_MIME_TYPE ? (
+                <FolderIcon />
+              ) : (
+                <ReportIcon />
+              )}
+            </Circle>
             <SpaceH />
             <StaticField
               className="fill-space"

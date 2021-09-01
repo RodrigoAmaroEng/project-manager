@@ -30,7 +30,6 @@ export default function StartPage() {
   );
 
   useEffect(() => {
-    dispatch(listFiles(GDriveApiInstance.listFolders));
     dispatch(deleteExistingProject());
   }, []);
 
@@ -40,6 +39,8 @@ export default function StartPage() {
   const onGoUp = () =>
     dispatch(backToParentFolder(GDriveApiInstance.listFolders));
   const onSelect = (folder: any) => dispatch(selectFolder(folder));
+
+  const onLoad = () => dispatch(listFiles(GDriveApiInstance.listFolders));
 
   const doAuth = () => dispatch(authenticate());
   return (
@@ -54,6 +55,7 @@ export default function StartPage() {
       {showFolderSelector ? (
         <FolderSelector
           folders={folders}
+          onLoad={onLoad}
           onOpen={onOpenFolder}
           onGoUp={onGoUp}
           onSelect={onSelect}

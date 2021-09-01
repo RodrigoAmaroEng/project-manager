@@ -13,6 +13,10 @@ import { ReactComponent as ReportIcon } from "./report-icon.svg"
 import { ReactComponent as FolderIcon } from "./folder-icon.svg"
 import { ReactComponent as HomeIcon } from "./home-icon.svg" 
 
+import { ReactComponent as GoUpIcon } from "./go-up-icon.svg" 
+import { ReactComponent as OpenFolderIcon } from "./open-folder-icon.svg" 
+
+
 export {
   AddIcon,
   RemoveIcon,
@@ -22,6 +26,8 @@ export {
   OperationIcon,
   EntityIcon,
   VariableIcon,
+  GoUpIcon,
+  OpenFolderIcon,
 // HEADER ICONS
   SaveIcon,
   ConfigIcon,
