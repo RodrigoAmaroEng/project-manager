@@ -20,7 +20,7 @@ export interface ButtonProps extends BaseButtonPropsWithClass {
 }
 
 export default function Button(props: ButtonProps) {
-  let className = `${props.type}-button`;
+  let className = `base-button ${props.type}`;
   if (props.disabled) {
     className += ` disabled`;
   }
