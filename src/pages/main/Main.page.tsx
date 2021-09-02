@@ -9,20 +9,19 @@ import { Terminator } from "../../base/terminator/Terminator.model";
 import { navigateTo, saveProject } from "./Main.actions";
 import "./Main.page.css";
 import { forModel } from "../../renderers/ForModel";
-import { saveAndFinishWizard } from "../new-project/new-project.reducer";
 import { GDriveApiInstance } from "../../extras/gdrive-api";
 import { RecordList } from "../../extras/extension-functions";
 import { findObject, searchObject } from "../../extras/models";
-
 import {
   ConfigIcon,
   FindIcon,
-  FolderIcon,
   HomeIcon,
   ReportIcon,
   SaveIcon,
 } from "../../img/Icons";
 import ConfirmationBox from "../../components/ConfirmationBox";
+import { Flowchart } from "../../components/Flowchart";
+import { Chart } from "../../components/Chart";
 
 export default function MainPage(props: any) {
   const dispatch = useDispatch();
@@ -49,9 +48,10 @@ export default function MainPage(props: any) {
   const onSearch = (search: string) => searchObject(content, search);
   const onQueryItem = (id: number, type: string) =>
     findObject(content, id, type);
+
   return (
     <div className="main-structure">
-      <ConfirmationBox message={somethingToConfirm?.message}/>
+      <ConfirmationBox message={somethingToConfirm?.message} />
       <header>
         <span aria-alt="Home">
           <HomeIcon />
@@ -118,7 +118,12 @@ export default function MainPage(props: any) {
               onQueryItem={onQueryItem}
             />
           </Route>
-          <Route path="/project/stored"></Route>
+          <Route path="/project/stored">
+            <div className="half">
+              <h6>DFD - Level 0</h6>
+              <Chart />
+            </div>
+          </Route>
         </Switch>
       </article>
     </div>
