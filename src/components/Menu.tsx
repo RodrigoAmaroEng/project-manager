@@ -5,7 +5,9 @@ export function MenuItem(props: any) {
   let className = props.selected ? "selected" : "";
   return (
     <li onClick={props.onClick} className={className}>
-      <span>{props.name}</span> <div className="counter">{props.count}</div>
+      {props.icon}
+      <span>{props.name}</span>
+      {props.count ? <div className="counter">{props.count}</div> : ""}
     </li>
   );
 }

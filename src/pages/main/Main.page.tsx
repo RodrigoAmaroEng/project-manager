@@ -16,6 +16,10 @@ import {
   ConfigIcon,
   FindIcon,
   HomeIcon,
+  NewEntityIcon,
+  NewOperationIcon,
+  NewPayloadIcon,
+  NewTerminatorIcon,
   ReportIcon,
   SaveIcon,
 } from "../../img/Icons";
@@ -53,9 +57,7 @@ export default function MainPage(props: any) {
     <div className="main-structure">
       <ConfirmationBox message={somethingToConfirm?.message} />
       <header>
-        <span aria-alt="Home">
-          <HomeIcon />
-        </span>
+
         <span aria-alt="Save">
           <SaveIcon
             onClick={() => dispatch(saveProject(GDriveApiInstance.upload))}
@@ -74,10 +76,11 @@ export default function MainPage(props: any) {
       </header>
       <aside>
         <Menu onChange={(name: string) => dispatch(navigateTo(name))}>
-          <MenuItem name="Terminators" count={terminators.length} />
-          <MenuItem name="Operations" count={operations.length} />
-          <MenuItem name="Entities" count={entities.length} />
-          <MenuItem name="Payloads" count={payloads.length} />
+          <MenuItem name="Home" icon={<HomeIcon />} />
+          <MenuItem name="Terminators" icon={<NewTerminatorIcon/>} count={terminators.length} />
+          <MenuItem name="Operations" icon={<NewOperationIcon/>} count={operations.length} />
+          <MenuItem name="Entities" icon={<NewEntityIcon/>} count={entities.length} />
+          <MenuItem name="Payloads" icon={<NewPayloadIcon/>} count={payloads.length} />
         </Menu>
       </aside>
       <article>

@@ -16,6 +16,11 @@ import { ReactComponent as HomeIcon } from "./home-icon.svg"
 import { ReactComponent as GoUpIcon } from "./go-up-icon.svg" 
 import { ReactComponent as OpenFolderIcon } from "./open-folder-icon.svg" 
 
+import { ReactComponent as NewEntityIcon } from "./entity-icon-2.svg" 
+import { ReactComponent as NewOperationIcon } from "./operation-icon-2.svg" 
+import { ReactComponent as NewTerminatorIcon } from "./terminator-icon-1.svg" 
+import { ReactComponent as NewPayloadIcon } from "./payload-icon-3.svg" 
+
 
 export {
   AddIcon,
@@ -34,5 +39,10 @@ export {
   FindIcon,
   ReportIcon,
   FolderIcon,
-  HomeIcon
+  HomeIcon,
+
+  NewEntityIcon,
+  NewOperationIcon,
+  NewTerminatorIcon,
+  NewPayloadIcon
 };
