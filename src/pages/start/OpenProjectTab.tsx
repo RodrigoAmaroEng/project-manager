@@ -1,13 +1,19 @@
-import { MainButton, SecondaryButton } from "../../components/Button";
+import {
+  MainButton,
+  SecondaryButton,
+  SquareMainButton,
+} from "../../components/Button";
 import Circle from "../../components/Circle";
-import List, { IfEmpty, ListStyle, Row } from "../../components/List";
+import List, { Action, IfEmpty, ListStyle, Row } from "../../components/List";
 import StaticField from "../../components/StaticField";
-import { Line, SpaceH, SpaceV } from "../../components/Utils";
+import { Line, SpaceFill, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  backToParentFolder,
   listFiles,
   loadProjectFromStorage,
   loadProjectToWizard,
+  openFolder,
   setSelectedProject,
   setShowFolders,
 } from "./start.slice";
@@ -16,7 +22,12 @@ import Switcher from "../../components/Switcher";
 import { GDriveApiInstance } from "../../extras/gdrive-api";
 import { buildPath } from "../../extras/extension-functions";
 import { useEffect } from "react";
-import { FolderIcon, ReportIcon } from "../../img/Icons";
+import {
+  FolderIcon,
+  GoUpIcon,
+  OpenFolderIcon,
+  ReportIcon,
+} from "../../img/Icons";
 
 export function OpenProjectTab() {
   const dispatch = useDispatch();
@@ -54,10 +65,18 @@ export function OpenProjectTab() {
   useEffect(() => {
     dispatch(listFiles(GDriveApiInstance.listFiles));
   }, []);
-
+  const onGoUp = () =>
+    dispatch(backToParentFolder(GDriveApiInstance.listFiles));
+  const selection = useSelector(
+    (state: any) => state.start.files.selectedFolder
+  );
   const renderEntryInfo = (entry: any) =>
     entry.mimeType === FOLDER_MIME_TYPE ? (
-      <h6 className="one-fourth">Folder</h6>
+      <Line className="align-line-right">
+        <SquareMainButton onClick={() => onOpenFolder(entry)}>
+          <OpenFolderIcon />
+        </SquareMainButton>
+      </Line>
     ) : (
       <StaticField
         className="one-fourth"
@@ -65,12 +84,21 @@ export function OpenProjectTab() {
         value={entry.modifiedTime.toCompleteDateTime()}
       />
     );
-
+  const onOpenFolder = (folder: any) => {
+    dispatch(openFolder(folder, GDriveApiInstance.listFolders));
+  };
   return (
     <div className="flex-col fill-space">
-      <span>
-        <b>Path:</b> {folderPath}
-      </span>
+      <Line>
+        <span>
+          <b>Path:</b> {folderPath}
+        </span>
+        <SpaceFill />
+        <SquareMainButton onClick={onGoUp}>
+          <GoUpIcon />
+        </SquareMainButton>
+      </Line>
+
       <SpaceV />
       <List
         className="fill-space"
@@ -82,6 +110,7 @@ export function OpenProjectTab() {
             ? "Loading Files"
             : "There is no project in your account"}
         </IfEmpty>
+
         {availableProjects.map((project: any, index: number) => (
           <Row item={project} key={index}>
             <Circle>

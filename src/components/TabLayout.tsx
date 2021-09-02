@@ -8,6 +8,11 @@ export function Tab(props: any) {
 export function TabLayout(props: any) {
   const [selectedTab, setSelectedTab] = useState(0);
 
+  const selectTab= (tab: any, index: number) => {
+    setSelectedTab(index);
+    tab.props.onShow?.()
+  }
+
   return (
     <div className="tab-layout">
       <div className="tabs-placeholder">
@@ -16,7 +21,7 @@ export function TabLayout(props: any) {
             <div
               key={index}
               className="tab"
-              onClick={() => setSelectedTab(index)}
+              onClick={() => selectTab(child, index)}
               aria-selected={index === selectedTab}
             >
               {child.props.title}

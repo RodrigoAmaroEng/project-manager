@@ -123,4 +123,4 @@ export function useForceUpdate() {
 }
 
 export const buildPath = (folder: any): string =>
-  folder.parent ? buildPath(folder.parent) + "/" + folder.name : "/" + folder.name;
+  folder?.parent ? buildPath(folder.parent) + "/" + folder.name : "/" + folder?.name;

@@ -108,8 +108,6 @@ class GDriveApi {
       })
       .catch((e: any) => {
         this.onUpdateStatus(false);
-        console.log("Error");
-        console.log(e);
       });
   }
 

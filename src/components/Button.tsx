@@ -28,6 +28,7 @@ export default function Button(props: ButtonProps) {
     className += ` ${props.className}`;
   }
   const shouldFireClickEvents = (e: any) => {
+    e.stopPropagation();
     e.preventDefault();
     if (!props.disabled) props.onClick(e);
   };

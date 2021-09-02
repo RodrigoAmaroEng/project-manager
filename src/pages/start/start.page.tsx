@@ -40,7 +40,8 @@ export default function StartPage() {
     dispatch(backToParentFolder(GDriveApiInstance.listFolders));
   const onSelect = (folder: any) => dispatch(selectFolder(folder));
 
-  const onLoad = () => dispatch(listFiles(GDriveApiInstance.listFolders));
+  const onLoadFolders = () => dispatch(listFiles(GDriveApiInstance.listFolders));
+  const onLoadFiles = () => dispatch(listFiles(GDriveApiInstance.listFiles));
 
   const doAuth = () => dispatch(authenticate());
   return (
@@ -55,7 +56,7 @@ export default function StartPage() {
       {showFolderSelector ? (
         <FolderSelector
           folders={folders}
-          onLoad={onLoad}
+          onLoad={onLoadFolders}
           onOpen={onOpenFolder}
           onGoUp={onGoUp}
           onSelect={onSelect}
@@ -67,7 +68,7 @@ export default function StartPage() {
         <Tab title="Create new">
           <NewProjectTab />
         </Tab>
-        <Tab title="Open existing">
+        <Tab title="Open existing" onShow={onLoadFiles}>
           <OpenProjectTab />
         </Tab>
       </TabLayout>

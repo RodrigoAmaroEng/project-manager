@@ -27,7 +27,6 @@ export default function CRUD(props: any) {
     (state: any) => state.operation.lastOperation
   );
   useEffect(() => {
-    console.log(lastOperation)
     if (shouldClearFields && lastOperation.indexOf("add-simple") < 0) {
       let path = window.location.pathname.split("/")[3];
       history.push(`/project/stored/${path}`);

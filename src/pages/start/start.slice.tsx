@@ -47,7 +47,12 @@ export const listFiles = createAsyncThunk(
 export const createProject = createAsyncThunk(
   "start/store-project",
   async (
-    service: (fileName: string, content: string, fileId: string, folderId: string) => any,
+    service: (
+      fileName: string,
+      content: string,
+      fileId: string,
+      folderId: string
+    ) => any,
     thunkAPI: any
   ) => {
     if (!thunkAPI.getState().context.connector.isAuthenticated) {
@@ -93,13 +98,13 @@ export default function startReducer(state = initialState, action: AnyAction) {
       return state;
     }
     case "start/back-to-parent-folder": {
-      state.start.files.selectedFolder =
-        state.start.files.selectedFolder.parent;
+      if (state.start.files.selectedFolder.parent)
+        state.start.files.selectedFolder =
+          state.start.files.selectedFolder.parent;
       action.asyncDispatch(listFiles(action.payload));
       return state;
     }
     case "start/select-folder": {
-      console.log(action.payload.item);
       state.start.files.selectedFolder = {
         ...action.payload.item.props.item,
         parent: state.start.files.selectedFolder,
@@ -108,7 +113,6 @@ export default function startReducer(state = initialState, action: AnyAction) {
       return state;
     }
     case "start/open-folder": {
-      console.log(action.type);
       state.start.files.selectedFolder = {
         ...action.payload.folder,
         parent: state.start.files.selectedFolder,

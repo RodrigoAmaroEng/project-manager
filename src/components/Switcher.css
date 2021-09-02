@@ -8,7 +8,6 @@
 }
 .switcher .switcher-button {
   cursor: pointer;
-
   content: "";
   height: 2rem !important;
   border-radius: 1rem;
@@ -41,7 +40,6 @@
 .switcher.checked .switcher-button .switcher-dial {
   transform: translateX(2rem);
   position: absolute;
-
   background-color: var(--palette-color-2-medium);
   transition: 0.5s;
 }

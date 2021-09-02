@@ -69,7 +69,6 @@ export default function payloadReducer(state = initialState, action: any) {
       return state;
     }
     case "crud/add-simple-payload": {
-      console.log(action)
       let item = action.payload;
       try {
         state.project.content.payloads = includeSimpleRegistry(
