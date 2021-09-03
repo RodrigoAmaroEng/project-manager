@@ -42,8 +42,8 @@ export default function Step1Page(props: any) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-      <h1>Step 1 - Terminators</h1>
-      <Line>
+      <h1>Terminators</h1>
+      <Line className="flex-align-bottom">
         <Field value={name} placeholder="Terminator name" onChange={setName} />
         <SpaceFill />
         <SquareMainButton onClick={add}>

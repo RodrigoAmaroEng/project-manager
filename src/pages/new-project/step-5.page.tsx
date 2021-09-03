@@ -34,6 +34,7 @@ export default function Step5Page(props: any) {
   const shouldClearFields = useSelector(
     (state: any) => state.operation.clearFields
   );
+  console.log(shouldClearFields, type)
 
   useEffect(() => {
     if (shouldClearFields) {
@@ -53,8 +54,8 @@ export default function Step5Page(props: any) {
 
   return (
     <div className="fill-space flex-col">
-      <h1>Step 5 - "{entity.name}" entity properties</h1>
-      <Line>
+      <h1>Entities - "{entity.name}" entity properties</h1>
+      <Line className="flex-align-bottom">
         <Field value={name} placeholder="Property name" onChange={setName} />
         <SpaceH />
         <DropDown onSelect={setType} selected={type} className="fill-space">

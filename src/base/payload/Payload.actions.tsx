@@ -30,3 +30,10 @@ export function removePayloadProperty(item: string, payloadId: number) {
     payload: { item, payloadId },
   };
 }
+
+export function nextPayload(currentPayloadId: number, service: any) {
+  return {
+    type: "new-project/go-to-next-payload",
+    payload: { id: currentPayloadId, service },
+  };
+}

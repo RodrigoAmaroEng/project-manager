@@ -12,8 +12,9 @@ export default function operationReducer(state = initialState, action: any) {
   switch (action.type) {
     case "crud/add-operation": {
       let item = action.payload;
+      console.log(item)
       const validation = (item: any) =>
-        item.name && item.terminatorId && item.direction;
+        item.name && item.terminator && item.direction;
       try {
         state.project.content.operations = includeSimpleRegistry(
           state.project.content.operations,

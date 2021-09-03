@@ -40,7 +40,7 @@ export default function Step3Page(props: any) {
 
   return (
     <div className="fill-space flex-col">
-      <h1>Step 3 - "{operations.byId(id).name}" details</h1>
+      <h1>Operations - "{operations.byId(id).name}" details</h1>
       <Field
         value={description}
         placeholder="Operation description"

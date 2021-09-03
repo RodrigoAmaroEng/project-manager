@@ -18,6 +18,7 @@ import { AddIcon, EntityIcon, RemoveIcon, VariableIcon } from "../../img/Icons";
 import {
   addPayloadEntityProperty,
   addPayloadNewProperty,
+  nextPayload,
   removePayloadProperty,
 } from "../../base/payload/Payload.actions";
 
@@ -80,7 +81,7 @@ export default function Step6Page(props: any) {
       dispatch(addPayloadNewProperty(id, name, type));
   };
   const remove = (e: any) => dispatch(removePayloadProperty(e, id));
-  const nextAction = () => saveAndFinishWizard(GDriveApiInstance.upload);
+  const nextAction = () => nextPayload(id, GDriveApiInstance.upload);
 
   // SLICES
   const form =
@@ -123,8 +124,8 @@ export default function Step6Page(props: any) {
 
   return (
     <div className="fill-space flex-col">
-      <h1>Step 6 - "{thisPayload.name}" properties</h1>
-      <Line>
+      <h1>Payloads - "{thisPayload.name}" properties</h1>
+      <Line className="flex-align-bottom">
         <DropDown onSelect={onSelect} selected={kind} className="one-fourth">
           <RenderEnum enum={PropertyType} />
         </DropDown>

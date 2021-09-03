@@ -52,8 +52,8 @@ export default function Step2Page(props: any) {
 
   return (
     <div className="fill-space flex-col">
-      <h1>Step 2 - Operations</h1>
-      <Line>
+      <h1>Operations</h1>
+      <Line className="flex-align-bottom">
         <Field
           value={name}
           placeholder="Operation name"

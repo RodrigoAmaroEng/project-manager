@@ -1,7 +1,7 @@
 import { SquareMainButton } from "../../components/Button";
 import Field from "../../components/Field";
 import List, { Action, IfEmpty, ListStyle, Row } from "../../components/List";
-import { Line, SpaceH, SpaceV } from "../../components/Utils";
+import { Line, SpaceFill, SpaceH, SpaceV } from "../../components/Utils";
 import { useDispatch, useSelector } from "react-redux";
 import { goToEntityProperties } from "./new-project.actions";
 import { useEffect, useState } from "react";
@@ -36,10 +36,10 @@ export default function Step4Page(props: any) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-      <h1>Step 4 - Entities</h1>
-      <Line>
+      <h1>Entities</h1>
+      <Line className="flex-align-bottom">
         <Field value={name} placeholder="Entity name" onChange={setName} />
-        <SpaceH />
+        <SpaceFill />
         <SquareMainButton onClick={add}>
           <AddIcon />
         </SquareMainButton>

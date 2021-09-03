@@ -3,6 +3,7 @@ import { AnyAction } from "redux";
 import history from "../../navigation/history";
 import "../../extras/extension-functions";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RecordList } from "../../extras/extension-functions";
 
 export const saveAndFinishWizard = createAsyncThunk(
   "new-project/save-and-finish-wizard",
@@ -33,12 +34,22 @@ export default function newProjectReducer(
       return state;
     }
     case "new-project/save-and-finish-wizard/fulfilled": {
-      state.project.fileInfo.fileId = action.payload.id
-      history.push("/project/stored");
+      state.project.fileInfo.fileId = action.payload.id;
+      history.push("/project/stored/home");
       return state;
     }
     case "new-project/save-and-finish-wizard/rejected": {
       return { ...state, error: action.error.message };
+    }
+    case "new-project/go-to-next-payload": {
+      let payloads = RecordList.fromList( state.project.content.payloads);
+      let index = payloads.findIndex(
+        (it) => String(it.id) === String(action.payload.id)
+      );
+      if (index + 1 == payloads.length) {
+        action.asyncDispatch(saveAndFinishWizard(action.payload.service));
+      } else history.push("/project/new/payloads/" + payloads[index + 1].id);
+      return state;
     }
     default: {
       return state;
