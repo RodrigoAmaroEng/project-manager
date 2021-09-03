@@ -57,7 +57,6 @@ export default function MainPage(props: any) {
     <div className="main-structure">
       <ConfirmationBox message={somethingToConfirm?.message} />
       <header>
-
         <span aria-alt="Save">
           <SaveIcon
             onClick={() => dispatch(saveProject(GDriveApiInstance.upload))}
@@ -77,10 +76,26 @@ export default function MainPage(props: any) {
       <aside>
         <Menu onChange={(name: string) => dispatch(navigateTo(name))}>
           <MenuItem name="Home" icon={<HomeIcon />} />
-          <MenuItem name="Terminators" icon={<NewTerminatorIcon/>} count={terminators.length} />
-          <MenuItem name="Operations" icon={<NewOperationIcon/>} count={operations.length} />
-          <MenuItem name="Entities" icon={<NewEntityIcon/>} count={entities.length} />
-          <MenuItem name="Payloads" icon={<NewPayloadIcon/>} count={payloads.length} />
+          <MenuItem
+            name="Terminators"
+            icon={<NewTerminatorIcon />}
+            count={terminators.length}
+          />
+          <MenuItem
+            name="Operations"
+            icon={<NewOperationIcon />}
+            count={operations.length}
+          />
+          <MenuItem
+            name="Entities"
+            icon={<NewEntityIcon />}
+            count={entities.length}
+          />
+          <MenuItem
+            name="Payloads"
+            icon={<NewPayloadIcon />}
+            count={payloads.length}
+          />
         </Menu>
       </aside>
       <article>

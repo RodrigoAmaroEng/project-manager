@@ -55,6 +55,7 @@ export class Operation extends BasicObjectWithDescription {
         sourceType: SourceType.list,
         size: FieldSize.half,
         allowAdd: true,
+        label: "Terminator"
       },
       inputPayloadId: {
         placeholder: "Input payload",
@@ -64,6 +65,7 @@ export class Operation extends BasicObjectWithDescription {
         sourceType: SourceType.list,
         size: FieldSize.half,
         allowAdd: true,
+        label: "Input payload"
       },
       outputPayloadId: {
         placeholder: "Output payload",
@@ -73,6 +75,8 @@ export class Operation extends BasicObjectWithDescription {
         sourceType: SourceType.list,
         size: FieldSize.half,
         allowAdd: true,
+        label: "Output payload"
+
       },
     },
   };

@@ -1,3 +1,4 @@
+import "./extension-functions";
 export enum DataTypes {
   string = "String",
   number = "Number",
@@ -68,6 +69,7 @@ export class BasicObjectWithDescription extends BasicObject {
 
 export function searchObject(content: any, search: string) {
   return content.terminators
+
     .map((it: any) => Object.assign(it, { tag: "T" }))
     .concat(content.entities.map((it: any) => Object.assign(it, { tag: "E" })))
     .concat(
@@ -93,7 +95,7 @@ export function findObject(content: any, id: number, type: string) {
     .concat(content.entities.map((it: any) => Object.assign(it, { tag: "E" })))
     .concat(
       content.entities
-        .flatMap((it: any) => it.properties)
+        .flatMap((it: any) => it.properties ?? [])
         .map((it: any) => Object.assign(it, { tag: "R" }))
     )
     .concat(content.payloads.map((it: any) => Object.assign(it, { tag: "P" })))
@@ -103,6 +105,6 @@ export function findObject(content: any, id: number, type: string) {
     .map((it: any) =>
       Object.assign({}, { id: it.id, name: it.name, tag: it.tag })
     )
-    .find((it: any) => Number(it.id) ===  Number(id) && it.tag === type);
+    .find((it: any) => Number(it.id) === Number(id) && it.tag === type);
   return item;
 }

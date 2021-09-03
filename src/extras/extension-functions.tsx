@@ -12,6 +12,7 @@ declare global {
     last(condition?: (value: T) => boolean): T;
     indexOfObject(item: T): number;
     remove(item: T): Array<T>;
+    onEach(run: (it: T, index: number) => T): Array<T>;
   }
 }
 function getLocale() {
@@ -44,6 +45,15 @@ String.prototype.render = function () {
   }
 
   return str;
+};
+
+Array.prototype.onEach = function (
+  func: (it: any, index: number) => any
+): Array<any> {
+  return this.map((it: any, index: number) => {
+    func(it, index);
+    return it;
+  });
 };
 
 Array.prototype.indexOfObject = function (item: any): number {
@@ -123,4 +133,6 @@ export function useForceUpdate() {
 }
 
 export const buildPath = (folder: any): string =>
-  folder?.parent ? buildPath(folder.parent) + "/" + folder.name : "/" + folder?.name;
+  folder?.parent
+    ? buildPath(folder.parent) + "/" + folder.name
+    : "/" + folder?.name;
