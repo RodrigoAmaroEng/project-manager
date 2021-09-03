@@ -17,7 +17,7 @@ export default function terminatorReducer(state = initialState, action: any) {
           item
         );
         state.operation.clearFields = true;
-      } catch (e) {
+      } catch (e:any) {
         state.operation.error = buildErrorMessage(e, item.name, "Terminator");
       }
       return state;

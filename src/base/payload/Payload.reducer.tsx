@@ -28,7 +28,7 @@ export default function payloadReducer(state = initialState, action: any) {
             iter.propertyId === target.propertyId
         );
         state.operation.clearFields = true;
-      } catch (e) {
+      } catch (e: any ) {
         state.operation.error = buildErrorMessage(e, name, "selected property");
       }
       return state;
@@ -47,7 +47,7 @@ export default function payloadReducer(state = initialState, action: any) {
           (item) => item.name && item.type
         );
         state.operation.clearFields = true;
-      } catch (e) {
+      } catch (e: any ) {
         state.operation.error = buildErrorMessage(
           e,
           item.name,
@@ -77,7 +77,7 @@ export default function payloadReducer(state = initialState, action: any) {
           (it: any) => it.name
         );
         state.operation.clearFields = true;
-      } catch (e) {
+      } catch (e: any) {
         state.operation.error = buildErrorMessage(e, item.name, "Payload");
       }
       return state;
@@ -91,7 +91,7 @@ export default function payloadReducer(state = initialState, action: any) {
           (it: any) => it.name && it.properties.length > 0
         );
         state.operation.clearFields = true;
-      } catch (e) {
+      } catch (e:any) {
         state.operation.error = buildErrorMessage(e, item.name, "Payload");
       }
       return state;

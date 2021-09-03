@@ -21,7 +21,7 @@ export default function operationReducer(state = initialState, action: any) {
           validation
         );
         state.operation.clearFields = true;
-      } catch (e) {
+      } catch (e: any) {
         state.operation.error = buildErrorMessage(e, item.name, "Operation");
       }
       return state;

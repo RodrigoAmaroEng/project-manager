@@ -17,7 +17,7 @@ export default function entityReducer(state = initialState, action: any) {
           item
         );
         state.operation.clearFields = true;
-      } catch (e) {
+      } catch (e: any) {
         state.operation.error = buildErrorMessage(e, item.name, "Entity");
       }
       return state;
@@ -48,7 +48,7 @@ export default function entityReducer(state = initialState, action: any) {
       try {
         entity.properties = includeSimpleRegistry(properties, item);
         state.operation.clearFields = true;
-      } catch (e) {
+      } catch (e: any) {
         state.operation.error = buildErrorMessage(
           e,
           item.name,
