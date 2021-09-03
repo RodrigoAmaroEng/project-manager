@@ -8,6 +8,10 @@ export default function mainReducer(state = initialState, action: any) {
       history.push("/project/stored/" + action.payload);
       return state;
     }
+    case "crud/view-record": {
+      history.push(window.location.pathname + "/" + action.payload);
+      return state;
+    }
     case "crud/edit-record": {
       history.push(window.location.pathname + "/edit/" + action.payload);
       return state;

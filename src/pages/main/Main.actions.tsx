@@ -3,6 +3,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export function navigateTo(payload: string) {
   return { type: "menu/navigate-to", payload };
 }
+export function viewRecord(id: number) {
+  return { type: "crud/view-record", payload: id };
+}
 export function editRecord(id: number) {
   return { type: "crud/edit-record", payload: id };
 }

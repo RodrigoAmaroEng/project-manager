@@ -179,7 +179,7 @@ function FieldRenderer(props: any) {
           props.kind._meta.validation,
           props.kind._meta.uniquenessRule
         );
-      } catch (e) {
+      } catch (e: any) {
         let error = buildErrorMessage(
           e,
           item.name,

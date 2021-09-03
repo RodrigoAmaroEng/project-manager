@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import history from "../navigation/history";
 import { cancelOperation } from "../pages/main/Main.actions";
 import { fieldsClear } from "../App.actions";
+import Viewer from "./Viewer";
 
 function saveObject(obj: any, type: any) {
   return { type: "crud/add-" + type.name.toLowerCase(), payload: obj };
@@ -62,7 +63,19 @@ export default function CRUD(props: any) {
           renderer={props.renderer}
         />
       </Route>
-      <Route path="/project/stored/:object/:id">2</Route>
+      <Route
+        path="/project/stored/:object/:id"
+        render={(params: any) => (
+          <Viewer
+            object={props.object}
+            onQueryItem={props.onQueryItem}
+            onCancel={onCancel}
+            item={RecordList.fromList(props.items).byId(
+              parseInt(params.match.params.id)
+            )}
+          />
+        )}
+      ></Route>
       <Route path="/project/stored/:object">
         <ListingForm
           items={props.items}

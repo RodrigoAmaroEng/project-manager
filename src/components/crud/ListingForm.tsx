@@ -4,7 +4,11 @@ import Field from "../Field";
 import List, { Action, IfEmpty, ListStyle, Row } from "../List";
 import { Line, SpaceFill, SpaceV } from "../Utils";
 import { useDispatch } from "react-redux";
-import { deleteRecord, editRecord } from "../../pages/main/Main.actions";
+import {
+  deleteRecord,
+  editRecord,
+  viewRecord,
+} from "../../pages/main/Main.actions";
 import { Record } from "../../extras/extension-functions";
 import { AddIcon, EditIcon, RemoveIcon } from "../../img/Icons";
 import history from "../../navigation/history";
@@ -20,7 +24,16 @@ export default function ListingForm(props: any) {
   };
   const onEdit = (item: Record) => dispatch(editRecord(item.id));
   const onDelete = (item: Record) =>
-    dispatch(askBefore(deleteRecord(props.object.name, item), "Do you really want to delete this record?"));
+    dispatch(
+      askBefore(
+        deleteRecord(props.object.name, item),
+        "Do you really want to delete this record?"
+      )
+    );
+
+  const onViewItem = (item: any) => {
+    dispatch(viewRecord(item.item.props.item.id));
+  };
   return (
     <div className="form-listing">
       <Line className="form-actions">
@@ -37,7 +50,11 @@ export default function ListingForm(props: any) {
       <SpaceV />
 
       <div className="form-list">
-        <List listStyle={ListStyle.Normal} className="fill-space">
+        <List
+          listStyle={ListStyle.Clickable}
+          className="fill-space"
+          onClick={onViewItem}
+        >
           <IfEmpty>No {props.object.name} is registered.</IfEmpty>
           <Action>
             <SquareMainButton onClick={onEdit}>
