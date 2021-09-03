@@ -34,7 +34,7 @@
   flex-direction: column;
 }
 .main-structure header svg {
-  height: 3rem;
+  height: 2.5rem;
   aspect-ratio: 1/1;
   margin: 0 2rem;
   position: relative;

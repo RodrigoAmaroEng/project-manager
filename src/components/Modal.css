@@ -29,6 +29,8 @@
 
 .half-height {
   min-height: 50%;
+  height:70vh;
+  max-height: 75%;
 }
 
 .one-third-height {
