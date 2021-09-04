@@ -10,7 +10,6 @@ import { navigateTo, saveProject } from "./Main.actions";
 import "./Main.page.css";
 import { forModel } from "../../renderers/ForModel";
 import { GDriveApiInstance } from "../../extras/gdrive-api";
-import { RecordList } from "../../extras/extension-functions";
 import { findObject, searchObject } from "../../extras/models";
 import {
   ConfigIcon,
@@ -24,30 +23,20 @@ import {
   SaveIcon,
 } from "../../img/Icons";
 import ConfirmationBox from "../../components/ConfirmationBox";
-import { Flowchart } from "../../components/Flowchart";
 import { Chart } from "../../components/Chart";
 
 export default function MainPage(props: any) {
   const dispatch = useDispatch();
   const content = useSelector((state: any) => state.project.content);
-  const terminators = useSelector(
-    (state: any) => state.project.content.terminators
-  );
-  const operations = useSelector(
-    (state: any) => state.project.content.operations
-  );
+  const terminators = content.terminators;
+  const operations = content.operations;
+  const entities = content.entities;
+  const payloads = content.payloads;
+
   const message = useSelector((state: any) => state.operation.message);
   const somethingToConfirm = useSelector(
     (state: any) => state.operation.waitingToConfirm
   );
-  const entities = useSelector((state: any) =>
-    RecordList.fromList(
-      state.project.content.entities.map((it: any) => {
-        return { ...it, type: "ET" };
-      })
-    )
-  );
-  const payloads = useSelector((state: any) => state.project.content.payloads);
 
   const onSearch = (search: string) => searchObject(content, search);
   const onQueryItem = (id: number, type: string) =>

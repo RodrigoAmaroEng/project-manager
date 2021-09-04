@@ -35,14 +35,14 @@ export default function newProjectReducer(
     }
     case "new-project/save-and-finish-wizard/fulfilled": {
       state.project.fileInfo.fileId = action.payload.id;
-      history.push("/project/stored/home");
+      setTimeout(() => history.push("/project/stored/home"), 100);
       return state;
     }
     case "new-project/save-and-finish-wizard/rejected": {
       return { ...state, error: action.error.message };
     }
     case "new-project/go-to-next-payload": {
-      let payloads = RecordList.fromList( state.project.content.payloads);
+      let payloads = RecordList.fromList(state.project.content.payloads);
       let index = payloads.findIndex(
         (it) => String(it.id) === String(action.payload.id)
       );
