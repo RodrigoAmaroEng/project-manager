@@ -21,7 +21,9 @@ export function Chart(props: any) {
   const systemChar = String.fromCharCode(startAscii + usedIndex);
   definition += systemChar + `((${projectName}));`;
   operations.forEach((o: any) => {
-    definition += `${map[o.terminatorId]}-- ${o.name} -->${systemChar};`;
+    if (o.direction === "IN")
+      definition += `${map[o.terminator]}-- ${o.name} -->${systemChar};`;
+    else definition += `${systemChar}-- ${o.name} -->${map[o.terminator]};`;
   });
   return <Flowchart type="mermaid" value={definition} />;
 }
