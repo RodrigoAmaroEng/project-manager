@@ -32,15 +32,15 @@ export default function Viewer(props: any) {
           {props.item?.[name]
             ? props.onQueryItem?.(props.item?.[name], meta.source._meta.tag)
                 ?.name
-            : ""}
+            : "---"}
         </span>
       ) : meta.type === FieldType.smartInput ? (
         <span
           className="content"
-          dangerouslySetInnerHTML={{ __html: props.item?.[name] }}
+          dangerouslySetInnerHTML={{ __html: props.item?.[name] ?? "---" }}
         ></span>
       ) : (
-        <span className="content">{props.item?.[name]}</span>
+        <span className="content">{props.item?.[name] ?? "---"}</span>
       )}
     </div>
   );
@@ -66,14 +66,20 @@ export default function Viewer(props: any) {
   );
   return (
     <div className={`viewer-control fill-space ${direction}`}>
-      <h1> {entryType === EntryType.record ? props.object.name : ""}</h1>
+      {entryType === EntryType.record ? <h1>{props.object.name}</h1> : ""}
       {fields.map(([key, value]: any) =>
         value.type === FieldType.list
           ? renderList(key, value)
           : renderProperty(key, value)
       )}
-      <SpaceFill/>
-      {entryType === EntryType.record ? <Line className="line-align-right"><MainButton onClick={props.onCancel}>Close</MainButton></Line> : ""}
+      <SpaceFill />
+      {entryType === EntryType.record ? (
+        <Line className="line-align-right">
+          <MainButton onClick={props.onCancel}>Close</MainButton>
+        </Line>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
