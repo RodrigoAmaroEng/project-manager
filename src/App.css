@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;700&display=swap');
+
 :root {
   --palette-color-light: #ffffff;
   --palette-color-glow: #ffffff55;
@@ -22,7 +24,7 @@ html,
 input,
 select,
 textarea {
-  font-family: "Ubuntu";
+  font-family: 'Exo 2', "Ubuntu", "sans-serif";
 }
 
 h1 {

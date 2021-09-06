@@ -21,9 +21,6 @@
   color: var(--palette-color-light);
   background-color: var(--palette-color-2-light);
   margin-right: 0.25rem;
-  -webkit-user-modify: read-only;
-  -moz-user-modify: read-only;
-  user-modify: read-only;
 }
 .viewer-control .content > span::after {
   position: absolute;

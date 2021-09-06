@@ -42,14 +42,9 @@ export default function DropDown(props: any) {
   }
   const getSelectedIndex = (item: any) => {
     if (!item) return -1;
-    if (item instanceof Object)
-      return (
-        children.findIndex((child: any) => child.props.item === item) ?? -1
-      );
-    else
-      return (
-        children.findIndex((child: any) => child.props.item === item) ?? -1
-      );
+    return (
+      children.findIndex((child: any) => child.props.item === item) ?? -1
+    );
   };
   const [selectedIndex, setSelectedIndex] = useState(
     getSelectedIndex(props.selected)

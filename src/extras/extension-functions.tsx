@@ -28,6 +28,8 @@ String.prototype.toCompleteDateTime = function () {
   return f.format(d);
 };
 
+const ascSort = (a: any, b: any) => (a > b ? 1 : a < b ? -1 : 0);
+
 String.prototype.render = function () {
   "use strict";
   var str = this.toString();
@@ -99,7 +101,7 @@ export class RecordList extends Array<Record> {
     if (this.length == 0) return 1;
     return (
       this.map((it) => it.id)
-        .sort()
+        .sort(ascSort)
         .last() + 1
     );
   }

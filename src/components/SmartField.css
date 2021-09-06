@@ -104,7 +104,7 @@
   margin-right: 0.25rem;
   -webkit-user-modify: read-only;
   -moz-user-modify: read-only;
-  user-modify: read-only;
+  /* user-modify: read-only; */
 }
 .smart-field-container .smart-field span::after {
   position: absolute;
