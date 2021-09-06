@@ -20,7 +20,6 @@ export class PayloadProperty {
         ? iter.entityId === target.entityId &&
           iter.propertyId === target.propertyId
         : iter.name === target.name,
-    tag: "P",
     fields: {
       id: {
         type: FieldType.identifier,
@@ -101,6 +100,7 @@ export class PayloadProperty {
 export class Payload extends BasicObjectWithDescription {
   static _meta: any = {
     storeName: "payloads",
+    tag: "P",
     fields: {
       id: {
         type: FieldType.identifier,

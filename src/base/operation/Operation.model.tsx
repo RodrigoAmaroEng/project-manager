@@ -12,9 +12,9 @@ export class Operation extends BasicObjectWithDescription {
   static _meta: any = {
     transform: (item: any) =>
       Object.assign(item, {
-        terminatorId: item.terminatorId?.id ?? item.terminatorId,
-        inputPayloadId: item.inputPayloadId?.id ?? item.inputPayloadId,
-        outputPayloadId: item.outputPayloadId?.id ?? item.outputPayloadId,
+        terminator: item.terminator?.id ?? item.terminator,
+        inputPayload: item.inputPayload?.id ?? item.inputPayload,
+        outputPayload: item.outputPayload?.id ?? item.outputPayload,
       }),
     tag: "O",
     fields: {
@@ -47,7 +47,7 @@ export class Operation extends BasicObjectWithDescription {
         sourceType: SourceType.enumeration,
         size: FieldSize.full,
       },
-      terminatorId: {
+      terminator: {
         placeholder: "Who performs/receives it",
         required: true,
         type: FieldType.dropdown,
@@ -57,7 +57,7 @@ export class Operation extends BasicObjectWithDescription {
         allowAdd: true,
         label: "Terminator"
       },
-      inputPayloadId: {
+      inputPayload: {
         placeholder: "Input payload",
         required: true,
         type: FieldType.dropdown,
@@ -67,7 +67,7 @@ export class Operation extends BasicObjectWithDescription {
         allowAdd: true,
         label: "Input payload"
       },
-      outputPayloadId: {
+      outputPayload: {
         placeholder: "Output payload",
         required: false,
         type: FieldType.dropdown,
@@ -82,21 +82,21 @@ export class Operation extends BasicObjectWithDescription {
   };
 
   trigger: string;
-  inputPayloadId: number;
-  outputPayloadId?: number;
+  inputPayload: number;
+  outputPayload?: number;
   constructor(
     id: number,
     name: string,
     direction: Direction,
-    terminatorId: number,
+    terminator: number,
     trigger: string,
-    inputPayloadId: number,
+    inputPayload: number,
     description?: string,
-    outputPayloadId?: number
+    outputPayload?: number
   ) {
     super(id, name, description);
     this.trigger = trigger;
-    this.inputPayloadId = inputPayloadId;
-    this.outputPayloadId = outputPayloadId;
+    this.inputPayload = inputPayload;
+    this.outputPayload = outputPayload;
   }
 }

@@ -123,7 +123,7 @@ function FieldRenderer(props: any) {
   } else if (props.type === FieldType.dropdown) {
     let items = [] as any;
     let onRender = {};
-
+    let selected = props.value
     if (props.sourceType === SourceType.list) {
       if (props.dependsOn) {
         let parts = props.object._meta.storeName.split(".");
@@ -137,13 +137,14 @@ function FieldRenderer(props: any) {
         items = content[props.source._meta.storeName];
         onRender = { onRender: (item: any) => item.name };
       }
+      selected = RecordList.fromList(items).byId(props.value)
     }
     let field = (
       <DropDown
         placeholder={props.placeholder}
         onSelect={onChange}
         className={props.size}
-        selected={props.value}
+        selected={selected}
         {...onRender}
       >
         {props.sourceType === SourceType.list ? (
@@ -234,7 +235,6 @@ export default function RegistryForm(props: any) {
         !value.conditionField ||
         item?.[value.conditionField] === value.condition
     );
-
   const onSave = () => {
     let finalItem = item;
     if (props.object._meta.transform) {
@@ -244,6 +244,7 @@ export default function RegistryForm(props: any) {
     setItem(undefined);
   };
   const error = useSelector((state: any) => state.operation.error);
+
   return (
     <div className="form-registry">
       {renderTitle(forList, props.object.name, item)}

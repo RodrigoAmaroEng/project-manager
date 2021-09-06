@@ -1,4 +1,3 @@
-import { initialState } from "../../App.store";
 import { AnyAction } from "redux";
 import history from "../../navigation/history";
 import "../../extras/extension-functions";
@@ -24,10 +23,7 @@ export const saveAndFinishWizard = createAsyncThunk(
   }
 );
 
-export default function newProjectReducer(
-  state = initialState,
-  action: AnyAction
-) {
+export default function newProjectReducer(state: any, action: AnyAction) {
   switch (action.type) {
     case "new-project/start-wizard": {
       history.push("/project/new/1");

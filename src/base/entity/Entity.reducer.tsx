@@ -1,4 +1,3 @@
-import { initialState } from "../../App.store";
 import {
   buildErrorMessage,
   includeSimpleRegistry,
@@ -7,7 +6,7 @@ import {
 import { RecordList } from "../../extras/extension-functions";
 import history from "../../navigation/history";
 
-export default function entityReducer(state = initialState, action: any) {
+export default function entityReducer(state: any, action: any) {
   switch (action.type) {
     case "crud/add-entity": {
       let item = action.payload;
@@ -64,7 +63,7 @@ export default function entityReducer(state = initialState, action: any) {
         ...state.project.content.entities,
       ]).byId(action.payload.entityId);
       let index = state.project.content.entities.findIndex(
-        (it) => it.id === action.payload.entityId
+        (it: any) => it.id === action.payload.entityId
       );
       entity.properties = removeFromList(entity.properties, item);
       state.project.content.entities[index] = entity;

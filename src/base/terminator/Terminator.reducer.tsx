@@ -1,4 +1,3 @@
-import { initialState } from "../../App.store";
 import {
   buildErrorMessage,
   includeSimpleRegistry,
@@ -6,7 +5,7 @@ import {
 } from "../../extras/crud-operations";
 import history from "../../navigation/history";
 
-export default function terminatorReducer(state = initialState, action: any) {
+export default function terminatorReducer(state: any, action: any) {
   switch (action.type) {
     case "crud/add-simple-terminator":
     case "crud/add-terminator": {
@@ -17,7 +16,7 @@ export default function terminatorReducer(state = initialState, action: any) {
           item
         );
         state.operation.clearFields = true;
-      } catch (e:any) {
+      } catch (e: any) {
         state.operation.error = buildErrorMessage(e, item.name, "Terminator");
       }
       return state;

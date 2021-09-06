@@ -34,8 +34,6 @@ export default function Step5Page(props: any) {
   const shouldClearFields = useSelector(
     (state: any) => state.operation.clearFields
   );
-  console.log(shouldClearFields, type)
-
   useEffect(() => {
     if (shouldClearFields) {
       setName("");

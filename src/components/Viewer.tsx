@@ -33,6 +33,8 @@ export default function Viewer(props: any) {
             ? props.onQueryItem?.(props.item?.[name], meta.source._meta.tag)
                 ?.name
             : "---"}
+      {console.log(name, props.item?.[name], meta.source._meta)}
+
         </span>
       ) : meta.type === FieldType.smartInput ? (
         <span

@@ -1,4 +1,3 @@
-import { initialState } from "../../App.store";
 import {
   addToList,
   buildErrorMessage,
@@ -8,11 +7,18 @@ import {
 import { RecordList } from "../../extras/extension-functions";
 import history from "../../navigation/history";
 
-export default function operationReducer(state = initialState, action: any) {
+const identifyPayload = (name: string, payloads: RecordList) => {
+  let existingPayload = payloads.find((it: any) => it.name === name);
+  if (!existingPayload) {
+    payloads = addToList(payloads, { name });
+  }
+  return [existingPayload?.id ?? payloads[payloads.length - 1].id, payloads];
+};
+
+export default function operationReducer(state: any, action: any) {
   switch (action.type) {
     case "crud/add-operation": {
       let item = action.payload;
-      console.log(item)
       const validation = (item: any) =>
         item.name && item.terminator && item.direction;
       try {
@@ -50,7 +56,7 @@ export default function operationReducer(state = initialState, action: any) {
           "You need to specify what triggers this operation.";
         return state;
       }
-      if (!action.payload.input) {
+      if (!action.payload.inputPayload) {
         state.operation.error = "You need to name at least the input payload.";
         return state;
       }
@@ -60,28 +66,25 @@ export default function operationReducer(state = initialState, action: any) {
       let item = operations.byId(action.payload.id);
       item = Object.assign(item, action.payload);
       let index = operations.findIndex((it) => it.id === action.payload.id);
-      if (item.input) {
-        state.project.content.payloads = addToList(
-          state.project.content.payloads,
-          { name: item.input }
+      if (item.inputPayload) {
+        let result = identifyPayload(
+          item.inputPayload,
+          RecordList.fromList(state.project.content.payloads)
         );
-        item.input =
-          state.project.content.payloads[
-            state.project.content.payloads.length - 1
-          ].id;
+        state.project.content.payloads = result[1]
+        item.inputPayload = result[0];
+        
       }
-      if (item.output) {
-        state.project.content.payloads = addToList(
-          state.project.content.payloads,
-          { name: item.output }
+      if (item.outputPayload) {
+        let result = identifyPayload(
+          item.outputPayload,
+          RecordList.fromList(state.project.content.payloads)
         );
-        item.output =
-          state.project.content.payloads[
-            state.project.content.payloads.length - 1
-          ].id;
+        state.project.content.payloads = result[1]
+        item.outputPayload = result[0];
       }
       state.project.content.operations[index] = item;
-      
+
       state.operation.clearFields = true;
       if (index + 1 == operations.length) history.push("/project/new/4");
       else history.push("/project/new/operations/" + operations[index + 1].id);

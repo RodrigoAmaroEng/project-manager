@@ -2,7 +2,7 @@ import { initialState } from "./App.store";
 import { AnyAction } from "redux";
 import { GDriveApiInstance } from "./extras/gdrive-api";
 
-export default function appReducer(state = initialState, action: AnyAction) {
+export default function appReducer(state: any, action: AnyAction) {
   switch (action.type) {
     case "app/set-authenticated-user": {
       state.context.connector.isAuthenticated = true;
@@ -32,7 +32,7 @@ export default function appReducer(state = initialState, action: AnyAction) {
     }
     case "app/put-message": {
       if (state.operation.messageHandler) {
-        clearTimeout(state.operation.messageHandler)
+        clearTimeout(state.operation.messageHandler);
       }
       state.operation.message = action.payload;
       state.operation.messageHandler = setTimeout(
@@ -43,16 +43,16 @@ export default function appReducer(state = initialState, action: AnyAction) {
     }
     case "app/clear-message": {
       state.operation.message = "";
-      clearTimeout(state.operation.messageHandler)
-      state.operation.messageHandler = undefined
+      clearTimeout(state.operation.messageHandler);
+      state.operation.messageHandler = undefined;
       return state;
     }
     case "app/ask-before-run": {
-      state.operation.waitingToConfirm = action.payload
+      state.operation.waitingToConfirm = action.payload;
       return state;
     }
     case "app/answer-yes": {
-      action.asyncDispatch(state.operation.waitingToConfirm?.action)
+      action.asyncDispatch(state.operation.waitingToConfirm?.action);
       state.operation.waitingToConfirm = undefined;
       return state;
     }

@@ -36,7 +36,7 @@ export default function Step3Page(props: any) {
   }, [shouldClearFields]);
 
   const nextAction = () =>
-    saveOperationDetail(id, { description, trigger, input, output });
+    saveOperationDetail(id, { description, trigger, inputPayload: input, outputPayload: output });
 
   return (
     <div className="fill-space flex-col">

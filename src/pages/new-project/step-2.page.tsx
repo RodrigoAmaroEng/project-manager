@@ -7,7 +7,7 @@ import { goToOperationDetails } from "./new-project.actions";
 import { useState } from "react";
 import Circle from "../../components/Circle";
 import { Radio, RadioGroup } from "../../components/Radio";
-import DropDown, { RenderList } from "../../components/DropDown";
+import DropDown, { RenderEnum, RenderList } from "../../components/DropDown";
 import { RecordList } from "../../extras/extension-functions";
 import StaticField from "../../components/StaticField";
 import WizardNavigationControl from "./WizardNavigationControl";
@@ -18,6 +18,7 @@ import {
   addOperation,
   removeOperation,
 } from "../../base/operation/Operation.actions";
+import { DataTypes, Direction } from "../../extras/models";
 
 export default function Step2Page(props: any) {
   const dispatch = useDispatch();
@@ -71,8 +72,7 @@ export default function Step2Page(props: any) {
         </DropDown>
         <SpaceH />
         <RadioGroup onSelect={setDirection} selected={direction}>
-          <Radio title="Input" value="IN" />
-          <Radio title="Output" value="OUT" />
+          <RenderEnum enum={Direction} />
         </RadioGroup>
         <SpaceH />
         <SpaceFill />

@@ -1,4 +1,3 @@
-import { initialState } from "../../App.store";
 import {
   buildErrorMessage,
   includeSimpleRegistry,
@@ -7,7 +6,7 @@ import {
 import { RecordList } from "../../extras/extension-functions";
 import { PropertyType } from "../../extras/models";
 
-export default function payloadReducer(state = initialState, action: any) {
+export default function payloadReducer(state: any, action: any) {
   switch (action.type) {
     case "crud/add-payload-entity-property": {
       let item = action.payload;
@@ -28,7 +27,7 @@ export default function payloadReducer(state = initialState, action: any) {
             iter.propertyId === target.propertyId
         );
         state.operation.clearFields = true;
-      } catch (e: any ) {
+      } catch (e: any) {
         state.operation.error = buildErrorMessage(e, name, "selected property");
       }
       return state;
@@ -47,7 +46,7 @@ export default function payloadReducer(state = initialState, action: any) {
           (item) => item.name && item.type
         );
         state.operation.clearFields = true;
-      } catch (e: any ) {
+      } catch (e: any) {
         state.operation.error = buildErrorMessage(
           e,
           item.name,
@@ -91,7 +90,7 @@ export default function payloadReducer(state = initialState, action: any) {
           (it: any) => it.name && it.properties.length > 0
         );
         state.operation.clearFields = true;
-      } catch (e:any) {
+      } catch (e: any) {
         state.operation.error = buildErrorMessage(e, item.name, "Payload");
       }
       return state;

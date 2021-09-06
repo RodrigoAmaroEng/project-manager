@@ -1,4 +1,3 @@
-import { initialState } from "../../App.store";
 import { AnyAction } from "redux";
 import history from "../../navigation/history";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -91,7 +90,7 @@ export const loadProjectToWizard = createAsyncThunk(
   }
 );
 
-export default function startReducer(state = initialState, action: AnyAction) {
+export default function startReducer(state: any, action: AnyAction) {
   switch (action.type) {
     case "start/choose-folder": {
       state.start.files.folderSelectionOpen = true;

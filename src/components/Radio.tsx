@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FieldType } from "../extras/models";
+import { Direction, FieldType } from "../extras/models";
 import { RenderEnum, RenderList } from "./DropDown";
 import "./Radio.css";
 
@@ -77,6 +77,7 @@ export function RadioGroup(props: RadioGroupProps) {
       )}
       <div className="radio-group">
         {children.map((radio: any, index: number) => (
+          
           <div
             key={index}
             onClick={() => {
@@ -84,7 +85,7 @@ export function RadioGroup(props: RadioGroupProps) {
               props.onSelect(radio.props.value);
             }}
             className={`radio-item ${
-              radio.props.value == selected ? "selected" : ""
+              radio.props.value === selected ? "selected" : ""
             }`}
           >
             {radio}
