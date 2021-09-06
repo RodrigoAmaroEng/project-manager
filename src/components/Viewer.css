@@ -1,6 +1,10 @@
 .viewer-control div .title {
   text-transform: capitalize;
 }
+.viewer-control h1 {
+  margin: 0;
+  margin-bottom: 0.75rem;
+}
 .viewer-control .content {
   margin-bottom: 0.75rem;
   display: inline-block;
