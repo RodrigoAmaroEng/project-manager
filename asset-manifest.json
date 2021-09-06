@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/project-modeler/static/css/main.ddcd1d81.chunk.css",
+    "main.js": "/project-modeler/static/js/main.3d52a9be.chunk.js",
+    "main.js.map": "/project-modeler/static/js/main.3d52a9be.chunk.js.map",
+    "runtime-main.js": "/project-modeler/static/js/runtime-main.b94ea1f4.js",
+    "runtime-main.js.map": "/project-modeler/static/js/runtime-main.b94ea1f4.js.map",
+    "static/js/2.b52836be.chunk.js": "/project-modeler/static/js/2.b52836be.chunk.js",
+    "static/js/2.b52836be.chunk.js.map": "/project-modeler/static/js/2.b52836be.chunk.js.map",
+    "static/js/3.404d16d5.chunk.js": "/project-modeler/static/js/3.404d16d5.chunk.js",
+    "static/js/3.404d16d5.chunk.js.map": "/project-modeler/static/js/3.404d16d5.chunk.js.map",
+    "index.html": "/project-modeler/index.html",
+    "static/css/main.ddcd1d81.chunk.css.map": "/project-modeler/static/css/main.ddcd1d81.chunk.css.map",
+    "static/js/2.b52836be.chunk.js.LICENSE.txt": "/project-modeler/static/js/2.b52836be.chunk.js.LICENSE.txt",
+    "static/media/add-icon.748be2ee.svg": "/project-modeler/static/media/add-icon.748be2ee.svg",
+    "static/media/config-icon.ade13a89.svg": "/project-modeler/static/media/config-icon.ade13a89.svg",
+    "static/media/edit-icon.64196848.svg": "/project-modeler/static/media/edit-icon.64196848.svg",
+    "static/media/entity-icon-2.d91da864.svg": "/project-modeler/static/media/entity-icon-2.d91da864.svg",
+    "static/media/entity-icon.cfde9350.svg": "/project-modeler/static/media/entity-icon.cfde9350.svg",
+    "static/media/folder-icon.5cb46a64.svg": "/project-modeler/static/media/folder-icon.5cb46a64.svg",
+    "static/media/go-up-icon.18cfbf94.svg": "/project-modeler/static/media/go-up-icon.18cfbf94.svg",
+    "static/media/google-drive.357a7933.svg": "/project-modeler/static/media/google-drive.357a7933.svg",
+    "static/media/home-icon.a56048e6.svg": "/project-modeler/static/media/home-icon.a56048e6.svg",
+    "static/media/informacion.22381998.svg": "/project-modeler/static/media/informacion.22381998.svg",
+    "static/media/open-folder-icon.f48f2479.svg": "/project-modeler/static/media/open-folder-icon.f48f2479.svg",
+    "static/media/operation-icon-2.56ad223d.svg": "/project-modeler/static/media/operation-icon-2.56ad223d.svg",
+    "static/media/operation-icon.4f9ae1dc.svg": "/project-modeler/static/media/operation-icon.4f9ae1dc.svg",
+    "static/media/payload-icon-3.59c30f3a.svg": "/project-modeler/static/media/payload-icon-3.59c30f3a.svg",
+    "static/media/property-icon.d02fc755.svg": "/project-modeler/static/media/property-icon.d02fc755.svg",
+    "static/media/remove-icon.958cc547.svg": "/project-modeler/static/media/remove-icon.958cc547.svg",
+    "static/media/report-icon.2a646760.svg": "/project-modeler/static/media/report-icon.2a646760.svg",
+    "static/media/save-icon.dc735695.svg": "/project-modeler/static/media/save-icon.dc735695.svg",
+    "static/media/search-icon.e8950758.svg": "/project-modeler/static/media/search-icon.e8950758.svg",
+    "static/media/terminator-icon-1.fcbd9734.svg": "/project-modeler/static/media/terminator-icon-1.fcbd9734.svg",
+    "static/media/terminator-icon.8cab7b59.svg": "/project-modeler/static/media/terminator-icon.8cab7b59.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b94ea1f4.js",
+    "static/js/2.b52836be.chunk.js",
+    "static/css/main.ddcd1d81.chunk.css",
+    "static/js/main.3d52a9be.chunk.js"
+  ]
+}
