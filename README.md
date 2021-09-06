@@ -24,6 +24,7 @@ The tool can automatically generate Data Flow Diagrams (DFD) which improves the 
 
 ## References
 With references, you can simply point to some definition in the project, making the navigation easier and faster
+
 ![Reference example](./documentation/reference-example.png)
 
 ## Pseudo-code (WIP)

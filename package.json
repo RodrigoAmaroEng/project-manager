@@ -29,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sonar": "node sonar-project.js"
   },
   "eslintConfig": {
     "extends": [
@@ -48,5 +49,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "jest-sonar-reporter": "^2.0.0",
+    "sonarqube-scanner": "^2.8.1"
   }
 }
