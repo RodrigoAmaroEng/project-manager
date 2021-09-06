@@ -33,13 +33,13 @@ export default function Viewer(props: any) {
             ? props.onQueryItem?.(props.item?.[name], meta.source._meta.tag)
                 ?.name
             : "---"}
-      {console.log(name, props.item?.[name], meta.source._meta)}
-
         </span>
       ) : meta.type === FieldType.smartInput ? (
         <span
           className="content"
-          dangerouslySetInnerHTML={{ __html: props.item?.[name] ?? "---" }}
+          dangerouslySetInnerHTML={{
+            __html: props.item?.[name] ? props.item?.[name] : "---",
+          }}
         ></span>
       ) : (
         <span className="content">{props.item?.[name] ?? "---"}</span>
