@@ -130,7 +130,7 @@ class GDriveApi {
   }
 
   list(setup: any, pageToken?: string) {
-    return gapi.client.drive.files
+    return gapi.client.drive?.files
       .list(Object.assign(setup, { pageToken }))
       .then((response: any) => JSON.parse(response.body))
       .then((response: any) => {

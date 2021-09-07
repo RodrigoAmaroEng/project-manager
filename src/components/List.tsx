@@ -107,7 +107,6 @@ export default function List(props: ListProps) {
         </div>
       ));
   };
-  console.log(React.Children.toArray(props.children));
   if (props.children) {
     const rows = mapChildren();
     if (rows.length > 0) {

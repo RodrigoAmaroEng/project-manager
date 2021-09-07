@@ -186,7 +186,6 @@ function FieldRenderer(props: any) {
           item.name,
           `${props.object.name} ${props.kind.name}`
         );
-        console.log(error);
       }
       props.onChange(list);
     };

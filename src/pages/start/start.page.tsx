@@ -23,6 +23,9 @@ export default function StartPage() {
   const showFolderSelector = useSelector(
     (state: any) => state.start.files.folderSelectionOpen
   );
+  const isAuthenticated = useSelector(
+    (state: any) => state.context.connector.isAuthenticated
+  );
   const user = useSelector((state: any) => state.context.connector.user);
   const folders = useSelector((state: any) => state.start.files.list);
   const isLoadingConnector = useSelector(
@@ -34,14 +37,21 @@ export default function StartPage() {
   }, []);
 
   const onOpenFolder = (folder: any) => {
-    dispatch(openFolder(folder, GDriveApiInstance.listFolders));
+    if (isAuthenticated)
+      dispatch(openFolder(folder, GDriveApiInstance.listFolders));
   };
-  const onGoUp = () =>
-    dispatch(backToParentFolder(GDriveApiInstance.listFolders));
+  const onGoUp = () => {
+    if (isAuthenticated)
+      dispatch(backToParentFolder(GDriveApiInstance.listFolders));
+  };
   const onSelect = (folder: any) => dispatch(selectFolder(folder));
 
-  const onLoadFolders = () => dispatch(listFiles(GDriveApiInstance.listFolders));
-  const onLoadFiles = () => dispatch(listFiles(GDriveApiInstance.listFiles));
+  const onLoadFolders = () => {
+    if (isAuthenticated) dispatch(listFiles(GDriveApiInstance.listFolders));
+  };
+  const onLoadFiles = () => {
+    if (isAuthenticated) dispatch(listFiles(GDriveApiInstance.listFiles));
+  };
 
   const doAuth = () => dispatch(authenticate());
   return (

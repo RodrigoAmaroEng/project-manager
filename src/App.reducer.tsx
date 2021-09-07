@@ -23,7 +23,7 @@ export default function appReducer(state: any, action: AnyAction) {
     }
     case "app/delete-existing-project": {
       window.sessionStorage.clear();
-      return initialState;
+      return {...state, project: initialState.project};
     }
     case "app/fields-were-cleared": {
       state.operation.clearFields = false;

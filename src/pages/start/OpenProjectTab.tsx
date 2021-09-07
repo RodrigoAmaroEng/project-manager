@@ -31,7 +31,9 @@ import {
 
 export function OpenProjectTab() {
   const dispatch = useDispatch();
-
+  const isAuthenticated = useSelector(
+    (state: any) => state.context.connector.isAuthenticated
+  );
   const isLoadingFiles = useSelector(
     (state: any) => state.start.files.isLoading
   );
@@ -62,7 +64,7 @@ export function OpenProjectTab() {
     buildPath(state.start.files.selectedFolder)
   );
   useEffect(() => {
-    dispatch(listFiles(GDriveApiInstance.listFiles));
+    if (isAuthenticated) dispatch(listFiles(GDriveApiInstance.listFiles));
   }, []);
   const onGoUp = () =>
     dispatch(backToParentFolder(GDriveApiInstance.listFiles));
