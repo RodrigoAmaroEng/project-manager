@@ -33,6 +33,9 @@ function App() {
         <Route path="/project/new">
           <NewProjectPage />
         </Route>
+        <Route path="/privacy">
+          <iframe src={process.env.PUBLIC_URL + '/privacy.html'}/>
+        </Route>
         <Route path="/">
           <StartPage />
         </Route>

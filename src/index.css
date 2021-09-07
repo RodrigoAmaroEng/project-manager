@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+div.App {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top:0;
+}
