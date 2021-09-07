@@ -46,7 +46,6 @@ export function OpenProjectTab() {
   const hasProjectSelected = useSelector(
     (state: any) => !!state.start.selectedFileId
   );
-
   const onSelectProject = (items: any[]) => {
     if (items.length > 0) {
       dispatch(setSelectedProject(availableProjects[items[0].index]));

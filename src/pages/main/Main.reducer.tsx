@@ -28,7 +28,10 @@ export default function mainReducer(state: any, action: any) {
       return state;
     }
     case "menu/update-file/rejected": {
-      return { ...state, error: action.error.message };
+      return {
+        ...state,
+        operation: { ...state.operation, error: action.error.message },
+      };
     }
     default: {
       return state;

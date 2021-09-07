@@ -35,7 +35,7 @@ export default function newProjectReducer(state: any, action: AnyAction) {
       return state;
     }
     case "new-project/save-and-finish-wizard/rejected": {
-      return { ...state, error: action.error.message };
+      return { ...state, operation: { ...state.operation, error: action.error.message },};
     }
     case "new-project/go-to-next-payload": {
       let payloads = RecordList.fromList(state.project.content.payloads);

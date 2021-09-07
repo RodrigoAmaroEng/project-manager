@@ -56,9 +56,9 @@ export function RadioGroup(props: RadioGroupProps) {
   }, [props.selected]);
   if (children.length == 1) {
     let displayProperty = "";
-    if (children[0].type.name == "RenderEnum") {
+    if (children[0].type.name === RenderEnum.name) {
       children = filterEnumValues(children[0].props.enum);
-    } else if (children[0].type.name == "RenderList") {
+    } else if (children[0].type.name === RenderList.name) {
       let temp = children[0];
       children = Object.values(temp.props.items);
       displayProperty = temp.props.displayProperty;

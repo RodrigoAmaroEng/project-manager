@@ -134,7 +134,10 @@ export default function startReducer(state: any, action: AnyAction) {
       return state;
     }
     case "start/store-project/rejected": {
-      return { ...state, error: action.error.message };
+      return {
+        ...state,
+        operation: { ...state.operation, error: action.error.message },
+      };
     }
     case "start/set-selected-project": {
       state.start.selectedFileId = action.payload.id;
@@ -153,7 +156,10 @@ export default function startReducer(state: any, action: AnyAction) {
     case "start/files/rejected": {
       state.start.files.isLoading = false;
       state.start.files.list = [];
-      return { ...state, error: action.error.message };
+      return {
+        ...state,
+        operation: { ...state.operation, error: action.error.message },
+      };
     }
     case "start/load-project/fulfilled": {
       state.start.files.isLoading = false;
@@ -169,7 +175,10 @@ export default function startReducer(state: any, action: AnyAction) {
     case "start/load-project-to-wizard/rejected":
     case "start/load-project/rejected": {
       state.start.files.isLoading = false;
-      return { ...state, error: action.error.message };
+      return {
+        ...state,
+        operation: { ...state.operation, error: action.error.message },
+      };
     }
     case "start/load-project-to-wizard/fulfilled": {
       state.start.files.isLoading = false;

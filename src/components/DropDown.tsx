@@ -27,9 +27,9 @@ export default function DropDown(props: any) {
   let children: any = React.Children.toArray(props.children);
   if (children.length == 1) {
     let displayProperty = "";
-    if (children[0].type.name == "RenderEnum") {
+    if (children[0].type.name === RenderEnum.name) {
       children = Object.values(children[0].props.enum);
-    } else if (children[0].type.name == "RenderList") {
+    } else if (children[0].type.name === RenderList.name) {
       let temp = children[0];
       children = Object.values(temp.props.items);
       displayProperty = temp.props.displayProperty;

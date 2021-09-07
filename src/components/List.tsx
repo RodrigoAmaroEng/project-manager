@@ -86,12 +86,12 @@ export default function List(props: ListProps) {
       : "";
 
   const actions = React.Children.toArray(props.children).filter(
-    (item: any) => item.type && item.type.name === "Action"
+    (item: any) => item.type && item.type.name === Action.name
   );
 
   const mapChildren = () => {
     return React.Children.toArray(props.children!)
-      .filter((row: any) => row.type && row.type.name === "Row")
+      .filter((row: any) => row.type && row.type.name === Row.name)
       .map((row: any, index: number) => (
         <div
           key={index}
@@ -107,7 +107,7 @@ export default function List(props: ListProps) {
         </div>
       ));
   };
-
+  console.log(React.Children.toArray(props.children));
   if (props.children) {
     const rows = mapChildren();
     if (rows.length > 0) {
@@ -124,7 +124,7 @@ export default function List(props: ListProps) {
     <div className={`list-container-empty ${props.className}`}>
       {(props.children &&
         props.children?.first(
-          (item) => item.type && item.type.name === "IfEmpty"
+          (item) => item.type && item.type.name === IfEmpty.name
         )) ||
         "No items to show"}
     </div>
