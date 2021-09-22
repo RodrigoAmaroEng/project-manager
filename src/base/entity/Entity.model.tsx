@@ -9,6 +9,7 @@ import {
 
 export class Property extends BasicObject {
   static _meta: any = {
+    name: "Property",
     tag: "R",
     fields: {
       id: {
@@ -39,6 +40,7 @@ export class Property extends BasicObject {
 
 export class Entity extends BasicObjectWithDescription {
   static _meta: any = {
+    name: "Entity",
     tag: "E",
     storeName: "entities",
     fields: {

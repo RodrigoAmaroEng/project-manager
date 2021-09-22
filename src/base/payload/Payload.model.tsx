@@ -10,6 +10,7 @@ import {
 
 export class PayloadProperty {
   static _meta: any = {
+    name: "PayloadProperty",
     storeName: "entities.properties",
     validation: (item: any) =>
       item.kind === PropertyType.EntityProperty
@@ -99,6 +100,7 @@ export class PayloadProperty {
 
 export class Payload extends BasicObjectWithDescription {
   static _meta: any = {
+    name: "Payload",
     storeName: "payloads",
     tag: "P",
     fields: {

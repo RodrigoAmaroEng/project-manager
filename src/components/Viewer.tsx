@@ -68,7 +68,7 @@ export default function Viewer(props: any) {
   );
   return (
     <div className={`viewer-control fill-space ${direction}`}>
-      {entryType === EntryType.record ? <h1>{props.object.name}</h1> : ""}
+      {entryType === EntryType.record ? <h1>{props.object._meta.name}</h1> : ""}
       {fields.map(([key, value]: any) =>
         value.type === FieldType.list
           ? renderList(key, value)

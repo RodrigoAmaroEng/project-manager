@@ -159,9 +159,8 @@ function FieldRenderer(props: any) {
       <Line className="fill-space flex-align-bottom">
         {field}
         <SpaceH />
-
         {props.allowAdd ? (
-          <SimpleForm object={props.source.name.toLowerCase()} />
+          <SimpleForm object={props.source._meta.name.toLowerCase()} />
         ) : (
           ""
         )}
@@ -184,7 +183,7 @@ function FieldRenderer(props: any) {
         let error = buildErrorMessage(
           e,
           item.name,
-          `${props.object.name} ${props.kind.name}`
+          `${props.object._meta.name} ${props.kind._meta.name}`
         );
       }
       props.onChange(list);
@@ -203,7 +202,7 @@ function FieldRenderer(props: any) {
         list={list}
         item={item}
         renderer={props.renderer}
-        name={props.kind.name}
+        name={props.kind._meta.name}
         onListSelect={setItem}
         render={props.render}
         content={content}
@@ -246,7 +245,7 @@ export default function RegistryForm(props: any) {
 
   return (
     <div className="form-registry">
-      {renderTitle(forList, props.object.name, item)}
+      {renderTitle(forList, props.object._meta.name, item)}
       {fields.map(([key, value]: any, index: number) => (
         <div
           key={`field-${index}`}

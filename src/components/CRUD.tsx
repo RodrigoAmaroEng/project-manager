@@ -11,7 +11,7 @@ import { fieldsClear } from "../App.actions";
 import Viewer from "./Viewer";
 
 function saveObject(obj: any, type: any) {
-  return { type: "crud/add-" + type.name.toLowerCase(), payload: obj };
+  return { type: "crud/add-" + type._meta.name.toLowerCase(), payload: obj };
 }
 
 export default function CRUD(props: any) {

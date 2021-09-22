@@ -26,7 +26,7 @@ export default function ListingForm(props: any) {
   const onDelete = (item: Record) =>
     dispatch(
       askBefore(
-        deleteRecord(props.object.name, item),
+        deleteRecord(props.object._meta.name, item),
         "Do you really want to delete this record?"
       )
     );
@@ -38,7 +38,7 @@ export default function ListingForm(props: any) {
     <div className="form-listing">
       <Line className="form-actions">
         <Field
-          placeholder={`Type the name of the ${props.object.name} you're searching for`}
+          placeholder={`Type the name of the ${props.object._meta.name} you're searching for`}
           className="half"
           onChange={setQuery}
         />
@@ -55,7 +55,7 @@ export default function ListingForm(props: any) {
           className="fill-space"
           onClick={onViewItem}
         >
-          <IfEmpty>No {props.object.name} is registered.</IfEmpty>
+          <IfEmpty>No {props.object._meta.name} is registered.</IfEmpty>
           <Action>
             <SquareMainButton onClick={onEdit}>
               <EditIcon />
