@@ -1,0 +1,12 @@
+[ACTIONS]
+The user fills the registration form
+The user sends the information
+The system sends an email to the user
+The user accesses the link in the email
+
+[OPERATIONS]
+The user wants to register itself
+The user wants to complete the registration
+
+[DESCRIPTION]
+The registration form is composed by name, email address and password
