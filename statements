@@ -1,12 +1,26 @@
 [ACTIONS]
-The user fills the registration form
-The user sends the information
-The system sends an email to the user
-The user accesses the link in the email
+[SUBJECT DO SOMETHING]
+The user fills the registration form ACTOR DO PAYLOAD
+The user sends the information ACTOR DO STEP
+[SUBJECT DO SOMETHING TO OTHER SUBJECT]
+The system sends an email to the user ACTOR DO PAYLOAD TO ACTOR
+[SUBJECT DO SOMETHING INSIDE SOMETHING]
+The user accesses the link in the email ACTOR DO STEP
 
 [OPERATIONS]
+[SUBJECT DESIRES TO DO SOMETHING TO SOMEONE/SOMETHING]
 The user wants to register itself
 The user wants to complete the registration
 
 [DESCRIPTION]
+[SOMETHING IS MADE OF ONE OR MANY SOMETHING ELSES]
 The registration form is composed by name, email address and password
+
+1-Using text register an ACTOR
+Create a terminator named user
+Create User terminator
+Create a terminator with name user
+
+
+2-Using text register an OPERATION
+3-Using text register an ENTITY
