@@ -32,7 +32,7 @@ export default function MainPage(props: any) {
   const operations = content.operations;
   const entities = content.entities;
   const payloads = content.payloads;
-
+  const projectName = useSelector((state: any) => state.project.name);
   const message = useSelector((state: any) => state.operation.message);
   const somethingToConfirm = useSelector(
     (state: any) => state.operation.waitingToConfirm
@@ -65,6 +65,7 @@ export default function MainPage(props: any) {
           <label>Report</label>
         </span>
         {message ? <div className="message">{message}</div> : ""}
+        <div className="project">{projectName}</div>
       </header>
       <aside>
         <Menu onChange={(name: string) => dispatch(navigateTo(name))}>

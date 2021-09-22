@@ -53,7 +53,6 @@
   font-size: 1rem;
   margin-top: 0.5rem;
   cursor: pointer;
-
 }
 .main-structure header span svg {
   width: 80%;
@@ -96,4 +95,16 @@
   font-weight: bold;
   color: var(--palette-color-1-dark);
   border-left: 0.25rem solid var(--palette-color-1-medium);
+}
+
+.main-structure header .project {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0.5rem 1rem;
+  background: var(--palette-color-1-light);
+  box-sizing: border-box;
+  opacity: 0.5;
+  border-bottom-left-radius: 0.5rem;
+  font-weight: bold;
 }
