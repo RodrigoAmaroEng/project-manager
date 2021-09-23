@@ -1,19 +1,108 @@
 import spacy
+from spacy import displacy
+from spacy.symbols import oprd, acl, dobj, pobj, prep, VERB, ADP, NOUN
 
 # Load English tokenizer, tagger, parser and NER
 nlp = spacy.load("en_core_web_sm")
 phrases = [
-    "Create a new terminator named user", "Create a terminator named user",
-    "Create User terminator", "Create a terminator with name as user"
+    "Create a new terminator named User", "Create a terminator named User",
+    "Create a terminator named as User",
+    "Create a terminator with name equal to User",
+    "Create a terminator with its name as User"
 ]
 
 
+def get_next_token(token):
+    list = [t for t in token.rights]
+    if list:
+        return list[0]
+    return None
+
+
+def get_children_of_type(token, type):
+    return [t for t in token.children if t.pos == type]
+
+
+def get_children_with_relation(token, relation):
+    return [t for t in token.children if t.dep == relation]
+
+
+def get_children_of_type_and_relation(token, type, relation):
+    return [t for t in token.children if t.pos == type and t.dep == relation]
+
+
+def get_verb_property_value(verb):
+    values = [l.text for l in get_children_with_relation(verb, oprd)]
+    values += [
+        c.text for l in verb.children if l.text == "as" for c in l.children
+        if c.dep == pobj
+    ]
+    return values
+
+
+def get_noun_verb_properties(noun):
+    return {
+        c.lemma_: get_verb_property_value(c)[0]
+        for c in get_children_of_type_and_relation(noun, VERB, acl)
+    }
+
+
+def get_noun_value(noun):
+    next_token = get_next_token(noun)
+    if next_token != None and next_token.text == "as":
+        return get_next_token(get_next_token(noun)).text
+    if next_token != None and next_token.text == "equal":
+        return get_next_token(get_next_token(get_next_token(noun))).text
+    return ""
+
+
+def get_noun_with_properties(noun, verb):
+    next_token = get_next_token(noun)
+    if next_token == None:
+        verb_aux_props = get_children_of_type_and_relation(verb, ADP, prep)
+        if verb_aux_props:
+            next_token = verb_aux_props[0]
+        else:
+            return {}
+    if next_token.text == "with":
+        attrs = get_children_of_type_and_relation(next_token, NOUN, pobj)
+        return {c.text: get_noun_value(c) for c in attrs}
+
+    return {}
+
+
+class CreateAction:
+    def __init__(self, verb):
+        self.verb = verb
+        self.create_what = self.__define_what()
+        self.properties = self.__define_content()
+
+    def __define_what(self):
+        possibilities = get_children_with_relation(self.verb, dobj)
+        if len(possibilities) > 0:
+            return possibilities[0]
+        raise Exception("Cannot define what is to be created")
+
+    def __define_content(self):
+        verb_props = get_noun_verb_properties(self.create_what)
+        with_props = get_noun_with_properties(self.create_what, self.verb)
+        return {**verb_props, **with_props}
+
+    def __str__(self):
+        return str({self.create_what.text: self.properties})
+
+
+def get_verbs(doc):
+    return [token for token in doc if token.pos == VERB]
+
+
 def define_action(doc):
-    verbs = [token for token in doc if token.pos_ == "VERB"]
+    verbs = get_verbs(doc)
+    # We need to define a list of possible actions
+    # By now we are only working with creation actions
     has_create = [token for token in verbs if token.lemma_ == "create"]
     if has_create:
-        print([it.lemma_ for it in has_create[0].lefts])
-        return {has_create[0].nsubj_.lemma_: {}}
+        return CreateAction(has_create[0])
 
 
 for p in phrases:
@@ -22,11 +111,7 @@ for p in phrases:
     doc = nlp(text)
 
     # Analyze syntax
-    print("Phrase: ", p)
-    print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
-    print("Verbs:", [token.lemma_ for token in doc if token.pos_ == "VERB"])
-    print( define_action(doc))
-
-    # Find named entities, phrases and concepts
-    for entity in doc.ents:
-        print(entity.text, entity.label_)
+    displacy.render(doc, style="dep")
+    print(p)
+    result = str(define_action(doc))
+    print("Result:", """{'terminator': {'name': 'User'}}""" == result, result)
