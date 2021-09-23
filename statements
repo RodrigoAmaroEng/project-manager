@@ -17,6 +17,7 @@ The user wants to complete the registration
 The registration form is composed by name, email address and password
 
 1-Using text register an ACTOR
+Create a new terminator named user
 Create a terminator named user
 Create User terminator
 Create a terminator with name user
