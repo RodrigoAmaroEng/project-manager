@@ -1,9 +1,13 @@
 import spacy
 from spacy import displacy
 from spacy.symbols import oprd, acl, dobj, pobj, prep, VERB, ADP, NOUN
+from spacy.tokens import Token
+
 
 # Load English tokenizer, tagger, parser and NER
 nlp = spacy.load("en_core_web_sm")
+compound = nlp.vocab.strings["compound"]
+
 phrases = [
     ("Create a new terminator named User", """{'terminator': {'name': 'User'}}"""), 
     ("Create a terminator named User", """{'terminator': {'name': 'User'}}"""),
@@ -14,6 +18,16 @@ phrases = [
 ]
 
 
+def chunk_getter(token): 
+  comp = get_children_with_relation(token, compound)
+  if comp:
+    return chunk_getter(comp[0]) + " " + token.text
+  else:
+    return token.text
+
+Token.set_extension("chunk", getter=chunk_getter)
+
+# These functions can be transformed to extensions Token.set_extension CLASSMETHOD
 def get_next_token(token):
     list = [t for t in token.rights]
     if list:
@@ -52,9 +66,9 @@ def get_noun_verb_properties(noun):
 def get_noun_value(noun):
     next_token = get_next_token(noun)
     if next_token != None and next_token.text == "as":
-        return get_next_token(get_next_token(noun)).text
+        return get_next_token(get_next_token(noun))._.chunk
     if next_token != None and next_token.text == "equal":
-        return get_next_token(get_next_token(get_next_token(noun))).text
+        return get_next_token(get_next_token(get_next_token(noun)))._.chunk
     return ""
 
 
