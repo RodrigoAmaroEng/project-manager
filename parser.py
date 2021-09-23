@@ -5,10 +5,12 @@ from spacy.symbols import oprd, acl, dobj, pobj, prep, VERB, ADP, NOUN
 # Load English tokenizer, tagger, parser and NER
 nlp = spacy.load("en_core_web_sm")
 phrases = [
-    "Create a new terminator named User", "Create a terminator named User",
-    "Create a terminator named as User",
-    "Create a terminator with name equal to User",
-    "Create a terminator with its name as User"
+    ("Create a new terminator named User", """{'terminator': {'name': 'User'}}"""), 
+    ("Create a terminator named User", """{'terminator': {'name': 'User'}}"""),
+    ("Create a terminator named as User", """{'terminator': {'name': 'User'}}"""),
+    ("Create a terminator with name equal to User", """{'terminator': {'name': 'User'}}"""),
+    ("Create a terminator with its name as User", """{'terminator': {'name': 'User'}}"""),
+    ("Create a terminator with its name as Store Owner", """{'terminator': {'name': 'Store Owner'}}""")
 ]
 
 
@@ -107,11 +109,11 @@ def define_action(doc):
 
 for p in phrases:
     # Process whole documents
-    text = (p)
+    text = (p[0])
     doc = nlp(text)
 
     # Analyze syntax
     displacy.render(doc, style="dep")
-    print(p)
+    print(p[0])
     result = str(define_action(doc))
-    print("Result:", """{'terminator': {'name': 'User'}}""" == result, result)
+    print("Result:", p[1] == result, result)
