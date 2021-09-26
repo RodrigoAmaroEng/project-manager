@@ -48,7 +48,6 @@ if not Token.has_extension("prev"):
     Token.set_extension("prev", getter=get_prev_token)
 
 
-
 def get_verb_property_value(verb):
     values = [l.text for l in get_children_with_relation(verb, oprd)]
     values += [
@@ -122,13 +121,7 @@ def get_noun_with_properties(noun, verb):
 
 matcher = Matcher(nlp.vocab)
 # Add match ID "HelloWorld" with no callback and one pattern
-pat0 = [ {
-    'POS': 'NOUN'
-}, {
-    'LOWER': "as"
-}, {
-    'DEP': { 'IN': ['pobj', 'amod']}
-}]
+pat0 = [{'POS': 'NOUN'}, {'LOWER': "as"}, {'DEP': {'IN': ['pobj', 'amod']}}]
 pat4 = [{
     'POS': 'NOUN'
 }, {
@@ -147,15 +140,7 @@ pat5 = [{
     'POS': 'PROPN',
     'OP': '+'
 }]
-pat8 = [{
-    'POS': 'NOUN'
-}, {
-    'LOWER': "equal"
-}, {
-    'LOWER': "to"
-}, {
-    'DEP': 'pobj'
-}]
+pat8 = [{'POS': 'NOUN'}, {'LOWER': "equal"}, {'LOWER': "to"}, {'DEP': 'pobj'}]
 matcher.add("propertiesPattern", [pat0, pat4, pat5, pat8])
 
 # TEST CASES
@@ -173,6 +158,14 @@ phrases = [
      """{'terminator': {'name': 'User'}}"""),
     ("Create a terminator with its name as Store Owner",
      """{'terminator': {'name': 'Store Owner'}}"""),
+    ("Create a terminator whose name is User",
+     """{'terminator': {'name': 'User'}}"""),
+    ("Create a terminator and name it User",
+     """{'terminator': {'name': 'User'}}"""),
+    ("Create a terminator and then name it User",
+     """{'terminator': {'name': 'User'}}"""),
+    ("Create a terminator which is named User",
+     """{'terminator': {'name': 'User'}}"""),
     # More than one property
     ("Create a terminator with name equal to User and with level equal to high",
      """{'terminator': {'name': 'User', 'level': 'high'}}"""),
@@ -213,7 +206,8 @@ class CreateAction:
             ]
             values += [
                 p._.chunk for p in tokens
-                if (p.pos in [PROPN, ADJ]) and (p.dep in [pobj, oprd]) or (p.pos == ADJ and p.head.pos == ADV)
+                if (p.pos in [PROPN, ADJ]) and (p.dep in [pobj, oprd]) or (
+                    p.pos == ADJ and p.head.pos == ADV)
             ]
         print(props)
         print(values)
