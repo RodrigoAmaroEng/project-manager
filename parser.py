@@ -1,7 +1,7 @@
 from os import system
 import spacy
 from spacy import displacy
-from spacy.symbols import oprd, acl, dobj, pobj, prep, conj, amod, VERB, ADP, NOUN, PROPN, ADJ, ADV
+from spacy.symbols import oprd, acl, dobj, pobj, prep, conj, attr, npadvmod, appos, VERB, ADP, NOUN, PROPN, ADJ, ADV, NUM
 from spacy.tokens import Token
 from spacy.matcher import Matcher
 from clint.textui import puts, indent, colored
@@ -122,6 +122,18 @@ def get_noun_with_properties(noun, verb):
 matcher = Matcher(nlp.vocab)
 # Add match ID "HelloWorld" with no callback and one pattern
 pat0 = [{'POS': 'NOUN'}, {'LOWER': "as"}, {'DEP': {'IN': ['pobj', 'amod']}}]
+pat3 = [{
+    'POS': 'NOUN'
+}, {
+    'LOWER': {
+        'IN': ['is', 'of']
+    },
+}, {
+    'POS': {
+        'IN': ['PROPN', 'NUM', 'NOUN']
+    },
+    'OP': '+'
+}]
 pat4 = [{
     'POS': 'NOUN'
 }, {
@@ -134,14 +146,26 @@ pat4 = [{
 pat5 = [{
     'POS': 'VERB'
 }, {
-    'LOWER': "as",
+    'LOWER': {
+        "IN": ["as", "it"]
+    },
     "OP": "?"
 }, {
     'POS': 'PROPN',
     'OP': '+'
 }]
+pat7 = [{
+    'POS': 'VERB'
+}, {
+    'POS': "NOUN",
+    "DEP": "dobj"
+}, {
+    'POS': 'PROPN',
+    "DEP": "appos",
+    'OP': '+'
+}]
 pat8 = [{'POS': 'NOUN'}, {'LOWER': "equal"}, {'LOWER': "to"}, {'DEP': 'pobj'}]
-matcher.add("propertiesPattern", [pat0, pat4, pat5, pat8])
+matcher.add("propertiesPattern", [pat0, pat3, pat4, pat5, pat7, pat8])
 
 # TEST CASES
 # ===============================================
@@ -166,7 +190,7 @@ phrases = [
      """{'terminator': {'name': 'User'}}"""),
     ("Create a terminator which is named User",
      """{'terminator': {'name': 'User'}}"""),
-    # More than one property
+    # Two properties
     ("Create a terminator with name equal to User and with level equal to high",
      """{'terminator': {'name': 'User', 'level': 'high'}}"""),
     ("Create a terminator with name equal to User and level equal to high",
@@ -175,6 +199,15 @@ phrases = [
      """{'terminator': {'name': 'User', 'level': 'high'}}"""),
     ("Create a terminator with the following properties: name equal to User, and level equal to high",
      """{'terminator': {'name': 'User', 'level': 'high'}}"""),
+    ("Create an Actor named John with age of 28",
+     """{'Actor': {'name': 'John', 'age': '28'}}"""),
+    ("Create an Actor whose name is John and age is 28",
+     """{'Actor': {'name': 'John', 'age': '28'}}"""),
+    ("Create an Actor which has the name John and the age of 28",
+     """{'Actor': {'name': 'John', 'age': '28'}}"""),
+    # Three or more properties
+    ("Create an Actor which has the name John, the role of manager and the age of 28",
+     """{'Actor': {'name': 'John', 'role': 'manager', 'age': '28'}}"""),
 ]
 
 # CODE SOLUTION
@@ -193,6 +226,19 @@ class CreateAction:
             return possibilities[0]
         raise Exception("Cannot define what is to be created")
 
+    def __define_props(self, tokens):
+        return [
+            p for p in tokens if (p.pos == NOUN and p.head.text != "of") or (
+                p.pos == VERB and p.lemma_ != "be")
+        ]
+
+    def __define_values(self, tokens):
+        return [
+            p for p in tokens if (p.pos in [PROPN, ADJ, NUM]) and
+            (p.dep in [pobj, oprd, attr, npadvmod, appos]) or (
+                p.pos == ADJ and p.head.pos == ADV) or (p.pos == NOUN and p.head.text == "of")
+        ]
+
     def __define_content(self, matches, doc):
         # verb_props = self.create_what._.verb_properties
         # with_props = get_noun_with_properties(self.create_what, self.verb)
@@ -201,18 +247,17 @@ class CreateAction:
         for id, s, e in matches:
             tokens = doc[s:e]
             # print([(t, t.dep_) for t in tokens])
-            props += [
-                p.lemma_ for p in tokens if p.pos == NOUN or p.pos == VERB
-            ]
-            values += [
-                p._.chunk for p in tokens
-                if (p.pos in [PROPN, ADJ]) and (p.dep in [pobj, oprd]) or (
-                    p.pos == ADJ and p.head.pos == ADV)
-            ]
-        print(props)
-        print(values)
+            for p in self.__define_props(tokens):
+                if p not in props:
+                    props.append(p)
+            for p in self.__define_values(tokens):
+                if p not in values:
+                    values.append(p)
+        # print(props)
+        # print(values)
 
-        return dict(zip(props, values))
+        return dict(zip([f.lemma_ for f in props],
+                        [f._.chunk for f in values]))
 
     def __str__(self):
         return str({self.create_what.text: self.properties})
@@ -238,7 +283,7 @@ for p in phrases:
     doc = nlp(text)
 
     # Analyze syntax
-    with indent(0, quote=">"):
+    with indent(0, quote="> "):
         puts(colored.cyan(text))
     result = str(define_action(doc))
     color = colored.red
