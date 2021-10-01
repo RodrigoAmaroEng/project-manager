@@ -11,6 +11,7 @@ import { OpenProjectTab } from "./OpenProjectTab";
 import { NewProjectTab } from "./NewProjectTab";
 import {
   backToParentFolder,
+  closeFolderSelection,
   listFiles,
   openFolder,
   selectFolder,
@@ -52,6 +53,7 @@ export default function StartPage() {
   const onLoadFiles = () => {
     if (isAuthenticated) dispatch(listFiles(GDriveApiInstance.listFiles));
   };
+const onCloseFolders = () => dispatch(closeFolderSelection())
 
   const doAuth = () => dispatch(authenticate());
   return (
@@ -69,6 +71,7 @@ export default function StartPage() {
           onLoad={onLoadFolders}
           onOpen={onOpenFolder}
           onGoUp={onGoUp}
+          onClose={onCloseFolders}
           onSelect={onSelect}
         />
       ) : (

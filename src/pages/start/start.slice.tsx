@@ -14,6 +14,10 @@ export function chooseFolder() {
   return { type: "start/choose-folder" };
 }
 
+export function closeFolderSelection() {
+  return { type: "start/close-folder-selection" };
+}
+
 export function setShowFolders(isActive: boolean = false) {
   return { type: "start/set-show-folders", payload: isActive };
 }
@@ -92,6 +96,10 @@ export const loadProjectToWizard = createAsyncThunk(
 
 export default function startReducer(state: any, action: AnyAction) {
   switch (action.type) {
+    case "start/close-folder-selection": {
+      state.start.files.folderSelectionOpen = false;
+      return state;
+    }
     case "start/choose-folder": {
       state.start.files.folderSelectionOpen = true;
       return state;

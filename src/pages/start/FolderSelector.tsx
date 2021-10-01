@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { SquareMainButton } from "../../components/Button";
+import { SecondaryButton, SquareMainButton } from "../../components/Button";
 import List, { Action, IfEmpty, ListStyle, Row } from "../../components/List";
 import ModalWindow from "../../components/Modal";
 import { Line, SpaceFill, SpaceV } from "../../components/Utils";
@@ -43,6 +43,10 @@ export default function FolderSelector(props: any) {
           </Row>
         ))}
       </List>
+      <SpaceV />
+      <SecondaryButton onClick={props.onClose}>
+            Cancel
+      </SecondaryButton>
     </ModalWindow>
   );
 }
