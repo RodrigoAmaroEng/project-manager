@@ -22,7 +22,8 @@ export default function ListingForm(props: any) {
   const onAdd = () => {
     history.push(window.location.pathname + "/new");
   };
-  const onEdit = (item: Record) => dispatch(editRecord(item.id));
+  const onEdit = (item: Record) => props?.onEdit(item);
+  
   const onDelete = (item: Record) =>
     dispatch(
       askBefore(

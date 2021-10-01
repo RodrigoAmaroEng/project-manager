@@ -1,6 +1,6 @@
 import { FieldType, SourceType } from "../extras/models";
-import { MainButton } from "./Button";
-import { Line, SpaceFill } from "./Utils";
+import { MainButton, SecondaryButton } from "./Button";
+import { Line, SpaceFill, SpaceH } from "./Utils";
 import "./Viewer.css";
 const filterVisibleFields = (item: any, fields: any) =>
   Object.entries(fields).filter(
@@ -77,7 +77,9 @@ export default function Viewer(props: any) {
       <SpaceFill />
       {entryType === EntryType.record ? (
         <Line className="line-align-right">
-          <MainButton onClick={props.onCancel}>Close</MainButton>
+          <MainButton onClick={() => props.onEdit(props.item)}>Edit</MainButton>
+          <SpaceH/>
+          <SecondaryButton onClick={props.onCancel}>Close</SecondaryButton>
         </Line>
       ) : (
         ""

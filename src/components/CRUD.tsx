@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import ListingForm from "./crud/ListingForm";
 import RegistryForm from "./crud/RegistryForm";
-import { RecordList } from "../extras/extension-functions";
+import { Record, RecordList } from "../extras/extension-functions";
 import { useDispatch, useSelector } from "react-redux";
 import history from "../navigation/history";
-import { cancelOperation } from "../pages/main/Main.actions";
+import { cancelOperation, editRecord } from "../pages/main/Main.actions";
 import { fieldsClear } from "../App.actions";
 import Viewer from "./Viewer";
 
@@ -18,6 +18,8 @@ export default function CRUD(props: any) {
   const dispatch = useDispatch();
 
   const onCancel = () => dispatch(cancelOperation());
+  const onEdit = (item: Record) => dispatch(editRecord(item.id));
+
   const onSave = (item: any) => {
     dispatch(saveObject(item, props.object));
   };
@@ -70,6 +72,7 @@ export default function CRUD(props: any) {
             object={props.object}
             onQueryItem={props.onQueryItem}
             onCancel={onCancel}
+            onEdit={onEdit}
             item={RecordList.fromList(props.items).byId(
               parseInt(params.match.params.id)
             )}
@@ -80,6 +83,7 @@ export default function CRUD(props: any) {
         <ListingForm
           items={props.items}
           object={props.object}
+          onEdit={onEdit}
           renderer={props.renderer}
         />
       </Route>

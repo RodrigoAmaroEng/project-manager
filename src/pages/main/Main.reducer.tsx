@@ -1,6 +1,10 @@
 import { putMessage } from "../../App.actions";
 import history from "../../navigation/history";
 
+function typeBaseUrl(url: string) {
+   return url.split("/").slice(0, 4).join("/")
+}
+
 export default function mainReducer(state: any, action: any) {
   switch (action.type) {
     case "menu/navigate-to": {
@@ -12,7 +16,7 @@ export default function mainReducer(state: any, action: any) {
       return state;
     }
     case "crud/edit-record": {
-      history.push(window.location.pathname + "/edit/" + action.payload);
+      history.push(typeBaseUrl(window.location.pathname) + "/edit/" + action.payload);
       return state;
     }
     case "crud/cancel": {
