@@ -4,7 +4,7 @@ import "./Field.css";
 
 export default function Field(props: any) {
   const inputRef : any = useRef(null)
-  let className = `field-wrap${inputRef.current?.value ? " filled" : ""} ${props.className ?? ""}`
+  let className = `field-wrap${inputRef.current?.value || props.value ? " filled" : ""} ${props.className ?? ""}`
   return (
     <span className={className} placeholder={props.placeholder}>
       <input
