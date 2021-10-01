@@ -6,7 +6,7 @@
   bottom: 0;
   display: grid;
   grid-template-rows: 10vh 90vh;
-  grid-template-columns: 280px 100%;
+  grid-template-columns: 280px calc(100vw - 280px);
 }
 .main-structure header {
   background: var(--palette-color-1-dark) !important;
