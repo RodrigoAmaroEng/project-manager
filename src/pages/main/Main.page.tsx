@@ -46,10 +46,8 @@ export default function MainPage(props: any) {
     <div className="main-structure">
       <ConfirmationBox message={somethingToConfirm?.message} />
       <header>
-        <span>
-          <SaveIcon
-            onClick={() => dispatch(saveProject(GDriveApiInstance.upload))}
-          />
+        <span onClick={() => dispatch(saveProject(GDriveApiInstance.upload))}>
+          <SaveIcon />
           <label>Save</label>
         </span>
         <span>
